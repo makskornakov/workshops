@@ -1,6 +1,10 @@
-const withLinaria = require('next-with-linaria')
+const withLinaria = require('next-with-linaria');
 
 /** @type {import('next-with-linaria').LinariaConfig} */
-const nextConfig = {}
+const nextConfig = {
+  images: {
+    domains: ['lh3.googleusercontent.com'],
+  },
+};
 
-module.exports = withLinaria(nextConfig)
+module.exports = withLinaria(nextConfig);

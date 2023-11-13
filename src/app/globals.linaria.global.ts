@@ -1,16 +1,18 @@
-import { css } from '@linaria/core'
+import { css } from '@linaria/core';
 
-import { media } from './utils/media-queries'
-import { reset } from './utils/reset'
+import { media } from './utils/media-queries';
+import { reset } from './utils/reset';
 
 export const globals = css`
   :global() {
+    /* @import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100;400&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap'); */
     :root {
       --max-width: 1100px;
       --border-radius: 12px;
-      --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-        'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-        'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+      --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono',
+        'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono',
+        'Courier New', monospace;
 
       --foreground-rgb: 0, 0, 0;
       --background-start-rgb: 214, 219, 220;
@@ -24,10 +26,7 @@ export const globals = css`
         #0071ff33 160deg,
         transparent 360deg
       );
-      --secondary-glow: radial-gradient(
-        rgba(255, 255, 255, 1),
-        rgba(255, 255, 255, 0)
-      );
+      --secondary-glow: radial-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
 
       --tile-start-rgb: 239, 245, 249;
       --tile-end-rgb: 228, 232, 233;
@@ -90,24 +89,25 @@ export const globals = css`
       overflow-x: hidden;
     }
 
+    header {
+      position: sticky;
+      top: 0;
+      padding: 0.5rem 1rem;
+      width: 100%;
+    }
     body {
-      color: rgb(var(--foreground-rgb));
-      background: linear-gradient(
-          to bottom,
-          transparent,
-          rgb(var(--background-end-rgb))
-        )
-        rgb(var(--background-start-rgb));
+      color: #fff;
+      background: #111111;
     }
 
     a {
       ${reset.a}
     }
 
-    ${media.prefersColorSchemeDark} {
+    /* ${media.prefersColorSchemeDark} {
       html {
         color-scheme: dark;
       }
-    }
+    } */
   }
-`
+`;
