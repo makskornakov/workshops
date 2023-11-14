@@ -1,16 +1,20 @@
 import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import { PrismaClient } from '@prisma/client';
 import { NextAuthOptions } from 'next-auth';
 
+const prisma = new PrismaClient();
+
 const options: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   session: {
     strategy: 'jwt',
   },
   secret: process.env.NEXT_PUBLIC_SECRET ?? '',
   providers: [
     CredentialsProvider({
-      id: 'domain-login',
       name: 'Email',
       credentials: {
         email: {
@@ -26,7 +30,6 @@ const options: NextAuthOptions = {
       },
     }),
     GoogleProvider({
-      id: 'google',
       name: 'Google',
       clientId: process.env.GOOGLE_ID ?? '',
       clientSecret: process.env.GOOGLE_SECRET ?? '',

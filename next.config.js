@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     domains: ['lh3.googleusercontent.com'],
   },
+  // transpilePackages: ['@auth/prisma-adapter'],
 };
 
 module.exports = withLinaria(nextConfig);
