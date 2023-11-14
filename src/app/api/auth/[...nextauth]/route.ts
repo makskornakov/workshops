@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
+import GithubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
@@ -33,6 +34,7 @@ const options: NextAuthOptions = {
       name: 'Google',
       clientId: process.env.GOOGLE_ID ?? '',
       clientSecret: process.env.GOOGLE_SECRET ?? '',
+      allowDangerousEmailAccountLinking: true,
       // async profile(profile) {
       //   return {
       //     id: profile.id,
@@ -41,6 +43,10 @@ const options: NextAuthOptions = {
       //     image: profile.picture,
       //   };
       // },
+    }),
+    GithubProvider({
+      clientId: process.env.GITHUB_ID ?? '',
+      clientSecret: process.env.GITHUB_SECRET ?? '',
     }),
   ],
 };
