@@ -15,26 +15,27 @@ const options: NextAuthOptions = {
   },
   secret: process.env.NEXT_PUBLIC_SECRET ?? '',
   providers: [
-    CredentialsProvider({
-      name: 'Email',
-      credentials: {
-        email: {
-          label: 'Email',
-          type: 'email',
-          placeholder: 'example@example.com',
-        },
-        password: { label: 'Password', type: 'password' },
-      },
-      async authorize(credentials) {
-        const user = { id: '1', name: credentials?.email || '', email: credentials?.email || '' };
-        return user;
-      },
-    }),
+    // CredentialsProvider({
+    //   name: 'Email',
+    //   credentials: {
+    //     email: {
+    //       label: 'Email',
+    //       type: 'email',
+    //       placeholder: 'example@example.com',
+    //     },
+    //     password: { label: 'Password', type: 'password' },
+    //   },
+    //   async authorize(credentials) {
+    //     const user = { id: '1', name: credentials?.email || '', email: credentials?.email || '' };
+    //     return user;
+    //   },
+    // }),
     GoogleProvider({
-      name: 'Google',
+      // name: 'Google',
       clientId: process.env.GOOGLE_ID ?? '',
       clientSecret: process.env.GOOGLE_SECRET ?? '',
       allowDangerousEmailAccountLinking: true,
+      // allowDangerousEmailAccountLinking: true,
       // async profile(profile) {
       //   return {
       //     id: profile.id,
@@ -47,6 +48,7 @@ const options: NextAuthOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID ?? '',
       clientSecret: process.env.GITHUB_SECRET ?? '',
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
 };
