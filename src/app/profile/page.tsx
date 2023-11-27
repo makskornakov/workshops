@@ -27,18 +27,12 @@ export default async function Profile() {
           action={async (formData) => {
             'use server';
 
-            // if ('kek') {
-            //   console.log(formData);
-            //   return;
-            // }
-
             const newName = formData.get('name');
             if (!newName || typeof newName !== 'string' || newName.length < 3) {
               throw new Error('Name validation failed');
             }
 
             const session = await getServerSession(authOptions);
-            // check that session and session.user exist
             if (!session?.user) {
               throw new Error('Session or user is not present');
             }
