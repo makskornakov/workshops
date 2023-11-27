@@ -3,23 +3,28 @@ import SigninButton from './buttons';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '~/app/utils/authOptions';
 import prisma from '../../lib/prisma';
+import { Header } from './NavBar.styled';
+import Link from 'next/link';
+import SignOutButton from './SignOutButton';
 
-const Appbar = async () => {
+export default async function NavBar() {
   const session = await getServerSession(authOptions);
   // console.log(session);
-  const accounts = session
-    ? await prisma.account.findMany({
-        where: {
-          user: {
-            email: session?.user?.email,
-          },
-        },
-      })
-    : null;
+  // const accounts = session
+  //   ? await prisma.account.findMany({
+  //       where: {
+  //         user: {
+  //           email: session?.user?.email,
+  //         },
+  //       },
+  //     })
+  //   : null;
   // console.log('accounts', accounts);
   return (
-    <header>
-      {accounts && (
+    <Header>
+      <Link href={'/'}>Workshops.io</Link>
+      {session?.user ? <SignOutButton /> : <Link href={'/api/auth/signin'}>Sign in</Link>}
+      {/* {accounts && (
         <>
           <h2>Connected accounts</h2>
           {accounts.map((account) => {
@@ -52,10 +57,8 @@ const Appbar = async () => {
             );
           })}
         </>
-      )}
-      <SigninButton />
-    </header>
+      )} */}
+      {/* <SigninButton /> */}
+    </Header>
   );
-};
-
-export default Appbar;
+}

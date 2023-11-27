@@ -15,9 +15,11 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
   secret: process.env.NEXT_PUBLIC_SECRET ?? '',
-  // pages: {
-  //   signIn: '/auth/signin',
-  // },
+  pages: {
+    signIn: '/auth/signin',
+    error: '/auth/error', // Error code passed in query string as ?error=
+    verifyRequest: '/auth/email-verified',
+  },
   providers: [
     // CredentialsProvider({
     //   name: 'Email',
@@ -83,8 +85,8 @@ export const authOptions: NextAuthOptions = {
         },
       },
       from: process.env.EMAIL_FROM,
-      sendVerificationRequest({ identifier: email, url, provider: { server, from } }) {
-        return sendVerification({ identifier: email, url, provider: { server, from } });
+      async sendVerificationRequest({ identifier: email, url, provider: { server, from } }) {
+        return await sendVerification({ identifier: email, url, provider: { server, from } });
       },
     }),
     // {

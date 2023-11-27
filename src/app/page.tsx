@@ -7,10 +7,10 @@ import prisma from '../../lib/prisma';
 // import { getServerSession } from 'next-auth';
 // import { authOptions } from '../../lib/auth';
 
-const allUsers = async () => {
-  const users = await prisma.user.findMany();
-  return users;
-};
+// const allUsers = async () => {
+//   const users = await prisma.user.findMany();
+//   return users;
+// };
 
 export default async function Home() {
   // const session = await getServerSession(authOptions);
@@ -20,6 +20,7 @@ export default async function Home() {
   return (
     <Main>
       <div>
+        This is the main page
         {/* <LoginButton /> */}
         {/* <RegisterButton /> */}
         {/* <LogoutButton /> */}

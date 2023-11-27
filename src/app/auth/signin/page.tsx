@@ -4,7 +4,12 @@ import { getServerSession } from 'next-auth/next';
 import { redirect } from 'next/navigation';
 import { SignInButtons } from './SignInButtons';
 
-export default async function SignIn() {
+export default async function SignIn({
+  searchParams,
+}: {
+  searchParams: Record<'error' | 'callbackUrl', string | undefined>;
+}) {
+  console.log('searchParams', searchParams);
   // const session = await getServerSession(authOptions);
 
   // If the user is already logged in, redirect.
@@ -15,10 +20,15 @@ export default async function SignIn() {
   // }
 
   const providers = await getProviders();
-
+  // console.log('providers', providers);
   if (!providers) {
     return <>Sorry, no providers</>;
   }
 
-  return <SignInButtons providers={providers} />;
+  return (
+    <>
+      {searchParams.error && <p>Error: {searchParams.error}</p>}
+      <SignInButtons providers={providers} />
+    </>
+  );
 }

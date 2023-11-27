@@ -1,6 +1,6 @@
 import './globals.linaria.global';
 import { Inter, Agbalumo } from 'next/font/google';
-import Appbar from '~/components/Appbar';
+import NavBar from '~/components/NavBar';
 import Providers from '~/components/providers';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <Appbar />
+          <NavBar />
 
           {children}
         </Providers>
