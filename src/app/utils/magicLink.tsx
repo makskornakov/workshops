@@ -17,20 +17,29 @@ export default function MagicLinkEmail({ url, host }: { url: string; host: strin
   return (
     <Html>
       <Head />
-      <Preview>Log in with this magic link</Preview>
       <Body style={main}>
-        <Container style={container}>
-          <Heading style={h1}>Login to {host}</Heading>
+        <Container
+          style={{
+            ...container,
+          }}
+        >
+          {/* line break symbol, then host */}
+          <Heading style={{ ...h1, textAlign: 'center' }}>
+            <h1>Login to Workshop platform</h1>
+            <h2> {host}</h2>
+          </Heading>
+
           <Link
             href={url}
             target="_blank"
             style={{
               ...link,
+              textAlign: 'center',
               display: 'block',
               marginBottom: '16px',
             }}
           >
-            Click here to log in with this magic link
+            Login with Email
           </Link>
 
           <Text
@@ -38,6 +47,7 @@ export default function MagicLinkEmail({ url, host }: { url: string; host: strin
               ...text,
               color: '#ababab',
               marginTop: '14px',
+              textAlign: 'center',
               marginBottom: '16px',
             }}
           >
@@ -54,13 +64,10 @@ const main = {
 };
 
 const container = {
-  paddingLeft: '12px',
-  paddingRight: '12px',
   margin: '0 auto',
 };
 
 const h1 = {
-  color: '#333',
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: '24px',
@@ -70,15 +77,19 @@ const h1 = {
 };
 
 const link = {
-  color: '#2754C5',
+  margin: 'auto',
+  width: '200px',
+  padding: '12px 24px',
+  border: '1.5px solid #00f5a7',
+  borderRadius: '5px',
+  color: 'black',
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
-  fontSize: '14px',
+  fontSize: '18px',
   textDecoration: 'underline',
 };
 
 const text = {
-  color: '#333',
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: '14px',

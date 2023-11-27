@@ -2,7 +2,7 @@
 import { getProviders, signIn } from 'next-auth/react';
 import SignInEmail from '~/components/emailForm';
 import { FaGithub } from 'react-icons/fa';
-import { AiOutlineGoogle } from 'react-icons/ai';
+import { FcGoogle } from 'react-icons/fc';
 import { LoginProviderButton } from '~/components/signIn.styled';
 
 export function SignInButtons({
@@ -20,11 +20,11 @@ export function SignInButtons({
           ) : (
             <LoginProviderButton
               onClick={() => signIn(provider.id)}
-              bg={provider.id == 'github' ? '#22224' : 'lightgray'}
+              bg={provider.id == 'github' ? '#555' : 'white'}
               color={provider.id == 'github' ? 'white' : 'black'}
             >
               {provider.id === 'github' && <FaGithub />}
-              {provider.id === 'google' && <AiOutlineGoogle />}Sign in with {provider.name}
+              {provider.id === 'google' && <FcGoogle />}Sign in with {provider.name}
             </LoginProviderButton>
           )}
         </div>

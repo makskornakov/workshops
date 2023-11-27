@@ -63,7 +63,7 @@ export default async function NavBar() {
                         console.log('cannot delete the only thing keeping the account alive');
                         return;
                       }
-                      const deleted = await prisma.account.delete({
+                      const deleted =  prisma.account.delete({
                         where: {
                           id: account.id,
                         },

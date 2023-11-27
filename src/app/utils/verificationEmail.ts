@@ -48,7 +48,7 @@ export async function sendVerification(params: Params) {
     to: identifier,
     from: provider.from,
     subject: `Sign in to ${host}`,
-    text: text({ url, host }),
+    // text: text({ url, host }),
     react: MagicLinkEmail({ url, host }),
   });
   if (result.error) {
