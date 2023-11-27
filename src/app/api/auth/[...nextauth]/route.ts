@@ -2,7 +2,7 @@ import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
 import GithubProvider from 'next-auth/providers/github';
 import EmailProvider from 'next-auth/providers/email';
-import CredentialsProvider from 'next-auth/providers/credentials';
+// import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
 import { NextAuthOptions } from 'next-auth';
@@ -11,7 +11,7 @@ import { sendVerification } from '~/app/utils/verificationEmail';
 
 // const prisma = new PrismaClient();
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: 'jwt',
@@ -99,4 +99,4 @@ const authOptions: NextAuthOptions = {
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST, authOptions };
+export { handler as GET, handler as POST };
