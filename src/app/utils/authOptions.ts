@@ -64,6 +64,7 @@ export const authOptions: NextAuthOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID ?? '',
       clientSecret: process.env.GITHUB_SECRET ?? '',
+      // style: { logo: '/github.svg', bg: '#24292f', text: '#fff' },
       // allowDangerousEmailAccountLinking: true,
       async profile(profile) {
         // console.log('GH profile', profile);

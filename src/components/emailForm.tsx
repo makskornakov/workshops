@@ -1,4 +1,6 @@
 import { getCsrfToken } from 'next-auth/react';
+import { HiOutlineMail } from 'react-icons/hi';
+import { LoginProviderButton } from './signIn.styled';
 
 export default async function SignInEmail() {
   const csrfToken = await getCsrfToken();
@@ -10,7 +12,11 @@ export default async function SignInEmail() {
         Email address
         <input type="email" id="email" name="email" />
       </label>
-      <button type="submit">Sign in with Email</button>
+
+      <LoginProviderButton type="submit" bg="white">
+        <HiOutlineMail />
+        Sign in with Email
+      </LoginProviderButton>
     </form>
   );
 }

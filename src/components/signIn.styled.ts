@@ -12,3 +12,12 @@ export const LoginForm = styled.div`
     margin: 0.5rem;
   }
 `;
+
+export const LoginProviderButton = styled.button<{ bg: string; color?: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  background: ${(props) => props.bg};
+  color: ${(props) => props.color ?? 'black'};
+`;

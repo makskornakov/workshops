@@ -5,6 +5,7 @@ import { getServerSession } from 'next-auth/next';
 import { SignInButtons } from './SignInButtons';
 import { redirect } from 'next/navigation';
 import { LoginForm } from '~/components/signIn.styled';
+import Image from 'next/image';
 
 export default async function SignIn({
   searchParams,
@@ -35,6 +36,7 @@ export default async function SignIn({
   return (
     <LoginForm>
       {searchParams.error && <p>Error: {searchParams.error}</p>}
+
       <SignInButtons providers={providers} />
     </LoginForm>
   );
