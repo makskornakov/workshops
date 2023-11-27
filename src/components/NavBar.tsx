@@ -40,7 +40,8 @@ export default async function NavBar() {
               />
             )}
             <p>{session.user?.name}</p>
-            <p>{session.user?.email}</p>
+            <Link href={'/profile'}>Profile</Link>
+            {/* <p>{session.user?.email}</p> */}
           </>
         )}
       </div>
