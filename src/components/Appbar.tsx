@@ -1,7 +1,7 @@
 import React from 'react';
 import SigninButton from './buttons';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '~/app/api/auth/[...nextauth]/route';
+import { authOptions } from '~/app/utils/authOptions';
 import prisma from '../../lib/prisma';
 
 const Appbar = async () => {
