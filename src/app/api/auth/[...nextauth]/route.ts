@@ -1,11 +1,13 @@
 import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
 import GithubProvider from 'next-auth/providers/github';
+import EmailProvider from 'next-auth/providers/email';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
 import { NextAuthOptions } from 'next-auth';
 import prisma from '../../../../../lib/prisma';
+import { sendVerification } from '~/app/utils/verificationEmail';
 
 // const prisma = new PrismaClient();
 
@@ -15,9 +17,9 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
   secret: process.env.NEXT_PUBLIC_SECRET ?? '',
-  pages: {
-    signIn: '/auth/signin',
-  },
+  // pages: {
+  //   signIn: '/auth/signin',
+  // },
   providers: [
     // CredentialsProvider({
     //   name: 'Email',
@@ -28,10 +30,20 @@ export const authOptions: NextAuthOptions = {
     //       placeholder: 'example@example.com',
     //     },
     //     password: { label: 'Password', type: 'password' },
+    //     confirmPassword: { label: 'Confirm Password', type: 'password' },
     //   },
+
     //   async authorize(credentials) {
-    //     const user = { id: '1', name: credentials?.email || '', email: credentials?.email || '' };
-    //     return user;
+    //     const user = {
+    //       email: credentials.email,
+    //       image: '',
+    //     };
+    //     if (credentials.password !== credentials.confirmPassword) {
+    //       throw new Error('Passwords do not match');
+    //     }
+    //     if (user) {
+    //       return user;
+    //     }
     //   },
     // }),
     GoogleProvider({
@@ -63,6 +75,25 @@ export const authOptions: NextAuthOptions = {
         };
       },
     }),
+    EmailProvider({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: process.env.EMAIL_FROM,
+      sendVerificationRequest({ identifier: email, url, provider: { server, from } }) {
+        return sendVerification({ identifier: email, url, provider: { server, from } });
+      },
+    }),
+    // {
+    //   id: 'resend',
+    //   type: 'email',
+    //   sendVerificationRequest,
+    // },
   ],
 };
 
