@@ -14,22 +14,6 @@ export function SignInButtons({
           {provider.type === 'email' ? (
             <SignInEmail />
           ) : (
-            // <form
-            //   onSubmit={(event) => {
-            //     event.preventDefault();
-            //     const formData = new FormData(event.currentTarget);
-            //     console.log('form', [...formData.entries()]);
-            //     signIn(provider.id, undefined, {
-            //       email: 'ginzburg.arthur@gmail.com',
-            //     });
-            //   }}
-            // >
-            //   <label>
-            //     Email address
-            //     <input type="email" id="email" name="email" />
-            //   </label>
-            //   <button type="submit">Sign in with Email</button>
-            // </form>
             <button onClick={() => signIn(provider.id)}>Sign in with {provider.name}</button>
           )}
         </div>

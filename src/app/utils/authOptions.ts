@@ -86,7 +86,7 @@ export const authOptions: NextAuthOptions = {
       },
       from: process.env.EMAIL_FROM,
       async sendVerificationRequest({ identifier: email, url, provider: { server, from } }) {
-        return await sendVerification({ identifier: email, url, provider: { server, from } });
+        return sendVerification({ identifier: email, url, provider: { server, from } });
       },
     }),
     // {

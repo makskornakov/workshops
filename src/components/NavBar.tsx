@@ -6,6 +6,8 @@ import prisma from '../../lib/prisma';
 import { Header } from './NavBar.styled';
 import Link from 'next/link';
 import SignOutButton from './SignOutButton';
+import { imageConfigDefault } from 'next/dist/shared/lib/image-config';
+import Image from 'next/image';
 
 export default async function NavBar() {
   const session = await getServerSession(authOptions);
@@ -22,8 +24,27 @@ export default async function NavBar() {
   // console.log('accounts', accounts);
   return (
     <Header>
-      <Link href={'/'}>Workshops.io</Link>
-      {session?.user ? <SignOutButton /> : <Link href={'/api/auth/signin'}>Sign in</Link>}
+      <div>
+        <Link href={'/'}>Workshops.io</Link>
+        {session?.user ? <SignOutButton /> : <Link href={'/api/auth/signin'}>Sign in</Link>}
+      </div>
+      <div>
+        {session && (
+          <>
+            {session.user?.image && (
+              <Image
+                src={session.user.image}
+                alt={session.user.name + ' photo'}
+                width={40}
+                height={40}
+              />
+            )}
+            <p>{session.user?.name}</p>
+            <p>{session.user?.email}</p>
+          </>
+        )}
+      </div>
+
       {/* {accounts && (
         <>
           <h2>Connected accounts</h2>

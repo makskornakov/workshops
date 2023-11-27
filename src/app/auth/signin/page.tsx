@@ -1,8 +1,10 @@
 import { getProviders, signIn } from 'next-auth/react';
 import { getServerSession } from 'next-auth/next';
 // import { authOptions } from '~/app/api/auth/[...nextauth]/route';
-import { redirect } from 'next/navigation';
+// import { redirect } from 'next/navigation';
 import { SignInButtons } from './SignInButtons';
+import { redirect } from 'next/navigation';
+import { LoginForm } from '~/components/signIn.styled';
 
 export default async function SignIn({
   searchParams,
@@ -10,6 +12,7 @@ export default async function SignIn({
   searchParams: Record<'error' | 'callbackUrl', string | undefined>;
 }) {
   console.log('searchParams', searchParams);
+
   // const session = await getServerSession(authOptions);
 
   // If the user is already logged in, redirect.
@@ -24,11 +27,15 @@ export default async function SignIn({
   if (!providers) {
     return <>Sorry, no providers</>;
   }
-
+  // if (searchParams.error) {
+  // redirect to auth/error?error=...
+  // console.log('searchParams.error', searchParams.error);
+  // redirect(`/auth/error?error=${searchParams.error}`);
+  // }
   return (
-    <>
+    <LoginForm>
       {searchParams.error && <p>Error: {searchParams.error}</p>}
       <SignInButtons providers={providers} />
-    </>
+    </LoginForm>
   );
 }
