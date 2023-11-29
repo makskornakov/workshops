@@ -20,6 +20,7 @@ export const authOptions: NextAuthOptions = {
     error: '/auth/error', // Error code passed in query string as ?error=
     verifyRequest: '/auth/email-verified',
   },
+
   providers: [
     // CredentialsProvider({
     //   name: 'Email',
