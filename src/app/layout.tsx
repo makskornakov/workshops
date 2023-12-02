@@ -2,6 +2,7 @@ import './globals.linaria.global';
 import { Inter, Agbalumo } from 'next/font/google';
 import NavBar from '~/components/NavBar';
 import Providers from '~/components/providers';
+// import '@uploadthing/react/styles.css';
 
 const inter = Inter({ subsets: ['latin'] });
 // const agbalumo = Agbalumo({ subsets: ['latin'], weight: '400' });
