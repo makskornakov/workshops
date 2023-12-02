@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from './NavBar.styled';
+import { Header, StyledLink } from './NavBar.styled';
 import Link from 'next/link';
 import SignOutButton from './SignOutButton';
 import Image from 'next/image';
@@ -11,17 +11,22 @@ export default async function NavBar() {
   return (
     <Header>
       <div>
-        <Link href={'/'}>Workshops.io</Link>
-        {user ? <SignOutButton /> : <Link href={'/api/auth/signin'}>Sign in</Link>}
+        <Link href={'/'}>Gsw.st</Link>
+        {/* {user ? <SignOutButton /> : <Link href={'/api/auth/signin'}>Sign in</Link>} */}
       </div>
       <div>
-        {user && (
+        {user ? (
           <>
             {user.image && (
               <Image src={user.image} alt={user.name + ' photo'} width={40} height={40} />
             )}
             <p>{user.name}</p>
-            <Link href={'/profile'}>Profile</Link>
+            <StyledLink href={'/profile'}>Profile</StyledLink>
+            <SignOutButton />
+          </>
+        ) : (
+          <>
+            <StyledLink href={'/api/auth/signin'}>Sign in</StyledLink>
           </>
         )}
       </div>
