@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { getUser, getUserAccounts } from '../utils/prismaUser';
 import { revalidatePath } from 'next/cache';
 import { ProfileContainer, ProfileSection, ProfileSidebar } from './profile.styled';
+import { UploadDnD } from '~/components/UploadZone';
 
 export default async function Profile() {
   const user = await getUser();
@@ -47,6 +48,7 @@ export default async function Profile() {
             <input type="text" name="name" defaultValue={user.name ?? ''} />
             <button type="submit">Submit</button>
           </form>
+          <UploadDnD />
         </ProfileSection>
         <ProfileSection></ProfileSection>
       </>
