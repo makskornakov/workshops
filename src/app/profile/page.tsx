@@ -1,12 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import prisma from '../../../lib/prisma';
+import { redirect } from 'next/navigation';
 import { getUser, getUserAccounts } from '../utils/prismaUser';
 import { revalidatePath } from 'next/cache';
 
 export default async function Profile() {
   const user = await getUser();
-
+  if (!user) {
+    redirect('/api/auth/signin');
+  }
   return (
     user && (
       <div>

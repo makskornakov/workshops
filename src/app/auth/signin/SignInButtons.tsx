@@ -19,7 +19,7 @@ export function SignInButtons({
             <SignInEmail />
           ) : (
             <LoginProviderButton
-              onClick={() => signIn(provider.id)}
+              onClick={() => signIn(provider.id, { callbackUrl: '/profile' })}
               bg={provider.id == 'github' ? '#555' : 'white'}
               color={provider.id == 'github' ? 'white' : 'black'}
             >
