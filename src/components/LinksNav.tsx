@@ -9,14 +9,11 @@ export default function LinksNav({ isUser }: { isUser: boolean }) {
 
   return (
     <LinkContainer>
-      <Link href={'/'} style={{ color: pathname === '/' ? '#fff' : '#a8a8a8' }}>
+      <Link href={'/'} style={pathname === '/' ? { color: '#fff' } : {}}>
         Home
       </Link>
       {isUser && (
-        <Link
-          href={'/profile'}
-          style={{ color: resolvedPathname[1] === 'profile' ? '#fff' : '#a8a8a8' }}
-        >
+        <Link href={'/profile'} style={resolvedPathname[1] === 'profile' ? { color: '#fff' } : {}}>
           Profile
         </Link>
       )}

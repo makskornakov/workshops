@@ -1,4 +1,5 @@
 import { styled } from '@linaria/react';
+import { SmallLinkStyle } from '~/components/NavBar.styled';
 
 export const PageHeading = styled.h1`
   /* outline: 1px solid pink; */
@@ -16,8 +17,16 @@ export const ProfileContainer = styled.div`
   align-items: center;
   justify-content: center; */
   display: flex;
-  gap: 3rem;
+  gap: 4rem;
   margin: 4rem 7rem;
+`;
+
+export const ProfileSectionContainer = styled.div`
+  /* outline: 1px solid blue; */
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 `;
 
 export const ProfileSection = styled.section`
@@ -25,8 +34,8 @@ export const ProfileSection = styled.section`
   width: 100%;
   min-height: 10rem;
   background: none;
-  border: 1px solid #b1b1b1;
-  border-radius: 0.25rem;
+  border: 1px solid #333333;
+  border-radius: 0.5rem;
   padding: 1rem;
   display: flex;
 `;
@@ -36,5 +45,9 @@ export const ProfileSidebar = styled.div`
   /* outline: 1px solid green; */
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
+
+  & > a {
+    ${SmallLinkStyle}
+  }
 `;

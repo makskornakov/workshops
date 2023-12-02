@@ -35,7 +35,7 @@ export default async function SignIn({
   // }
   return (
     <LoginForm>
-      <h1>Log In for Workshops</h1>
+      <h1>Sign In to Workshops</h1>
       {searchParams.error && <p>Error: {searchParams.error}</p>}
       <SignInButtons providers={providers} />
     </LoginForm>

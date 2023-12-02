@@ -26,6 +26,17 @@ export const HeaderContainer = styled.div`
     column-gap: 1rem;
   }
 `;
+export const SmallLinkStyle: CSSProperties = {
+  color: '#b5b5b5',
+  textDecoration: 'none',
+  fontSize: '0.9rem',
+  fontWeight: 300,
+  transition: 'all 0.2s ease-in-out',
+
+  '&:hover': {
+    color: '#fff',
+  },
+};
 export const LinkContainer = styled.nav`
   padding: 0.25rem 0.75rem;
   /* background: blue; */
@@ -34,15 +45,7 @@ export const LinkContainer = styled.nav`
   column-gap: 1.5rem;
 
   > a {
-    color: #b5b5b5;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 300;
-    transition: all 0.2s ease-in-out;
-
-    &:hover {
-      color: #fff;
-    }
+    ${SmallLinkStyle};
   }
 `;
 
