@@ -89,21 +89,6 @@ export const globals = css`
       overflow-x: hidden;
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      padding: 0.5rem 1rem;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      > div {
-        display: flex;
-        align-items: center;
-        column-gap: 1rem;
-      }
-    }
     body {
       color: #fff;
       background: #111111;
