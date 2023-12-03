@@ -14,6 +14,7 @@ export default async function Profile() {
     user && (
       <>
         <ProfileSection>
+          <h2>Profile Picture</h2>
           {user.image && (
             <Image src={user.image} alt={user?.name + ' photo'} width={100} height={100} />
           )}
@@ -48,7 +49,7 @@ export default async function Profile() {
             <input type="text" name="name" defaultValue={user.name ?? ''} />
             <button type="submit">Submit</button>
           </form>
-          <UploadDnD />
+          {user.image && <UploadDnD currentPicture={user.image} />}
         </ProfileSection>
         <ProfileSection></ProfileSection>
       </>

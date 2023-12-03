@@ -98,6 +98,56 @@ export const globals = css`
       ${reset.a}
     }
 
+    /* spin animation */
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    /* applied to container */
+    .custom-class {
+      background: none;
+    }
+
+    /* applied to button */
+    .custom-class > *[data-ut-element='button'] {
+      font-size: 1.6rem;
+      color: rgb(0 0 0 / 1);
+      background-color: transparent;
+    }
+
+    /* applied to button when uploading */
+    .custom-class > *[data-ut-element='button'][data-state='readying'] {
+      /* background-color: rgb(239 68 68 / 0.5); */
+      color: rgb(0 0 0 / 0.5);
+      cursor: not-allowed;
+    }
+
+    /* applied to button when uploading */
+    .custom-class > *[data-ut-element='button'][data-state='uploading'] {
+      /* background-color: rgb(239 68 68 / 0.5); */
+      color: rgb(0 0 0 / 0.5);
+      cursor: not-allowed;
+
+      > svg {
+        color: #fff;
+        width: 4rem;
+        height: 4rem;
+        animation: spin 1s linear infinite;
+
+        /* shadow for it to be visible */
+        filter: drop-shadow(0 0 0.5rem #000);
+      }
+    }
+
+    /* applied to upload indicator when uploading */
+    .custom-class > *[data-ut-element='button'][data-state='uploading']::after {
+      content: none !important;
+    }
+
     /* ${media.prefersColorSchemeDark} {
       html {
         color-scheme: dark;
