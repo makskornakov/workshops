@@ -4,13 +4,14 @@ import { UploadButton } from '../app/utils/uploadathing';
 import { VscLoading } from 'react-icons/vsc';
 // import { UploadButtonStyle } from '~/app/profile/profile.styled';
 
+/** @deprecated */
 export function UploadDnD({ currentPicture }: { currentPicture: string }) {
   return (
     <>
       <UploadButton
-        input={{
-          foo: 'bar',
-        }}
+        // input={{
+        //   foo: 'bar',
+        // }}
         className="custom-class"
         appearance={{
           button({ ready, isUploading }) {

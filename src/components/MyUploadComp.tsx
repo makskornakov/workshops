@@ -26,7 +26,7 @@ export default function MyUploadComp({ currentImage }: { currentImage: string })
     setUserImage(currentImage);
   };
 
-  const { startUpload, permittedFileInfo } = useUploadThing('myEndpoint', {
+  const { startUpload, permittedFileInfo } = useUploadThing('profilePicture', {
     onBeforeUploadBegin: (files: File[]) => {
       if (uploadingRef.current) {
         uploadingRef.current.style.display = 'block';
@@ -40,7 +40,8 @@ export default function MyUploadComp({ currentImage }: { currentImage: string })
       return files;
     },
     // onUploadBegin: (fileName: string) => {
-    //   console.log('uploading---------');
+    //   // ! this shit doesnt work at all ))
+    //   console.log('!!!upload begin');
     // },
     onClientUploadComplete: () => {
       // alert('Picture changed successfully!');
@@ -110,13 +111,14 @@ export default function MyUploadComp({ currentImage }: { currentImage: string })
           {selectedImage && (
             <>
               <button onClick={removeSelectedImage} ref={removeButtonRef}>
-                Remove
+                Cancel
               </button>
               <button
                 ref={uploadButtonRef}
-                onClick={() => startUpload([selectedImage], { foo: selectedImage.size.toString() })}
+                // ! foo - file size | a bad implementation
+                onClick={() => startUpload([selectedImage])}
               >
-                Upload Image
+                Apply
               </button>
             </>
           )}

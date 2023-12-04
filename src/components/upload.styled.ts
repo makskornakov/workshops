@@ -2,10 +2,10 @@ import { css } from '@linaria/core';
 import { styled } from '@linaria/react';
 
 export const UploadWrapper = styled.div`
-  /* outline: 1px solid red; */
+  outline: 1px solid red;
 
   width: 6rem;
-  height: 10rem;
+  height: 12rem;
   display: flex;
   flex-direction: column;
   align-items: center;

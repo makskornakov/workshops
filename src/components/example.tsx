@@ -7,6 +7,7 @@ import { generateClientDropzoneAccept } from 'uploadthing/client';
 
 import { useUploadThing } from '~/app/utils/uploadathing';
 
+/** @deprecated */
 export function MultiUploader() {
   const [files, setFiles] = useState<File[]>([]);
   const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
@@ -39,9 +40,7 @@ export function MultiUploader() {
       <input {...getInputProps()} />
       <div>
         {files.length > 0 && (
-          <button onClick={() => startUpload(files, { foo: '' })}>
-            Upload {files.length} files
-          </button>
+          <button onClick={() => startUpload(files)}>Upload {files.length} files</button>
         )}
       </div>
       Drop files here!
