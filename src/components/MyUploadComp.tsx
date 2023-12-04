@@ -26,7 +26,7 @@ export default function MyUploadComp({ currentImage }: { currentImage: string })
     setUserImage(currentImage);
   };
 
-  const { startUpload, permittedFileInfo } = useUploadThing('profilePicture', {
+  const { startUpload, permittedFileInfo } = useUploadThing('myEndpoint', {
     onBeforeUploadBegin: (files: File[]) => {
       if (uploadingRef.current) {
         uploadingRef.current.style.display = 'block';

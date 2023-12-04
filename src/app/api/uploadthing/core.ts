@@ -11,29 +11,25 @@ export const ourFileRouter = {
   myEndpoint: f({ image: { maxFileCount: 1, maxFileSize: '512KB' } })
     // .input(z.object({ foo: z.string() }))
     .middleware(async ({ req }) => {
-      // console.log(input.foo);
       const user = await getUser();
-      // if larger than 4mb throw error
-      // ? сли это убрать то можно загружать файлы любого размера походу
-      // ! This is a very bad implementation, you should use the file size from the metadata instead ? (copilot comment)))
-      // if (Number(input.foo) > 4000000) throw new Error('File too large');
 
-      // Throw if user isn't signed in
       if (!user) throw new Error('You must be logged in to upload a profile picture');
 
-      // Return userId to be used in onUploadComplete
-      return { userEmail: user.email };
+      return { userId: user.id };
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      const userEmail = metadata.userEmail;
-      if (!userEmail) throw new Error('No user email found');
+      const { userId } = metadata;
+      if (!userId) throw new Error('No user id found');
       if (!file.url) throw new Error('No file url found');
-      // Update user with new profile picture
       await prisma.user.update({
-        where: { email: userEmail },
+        where: { id: userId },
         data: { image: file.url },
       });
-      console.log('Uploaded by user', userEmail);
+      console.log('Uploaded by user', userId);
+      return {
+        // idk if this does anythi
+        uploadedBy: userId,
+      };
     }),
 
   profilePicture: f(['image'])
