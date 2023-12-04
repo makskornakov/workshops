@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { renderAsync } from '@react-email/components';
 import MagicLinkEmail from './magicLink';
 
 interface Params {
@@ -49,7 +50,7 @@ export async function sendVerification(params: Params) {
     from: provider.from,
     subject: `Sign in to ${host}`,
     // text: text({ url, host }),
-    react: MagicLinkEmail({ url, host }),
+    react: await renderAsync(MagicLinkEmail({ url, host })),
   });
   if (result.error) {
     throw new Error(`Email(s) (${result.error.message}) could not be sent: ${result.error.name}`);
