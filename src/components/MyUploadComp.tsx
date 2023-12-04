@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { VscLoading } from 'react-icons/vsc';
-import { MainUploadLabel, UploadWrapper } from './upload.styled';
+import { MainUploadLabel, UploadButton, UploadWrapper } from './upload.styled';
 import { useEdgeStore } from '~/lib/edgestore';
 import { saveAvatarUrl } from '~/actions/saveAvatarUrl';
 import { formatFileSize } from '@edgestore/react/utils';
@@ -51,56 +51,54 @@ export default function MyUploadComp({ currentImage }: { currentImage: string })
             ? formatFileSize(selectedImage.size)
             : `Max size: ${formatFileSize(maxAvatarSize)}`}
         </span>
-        <div>
-          {selectedImage && (
-            <>
-              <button onClick={removeSelectedImage} ref={removeButtonRef}>
-                Cancel
-              </button>
-              <button
-                ref={uploadButtonRef}
-                onClick={async () => {
-                  if (selectedImage) {
-                    if (uploadingRef.current) {
-                      uploadingRef.current.style.display = 'block';
-                    }
-                    if (uploadButtonRef.current) {
-                      uploadButtonRef.current.disabled = true;
-                    }
-                    if (removeButtonRef.current) {
-                      removeButtonRef.current.disabled = true;
-                    }
-
-                    const res = await edgestore.publicFiles.upload({
-                      file: selectedImage,
-                      onProgressChange: (progress) => {
-                        console.log(progress);
-                      },
-                      options: {
-                        replaceTargetUrl: currentImage,
-                      },
-                    });
-
-                    const url = await saveAvatarUrl(res.url);
-                    console.log('saved image URL', url);
-
-                    if (uploadingRef.current) {
-                      uploadingRef.current.style.display = 'none';
-                    }
-                    if (uploadButtonRef.current) {
-                      uploadButtonRef.current.disabled = false;
-                    }
-                    if (removeButtonRef.current) {
-                      removeButtonRef.current.disabled = false;
-                    }
+        {selectedImage && (
+          <div>
+            <UploadButton onClick={removeSelectedImage} ref={removeButtonRef} red>
+              Cancel
+            </UploadButton>
+            <UploadButton
+              ref={uploadButtonRef}
+              onClick={async () => {
+                if (selectedImage) {
+                  if (uploadingRef.current) {
+                    uploadingRef.current.style.display = 'block';
                   }
-                }}
-              >
-                Apply
-              </button>
-            </>
-          )}
-        </div>
+                  if (uploadButtonRef.current) {
+                    uploadButtonRef.current.disabled = true;
+                  }
+                  if (removeButtonRef.current) {
+                    removeButtonRef.current.disabled = true;
+                  }
+
+                  const res = await edgestore.publicFiles.upload({
+                    file: selectedImage,
+                    onProgressChange: (progress) => {
+                      console.log(progress);
+                    },
+                    options: {
+                      replaceTargetUrl: currentImage,
+                    },
+                  });
+
+                  const url = await saveAvatarUrl(res.url);
+                  console.log('saved image URL', url);
+
+                  if (uploadingRef.current) {
+                    uploadingRef.current.style.display = 'none';
+                  }
+                  if (uploadButtonRef.current) {
+                    uploadButtonRef.current.disabled = false;
+                  }
+                  if (removeButtonRef.current) {
+                    removeButtonRef.current.disabled = false;
+                  }
+                }
+              }}
+            >
+              Apply
+            </UploadButton>
+          </div>
+        )}
       </UploadWrapper>
     </>
   );

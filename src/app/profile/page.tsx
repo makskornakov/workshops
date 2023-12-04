@@ -19,6 +19,7 @@ export default async function Profile() {
         <AvatarSection>
           <div>
             <h2>Profile Picture</h2>
+            <p>Avatar is used across the site, in future it will be used for public workshops</p>
           </div>
           <div>{user.image && <MyUploadComp currentImage={user.image} />}</div>
           {/* <div>{user.image && <MyCompAgain />}</div> */}

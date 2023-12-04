@@ -49,11 +49,25 @@ export const AvatarSection = styled.section`
   background: none;
   border: 1px solid #333333;
   border-radius: 0.5rem;
-  padding: 1rem;
+  padding: 1.5rem;
   display: flex;
+
   flex-direction: row;
   /* align-items: center; */
   justify-content: space-between;
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    p {
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+  }
+  h2 {
+    font-weight: 400;
+  }
 `;
 
 export const ProfileSidebar = styled.div`
@@ -65,39 +79,5 @@ export const ProfileSidebar = styled.div`
 
   & > a {
     ${SmallLinkStyle}
-  }
-`;
-
-// export classes for uploadButton
-
-export const UploadButtonStyle = css`
-  /* applied to container */
-
-  background-color: none !important;
-
-  /* applied to button */
-  > *[data-ut-element='button'] {
-    font-size: 1.6rem;
-    color: rgb(0 0 0 / 1);
-    background-color: rgb(239 68 68 / 1) !important;
-  }
-
-  /* applied to button when uploading */
-  > *[data-ut-element='button'][data-state='readying'] {
-    background-color: rgb(239 68 68 / 0.5);
-    color: rgb(0 0 0 / 0.5);
-    cursor: not-allowed;
-  }
-
-  /* applied to button when uploading */
-  > *[data-ut-element='button'][data-state='uploading'] {
-    background-color: rgb(239 68 68 / 0.5);
-    color: rgb(0 0 0 / 0.5);
-    cursor: not-allowed;
-  }
-
-  /* applied to upload indicator when uploading */
-  > *[data-ut-element='button'][data-state='uploading']::after {
-    background-color: rgb(234 88 12 / 1);
   }
 `;
