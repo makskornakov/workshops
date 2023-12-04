@@ -5,9 +5,10 @@ import { redirect } from 'next/navigation';
 import { getUser, getUserAccounts } from '../utils/prismaUser';
 import { revalidatePath } from 'next/cache';
 import { AvatarSection, ProfileContainer, ProfileSection, ProfileSidebar } from './profile.styled';
-import { UploadDnD } from '~/components/UploadZone';
+// import { UploadDnD } from '~/components/UploadZone';
 import MyUploadComp from '~/components/MyUploadComp';
-import { MultiUploader } from '~/components/example';
+// import { MultiUploader } from '~/components/example';
+// import MyCompAgain from '~/components/myCompAgain';
 
 export default async function Profile() {
   const user = await getUser();
@@ -20,6 +21,7 @@ export default async function Profile() {
             <h2>Profile Picture</h2>
           </div>
           <div>{user.image && <MyUploadComp currentImage={user.image} />}</div>
+          {/* <div>{user.image && <MyCompAgain />}</div> */}
         </AvatarSection>
         <ProfileSection>
           {user.image && (

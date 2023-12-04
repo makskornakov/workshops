@@ -4,10 +4,11 @@ const withLinaria = require('next-with-linaria');
 const nextConfig = {
   images: {
     remotePatterns: [
-      { hostname: 'lh3.googleusercontent.com'},
+      { hostname: 'lh3.googleusercontent.com' },
       { hostname: 'avatars.githubusercontent.com' },
       { hostname: 'utfs.io' }, // вроде utfs.io это и есть uploadthing
       { hostname: 'uploadthing.com' },
+      { hostname: 'files.edgestore.dev' },
     ],
   },
   // transpilePackages: ['@auth/prisma-adapter'],
