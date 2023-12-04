@@ -47,11 +47,9 @@ export default function MyUploadComp({ currentImage }: { currentImage: string })
           </div>
         </MainUploadLabel>
         <span>
-          {/* {selectedImage
-            ? // size is in bytes , transform to Kb
-              displaySize(selectedImage.size)
-            : `Max size: ${permittedFileInfo?.config.image?.maxFileSize}`} */}
-          Max size: {formatFileSize(maxAvatarSize)}
+          {selectedImage
+            ? formatFileSize(selectedImage.size)
+            : `Max size: ${formatFileSize(maxAvatarSize)}`}
         </span>
         <div>
           {selectedImage && (
@@ -77,6 +75,9 @@ export default function MyUploadComp({ currentImage }: { currentImage: string })
                       file: selectedImage,
                       onProgressChange: (progress) => {
                         console.log(progress);
+                      },
+                      options: {
+                        replaceTargetUrl: currentImage,
                       },
                     });
 
