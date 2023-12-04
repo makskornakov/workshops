@@ -109,6 +109,7 @@ export const globals = css`
     }
     /* applied to container */
     .custom-class {
+      /* display: none; */
       background: none;
     }
 

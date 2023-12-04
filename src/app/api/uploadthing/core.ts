@@ -2,14 +2,19 @@ import { createUploadthing, type FileRouter } from 'uploadthing/next';
 import { getUser } from '~/app/utils/prismaUser';
 import prisma from '../../../../lib/prisma';
 const f = createUploadthing();
+import z from 'zod';
 
 // const auth = (req: Request) => ({ id: 'fakeId' }); // Fake auth function
 
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
-  profilePicture: f(['image'])
-    .middleware(async ({ req, res }) => {
+  myEndpoint: f(['image'])
+    .input(z.object({ foo: z.string() }))
+    .middleware(async ({ req, input }) => {
+      console.log(input.foo);
       const user = await getUser();
+      // if larger than 4mb throw error
+      if (Number(input.foo) > 4000000) throw new Error('File too large');
 
       // Throw if user isn't signed in
       if (!user) throw new Error('You must be logged in to upload a profile picture');

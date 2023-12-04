@@ -42,6 +42,20 @@ export const ProfileSection = styled.section`
   flex-direction: column;
 `;
 
+export const AvatarSection = styled.section`
+  /* outline: 1px solid blue; */
+  width: 100%;
+  min-height: 10rem;
+  background: none;
+  border: 1px solid #333333;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  justify-content: space-between;
+`;
+
 export const ProfileSidebar = styled.div`
   width: 15rem;
   /* outline: 1px solid green; */
