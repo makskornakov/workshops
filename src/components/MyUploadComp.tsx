@@ -59,7 +59,6 @@ export default function MyUploadComp({ currentImage }: { currentImage: string })
             <UploadButton
               ref={uploadButtonRef}
               onClick={async () => {
-                'use server';
                 if (selectedImage) {
                   if (uploadingRef.current) {
                     uploadingRef.current.style.display = 'block';
