@@ -2,8 +2,8 @@
 // import { LoginButton, LogoutButton, ProfileButton, RegisterButton } from '../components/buttons';
 
 import { Main } from './page.styled';
-import prisma from '../../lib/prisma';
-import MagicLinkEmail from './utils/magicLink';
+// import prisma from '../../lib/prisma';
+// import MagicLinkEmail from './utils/magicLink';
 import { PageHeading } from './profile/profile.styled';
 
 // import { getServerSession } from 'next-auth';
