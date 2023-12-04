@@ -25,9 +25,11 @@ export default async function Profile() {
           {/* <div>{user.image && <MyCompAgain />}</div> */}
         </AvatarSection>
         <ProfileSection>
-          {user.image && (
+          {/* {user.image && (
             <Image src={user.image} alt={user?.name + ' photo'} width={100} height={100} />
-          )}
+          )} */}
+          <h2>Profile Name</h2>
+
           <p>Name: {user.name}</p>
           <p>Email: {user.email}</p>
           <form
