@@ -1,22 +1,26 @@
 'use client';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
-import { useUploadThing } from '~/app/utils/uploadathing';
 import { VscLoading } from 'react-icons/vsc';
-import { MainUploadLabel, UploadWrapper } from './upload.styled';
+import { MainUploadLabel, UploadButton, UploadWrapper } from './upload.styled';
+import { useEdgeStore } from '~/lib/edgestore';
+import { saveAvatarUrl } from '~/actions/saveAvatarUrl';
+import { formatFileSize } from '@edgestore/react/utils';
+import { maxAvatarSize } from '~/app/api/edgestore/[...edgestore]/config';
 
 export default function MyUploadComp({ currentImage }: { currentImage: string }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [userImage, setUserImage] = useState<string>(currentImage);
+  const { edgestore } = useEdgeStore();
 
   const uploadingRef = useRef<HTMLDivElement>(null);
   const uploadButtonRef = useRef<HTMLButtonElement>(null);
   const removeButtonRef = useRef<HTMLButtonElement>(null);
 
-  const imageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const uploadedImageURL = URL.createObjectURL(e.target.files[0]);
-      setSelectedImage(e.target.files[0]);
+  const imageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const uploadedImageURL = URL.createObjectURL(event.target.files[0]);
+      setSelectedImage(event.target.files[0]);
       setUserImage(uploadedImageURL);
     }
   };
@@ -25,65 +29,6 @@ export default function MyUploadComp({ currentImage }: { currentImage: string })
     setSelectedImage(null);
     setUserImage(currentImage);
   };
-
-  const { startUpload, permittedFileInfo } = useUploadThing('profilePicture', {
-    onBeforeUploadBegin: (files: File[]) => {
-      if (uploadingRef.current) {
-        uploadingRef.current.style.display = 'block';
-      }
-      if (uploadButtonRef.current) {
-        uploadButtonRef.current.disabled = true;
-      }
-      if (removeButtonRef.current) {
-        removeButtonRef.current.disabled = true;
-      }
-      return files;
-    },
-    // onUploadBegin: (fileName: string) => {
-    //   // ! this shit doesnt work at all ))
-    //   console.log('!!!upload begin');
-    // },
-    onClientUploadComplete: () => {
-      // alert('Picture changed successfully!');
-      console.log('upload complete');
-      if (uploadingRef.current) {
-        uploadingRef.current.style.display = 'none';
-      }
-      if (uploadButtonRef.current) {
-        uploadButtonRef.current.disabled = false;
-      }
-      if (removeButtonRef.current) {
-        removeButtonRef.current.disabled = false;
-      }
-      setSelectedImage(null);
-      window.location.reload();
-    },
-    onUploadError: () => {
-      alert('error occurred while uploading');
-      console.log('upload error');
-      if (uploadingRef.current) {
-        uploadingRef.current.style.display = 'none';
-      }
-      if (uploadButtonRef.current) {
-        uploadButtonRef.current.disabled = false;
-      }
-      if (removeButtonRef.current) {
-        removeButtonRef.current.disabled = false;
-      }
-    },
-    onUploadProgress: (progress) => {
-      console.log('progress', progress);
-    },
-  });
-
-  function displaySize(size: number) {
-    // size is in bytes , transform to Kb or Mb depending on size
-    if (size / 1024 / 1024 > 1) {
-      return (size / 1024 / 1024).toFixed(2) + ' mb';
-    } else {
-      return (size / 1024).toFixed(2) + ' kb';
-    }
-  }
 
   return (
     <>
@@ -103,26 +48,57 @@ export default function MyUploadComp({ currentImage }: { currentImage: string })
         </MainUploadLabel>
         <span>
           {selectedImage
-            ? // size is in bytes , transform to Kb
-              displaySize(selectedImage.size)
-            : `Max size: ${permittedFileInfo?.config.image?.maxFileSize}`}
+            ? formatFileSize(selectedImage.size)
+            : `Max size: ${formatFileSize(maxAvatarSize)}`}
         </span>
-        <div>
-          {selectedImage && (
-            <>
-              <button onClick={removeSelectedImage} ref={removeButtonRef}>
-                Cancel
-              </button>
-              <button
-                ref={uploadButtonRef}
-                // ! foo - file size | a bad implementation
-                onClick={() => startUpload([selectedImage])}
-              >
-                Apply
-              </button>
-            </>
-          )}
-        </div>
+        {selectedImage && (
+          <div>
+            <UploadButton onClick={removeSelectedImage} ref={removeButtonRef} red>
+              Cancel
+            </UploadButton>
+            <UploadButton
+              ref={uploadButtonRef}
+              onClick={async () => {
+                if (selectedImage) {
+                  if (uploadingRef.current) {
+                    uploadingRef.current.style.display = 'block';
+                  }
+                  if (uploadButtonRef.current) {
+                    uploadButtonRef.current.disabled = true;
+                  }
+                  if (removeButtonRef.current) {
+                    removeButtonRef.current.disabled = true;
+                  }
+
+                  const res = await edgestore.publicFiles.upload({
+                    file: selectedImage,
+                    onProgressChange: (progress) => {
+                      console.log(progress);
+                    },
+                    options: {
+                      replaceTargetUrl: currentImage,
+                    },
+                  });
+
+                  const url = await saveAvatarUrl(res.url);
+                  console.log('saved image URL', url);
+
+                  if (uploadingRef.current) {
+                    uploadingRef.current.style.display = 'none';
+                  }
+                  if (uploadButtonRef.current) {
+                    uploadButtonRef.current.disabled = false;
+                  }
+                  if (removeButtonRef.current) {
+                    removeButtonRef.current.disabled = false;
+                  }
+                }
+              }}
+            >
+              Apply
+            </UploadButton>
+          </div>
+        )}
       </UploadWrapper>
     </>
   );

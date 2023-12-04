@@ -1,5 +1,5 @@
 import { styled } from '@linaria/react';
-import { css } from '@linaria/core';
+import { CSSProperties, css } from '@linaria/core';
 import { SmallLinkStyle } from '~/components/NavBar.styled';
 
 export const PageHeading = styled.h1`
@@ -11,12 +11,6 @@ export const PageHeading = styled.h1`
 `;
 
 export const ProfileContainer = styled.div`
-  /* outline: 1px solid red; */
-  /* width: 40%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; */
   display: flex;
   gap: 4rem;
   margin: 4rem 7rem;
@@ -30,29 +24,42 @@ export const ProfileSectionContainer = styled.div`
   gap: 2rem;
 `;
 
+const sharedSectionStyle: CSSProperties = {
+  width: '100%',
+  minHeight: '10rem',
+  background: 'none',
+  border: '1px solid #333333',
+  borderRadius: '0.5rem',
+  padding: '1.5rem',
+  display: 'flex',
+
+  '> div': {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+
+    p: {
+      fontSize: '0.9rem',
+      fontWeight: 300,
+    },
+  },
+  h2: {
+    fontWeight: 400,
+  },
+};
+
 export const ProfileSection = styled.section`
-  /* outline: 1px solid blue; */
-  width: 100%;
-  min-height: 10rem;
-  background: none;
-  border: 1px solid #333333;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  display: flex;
+  /* outline: 1px solid red; */
+
+  ${sharedSectionStyle}
+
   flex-direction: column;
 `;
-
 export const AvatarSection = styled.section`
   /* outline: 1px solid blue; */
-  width: 100%;
-  min-height: 10rem;
-  background: none;
-  border: 1px solid #333333;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  display: flex;
+  ${sharedSectionStyle}
+
   flex-direction: row;
-  /* align-items: center; */
   justify-content: space-between;
 `;
 
@@ -65,39 +72,5 @@ export const ProfileSidebar = styled.div`
 
   & > a {
     ${SmallLinkStyle}
-  }
-`;
-
-// export classes for uploadButton
-
-export const UploadButtonStyle = css`
-  /* applied to container */
-
-  background-color: none !important;
-
-  /* applied to button */
-  > *[data-ut-element='button'] {
-    font-size: 1.6rem;
-    color: rgb(0 0 0 / 1);
-    background-color: rgb(239 68 68 / 1) !important;
-  }
-
-  /* applied to button when uploading */
-  > *[data-ut-element='button'][data-state='readying'] {
-    background-color: rgb(239 68 68 / 0.5);
-    color: rgb(0 0 0 / 0.5);
-    cursor: not-allowed;
-  }
-
-  /* applied to button when uploading */
-  > *[data-ut-element='button'][data-state='uploading'] {
-    background-color: rgb(239 68 68 / 0.5);
-    color: rgb(0 0 0 / 0.5);
-    cursor: not-allowed;
-  }
-
-  /* applied to upload indicator when uploading */
-  > *[data-ut-element='button'][data-state='uploading']::after {
-    background-color: rgb(234 88 12 / 1);
   }
 `;
