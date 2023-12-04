@@ -8,42 +8,42 @@ import { generateClientDropzoneAccept } from 'uploadthing/client';
 import { useUploadThing } from '~/app/utils/uploadathing';
 
 /** @deprecated */
-export function MultiUploader() {
-  const [files, setFiles] = useState<File[]>([]);
-  const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
-    setFiles(acceptedFiles);
-  }, []);
+// export function MultiUploader() {
+//   const [files, setFiles] = useState<File[]>([]);
+//   const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
+//     setFiles(acceptedFiles);
+//   }, []);
 
-  const { startUpload, permittedFileInfo } = useUploadThing('myEndpoint', {
-    onClientUploadComplete: () => {
-      alert('uploaded successfully!');
-    },
-    onUploadError: () => {
-      alert('error occurred while uploading');
-    },
-    onUploadBegin: () => {
-      alert('upload has begun');
-    },
-  });
+//   const { startUpload, permittedFileInfo } = useUploadThing('myEndpoint', {
+//     onClientUploadComplete: () => {
+//       alert('uploaded successfully!');
+//     },
+//     onUploadError: () => {
+//       alert('error occurred while uploading');
+//     },
+//     onUploadBegin: () => {
+//       alert('upload has begun');
+//     },
+//   });
 
-  const fileTypes = permittedFileInfo?.config ? Object.keys(permittedFileInfo?.config) : [];
+//   const fileTypes = permittedFileInfo?.config ? Object.keys(permittedFileInfo?.config) : [];
 
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-    accept: fileTypes ? generateClientDropzoneAccept(fileTypes) : undefined,
-  });
+//   const { getRootProps, getInputProps } = useDropzone({
+//     onDrop,
+//     accept: fileTypes ? generateClientDropzoneAccept(fileTypes) : undefined,
+//   });
 
-  // useU
+//   // useU
 
-  return (
-    <div>
-      <input {...getInputProps()} />
-      <div>
-        {files.length > 0 && (
-          <button onClick={() => startUpload(files)}>Upload {files.length} files</button>
-        )}
-      </div>
-      Drop files here!
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <input {...getInputProps()} />
+//       <div>
+//         {files.length > 0 && (
+//           <button onClick={() => startUpload(files)}>Upload {files.length} files</button>
+//         )}
+//       </div>
+//       Drop files here!
+//     </div>
+//   );
+// }
