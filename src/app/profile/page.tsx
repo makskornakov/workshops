@@ -7,6 +7,7 @@ import { revalidatePath } from 'next/cache';
 import {
   AvatarSection,
   ProfileContainer,
+  ProfileForm,
   ProfileSection,
   ProfileSectionFooter,
   ProfileSectionInside,
@@ -38,7 +39,8 @@ export default async function Profile() {
         <ProfileSection>
           <ProfileSectionInside>
             <h2>Profile Name</h2>
-            <form
+            <p>Change your profile name, it will be used across the site.</p>
+            <ProfileForm
               action={async (formData) => {
                 'use server';
                 const newName = formData.get('name');
@@ -65,16 +67,11 @@ export default async function Profile() {
               }}
             >
               <input type="text" name="name" defaultValue={user.name ?? ''} />
-              <button type="submit">Submit</button>
-            </form>
+              <button type="submit">Save</button>
+            </ProfileForm>
           </ProfileSectionInside>
-          {/* <p>Name: {user.name}</p>
-          <p>Email: {user.email}</p> */}
-
           <ProfileSectionFooter>
-            <p>
-              Profile name is used across the site, in future it will be used for public workshops
-            </p>
+            <p>Use your full name or nickname.</p>
           </ProfileSectionFooter>
         </ProfileSection>
       </>
