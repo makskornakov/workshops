@@ -35,7 +35,13 @@ const sharedSectionStyle: CSSProperties = {
   position: 'relative',
 
   h2: {
+    fontSize: '1.2rem',
+  },
+  'h2, h3': {
     fontWeight: 400,
+  },
+  h3: {
+    fontSize: '.95rem',
   },
 };
 
@@ -153,4 +159,13 @@ export const ProfileForm = styled.form`
       background-color: #c1c1c1;
     }
   }
+`;
+
+export const ConnectionsWrapper = styled.div`
+  /* outline: 1px solid red; */
+
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 `;

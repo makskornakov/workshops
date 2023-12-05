@@ -16,17 +16,19 @@ export const LoginForm = styled.div`
   }
 `;
 
-export const LoginProviderButton = styled.button<{ bg: string; color?: string }>`
+export const LoginProviderButton = styled.button<{ bg: string; color?: string; small?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   border-radius: 0.5rem;
-  font-size: 1.2rem;
+  font-size: ${(props) => (props.small ? '0.9rem' : '1.2rem')};
+  width: ${(props) => (props.small ? '7rem' : 'auto')};
   column-gap: 0.75rem;
   cursor: pointer;
   outline: none;
-  padding: 0.75rem 1.5rem;
+  /* padding: 0.75rem 1.5rem; */
+  padding: ${(props) => (props.small ? '0.5rem 1rem' : '0.75rem 1.5rem')};
   background: ${(props) => props.bg};
   color: ${(props) => props.color ?? 'black'};
 

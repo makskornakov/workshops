@@ -1,34 +1,44 @@
 import { revalidatePath } from 'next/cache';
 import Link from 'next/link';
 import { getUser, getUserAccounts } from '~/app/utils/prismaUser';
+import { SignInButtons } from '~/app/auth/signin/SignInButtons';
 import prisma from '../../../../lib/prisma';
-import { ProfileSection } from '../profile.styled';
+import { ProfileSection, ProfileSectionFooter } from '../profile.styled';
+import { getProviders, signIn } from 'next-auth/react';
+import { FaGithub } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import { LoginProviderButton } from '~/components/signIn.styled';
+import { ConnectionButtons } from './ConnectionButtons';
 
 export default async function LoginConnections() {
   const user = await getUser();
+  const providers = await getProviders();
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1rem',
-      }}
-    >
-      <h2
+    <>
+      <div
         style={{
-          fontWeight: 400,
-          margin: 'none',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
         }}
       >
-        Login Connections
-      </h2>
-      <p style={{ fontWeight: 300, fontSize: '0.9rem' }}>
-        You can link your account to other services to use them for authentication. You can link
-        multiple accounts.
-      </p>
-      <ProfileSection>
-        <Link
+        <h2
+          style={{
+            fontWeight: 400,
+            margin: 'none',
+          }}
+        >
+          Login Connections
+        </h2>
+        <p style={{ fontWeight: 300, fontSize: '0.9rem' }}>
+          You can link your account to other services to use them for authentication. You can link
+          multiple accounts.
+        </p>
+      </div>
+      <ProfileSection style={{ minHeight: '10rem' }}>
+        <h2>Add new connection</h2>
+        {/* <Link
           href={'/api/auth/signin'}
           style={{
             // color: 'blue',
@@ -37,12 +47,26 @@ export default async function LoginConnections() {
           }}
         >
           Link another account
-        </Link>
-        <ProfileAccounts user={user} />
+        </Link> */}
+        {providers && <ConnectionButtons providers={providers} />}
+
+        <ProfileSectionFooter>
+          <p>
+            Some text about how to link accounts. Lorem ipsum dolor sit amet consectetur adipisicing
+          </p>
+        </ProfileSectionFooter>
       </ProfileSection>
-    </div>
+      <ProfileSection>
+        <h2>Linked accounts:</h2>
+        <ProfileAccounts user={user} />
+        <ProfileSectionFooter>
+          <p>We will display the connection date in the future.</p>
+        </ProfileSectionFooter>
+      </ProfileSection>
+    </>
   );
 }
+
 async function ProfileAccounts({ user }: { user: Awaited<ReturnType<typeof getUser>> }) {
   const accounts = await getUserAccounts(user);
 
