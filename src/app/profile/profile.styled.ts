@@ -1,5 +1,5 @@
 import { styled } from '@linaria/react';
-import { CSSProperties, css } from '@linaria/core';
+import { CSSProperties } from '@linaria/core';
 import { SmallLinkStyle } from '~/components/NavBar.styled';
 
 export const PageHeading = styled.h1`
@@ -24,27 +24,33 @@ export const ProfileSectionContainer = styled.div`
   gap: 2rem;
 `;
 
-const sharedSectionStyle: CSSProperties = {
-  width: '100%',
-  minHeight: '16rem',
-  background: 'none',
-  border: '1px solid #333333',
-  borderRadius: '0.5rem',
-  padding: '1.5rem',
-  display: 'flex',
-  position: 'relative',
-  paddingBottom: '4rem',
+/** Fake css function for syntax highlighting */
+function css(...args: any) {
+  return args as string;
+}
 
-  h2: {
-    fontSize: '1.2rem',
-  },
-  'h2, h3': {
-    fontWeight: 400,
-  },
-  h3: {
-    fontSize: '.95rem',
-  },
-};
+const sharedSectionStyle = css`
+  width: 100%;
+  min-height: 16rem;
+  background: none;
+  border: 1px solid #333333;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  display: flex;
+  position: relative;
+  padding-bottom: 4rem;
+
+  h2 {
+    font-size: 1.2rem;
+  }
+  h2,
+  h3 {
+    font-weight: 400;
+  }
+  h3 {
+    font-size: 0.95rem;
+  }
+`;
 
 export const ProfileSection = styled.section`
   /* outline: 1px solid red; */
@@ -179,18 +185,22 @@ export const ConnectedAccounts = styled.div`
 `;
 
 export const ConnectedAccountForm = styled.form`
-  /* outline: 1px solid yellow; */
-  width: 12rem;
-  display: grid;
-  grid-template-columns: 1.2rem 1fr 1fr;
-
-  height: 2rem;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-
   svg {
     height: 1.5rem;
     width: 1.5rem;
+  }
+
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  span {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: #b1b1b1;
+  }
+  > div {
+    > p:last-child {
+      color: #a1a1a1;
+    }
   }
 `;

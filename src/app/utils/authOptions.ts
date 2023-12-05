@@ -53,7 +53,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_SECRET ?? '',
       // allowDangerousEmailAccountLinking: true,
       async profile(profile) {
-        // console.log('Google profile', profile);
+        console.log('Google profile', profile);
         return {
           id: profile.sub,
           name: profile.name,
@@ -97,4 +97,34 @@ export const authOptions: NextAuthOptions = {
     //   sendVerificationRequest,
     // },
   ],
+  events: {
+    async linkAccount({ account, profile, user }) {
+      console.log('linkAccount.profile', profile);
+      console.log('account', account);
+      // add name from google to prisma account field name
+      // providerAccountId: account.providerAccountId,
+      const updatedAccount = await prisma.account.update({
+        data: {
+          name: profile.name,
+        },
+        where: {
+          provider_providerAccountId: {
+            provider: account.provider,
+            providerAccountId: account.providerAccountId,
+          },
+        },
+      });
+
+      console.log(updatedAccount);
+
+      // prisma.account.update({
+      //   where: {
+      //     id: account.id
+      //   },
+      //   data: {
+      //     name
+      //   }
+      // })
+    },
+  },
 };

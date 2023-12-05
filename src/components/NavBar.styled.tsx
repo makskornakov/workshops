@@ -19,6 +19,7 @@ export const HeaderContainer = styled.div`
   width: 100%;
   column-gap: 20px;
   display: flex;
+  min-height: 2.5rem;
   justify-content: space-between;
   > div {
     display: flex;
@@ -65,12 +66,13 @@ const LinkButtonStyle: CSSProperties = {
   },
 
   '&:disabled': {
+    background: '#222',
     borderColor: '#c1c1c1',
     color: '#c1c1c1',
     cursor: 'not-allowed',
 
     '&:hover': {
-      background: 'none',
+      background: '#222',
       color: '#c1c1c1',
     },
   },

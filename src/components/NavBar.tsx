@@ -29,10 +29,15 @@ export default async function NavBar() {
         <div>
           {user ? (
             <>
-              {user.image && (
-                <Image src={user.image} alt={user.name + ' photo'} width={40} height={40} />
-              )}
-              <p>{user.name}</p>
+              <Link
+                href={'/profile'}
+                style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
+              >
+                {user.image && (
+                  <Image src={user.image} alt={user.name + ' photo'} width={40} height={40} />
+                )}
+                <p>{user.name}</p>
+              </Link>
               {/* <StyledLink href={'/profile'}>Profile</StyledLink> */}
               <SignOutButton />
             </>
