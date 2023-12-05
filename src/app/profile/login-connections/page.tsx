@@ -1,14 +1,20 @@
 import { revalidatePath } from 'next/cache';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { getUser, getUserAccounts } from '~/app/utils/prismaUser';
-import { SignInButtons } from '~/app/auth/signin/SignInButtons';
 import prisma from '../../../../lib/prisma';
-import { ProfileSection, ProfileSectionFooter } from '../profile.styled';
+import {
+  ConnectedAccountForm,
+  ConnectedAccounts,
+  ProfileSection,
+  ProfileSectionFooter,
+  ProfileSectionInside,
+} from '../profile.styled';
 import { getProviders, signIn } from 'next-auth/react';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import { LoginProviderButton } from '~/components/signIn.styled';
+// import { LoginProviderButton } from '~/components/signIn.styled';
 import { ConnectionButtons } from './ConnectionButtons';
+import { StyledButton } from '~/components/NavBar.styled';
 
 export default async function LoginConnections() {
   const user = await getUser();
@@ -56,9 +62,11 @@ export default async function LoginConnections() {
           </p>
         </ProfileSectionFooter>
       </ProfileSection>
-      <ProfileSection>
-        <h2>Linked accounts:</h2>
-        <ProfileAccounts user={user} />
+      <ProfileSection style={{ minHeight: '10rem' }}>
+        <ProfileSectionInside>
+          <h2>Linked accounts:</h2>
+          <ProfileAccounts user={user} />
+        </ProfileSectionInside>
         <ProfileSectionFooter>
           <p>We will display the connection date in the future.</p>
         </ProfileSectionFooter>
@@ -73,9 +81,9 @@ async function ProfileAccounts({ user }: { user: Awaited<ReturnType<typeof getUs
   if (!accounts) return null;
 
   return (
-    <div>
+    <ConnectedAccounts>
       {accounts.map((account) => (
-        <form
+        <ConnectedAccountForm
           key={account.id}
           action={async () => {
             'use server';
@@ -92,10 +100,14 @@ async function ProfileAccounts({ user }: { user: Awaited<ReturnType<typeof getUs
             revalidatePath('/profile', 'page');
           }}
         >
-          <p>{account.provider}</p>
-          <button disabled={accounts.length === 1}>Disconnect</button>
-        </form>
+          {account.provider === 'github' && <FaGithub />}
+          {account.provider === 'google' && <FcGoogle />}
+          <p>{account.provider[0].toUpperCase() + account.provider.slice(1)}</p>
+          <StyledButton disabled={accounts.length === 1} small red>
+            Disconnect
+          </StyledButton>
+        </ConnectedAccountForm>
       ))}
-    </div>
+    </ConnectedAccounts>
   );
 }

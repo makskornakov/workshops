@@ -12,8 +12,18 @@ export default async function NavBar() {
   return (
     <Header>
       <HeaderContainer>
-        <div>
+        <div style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
           <Link href={'/'}>Gsw.st</Link>
+          <Link
+            href={'/'}
+            style={{
+              fontSize: '0.9rem',
+              color: '#c9c9c9',
+            }}
+          >
+            Workshop Studio
+          </Link>
+
           {/* {user ? <SignOutButton /> : <Link href={'/api/auth/signin'}>Sign in</Link>} */}
         </div>
         <div>

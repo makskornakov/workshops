@@ -52,19 +52,36 @@ export const LinkContainer = styled.nav`
 const LinkButtonStyle: CSSProperties = {
   background: '#222',
   color: '#fff',
-  border: '1px solid #fff',
+  borderColor: ' #fff',
+  borderStyle: 'solid',
+  borderWidth: '1px',
   borderRadius: '5px',
   fontSize: '.8rem',
-  padding: '10px 20px',
+  padding: '0.5rem 1rem',
   cursor: 'pointer',
   transition: 'all 0.2s ease-in-out',
   '&:hover': {
     background: '#333',
   },
+
+  '&:disabled': {
+    borderColor: '#c1c1c1',
+    color: '#c1c1c1',
+    cursor: 'not-allowed',
+
+    '&:hover': {
+      background: 'none',
+      color: '#c1c1c1',
+    },
+  },
 };
 
-export const StyledButton = styled.button`
+export const StyledButton = styled.button<{ small?: boolean; red?: boolean }>`
   ${LinkButtonStyle};
+  font-size: ${({ small }) => (small ? '.7rem' : '.8rem')};
+  padding: ${({ small }) => (small ? '0.4rem 0.75rem' : '0.5rem 1rem')};
+  border-color: ${(props) => (props.red ? '#F02E2E' : '#fff')};
+  /* color  : ${({ red }) => (red ? '#d20000' : '#000')}; */
 `;
 
 export const StyledLink = styled(Link)`

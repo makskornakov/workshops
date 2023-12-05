@@ -33,6 +33,7 @@ const sharedSectionStyle: CSSProperties = {
   padding: '1.5rem',
   display: 'flex',
   position: 'relative',
+  paddingBottom: '4rem',
 
   h2: {
     fontSize: '1.2rem',
@@ -56,7 +57,6 @@ export const ProfileSection = styled.section`
 export const ProfileSectionInside = styled.div`
   /* outline: 1px solid red; */
   height: 80%;
-  min-height: 10rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -168,4 +168,29 @@ export const ConnectionsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 1rem;
+`;
+
+export const ConnectedAccounts = styled.div`
+  /* outline: 1px solid red; */
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const ConnectedAccountForm = styled.form`
+  /* outline: 1px solid yellow; */
+  width: 12rem;
+  display: grid;
+  grid-template-columns: 1.2rem 1fr 1fr;
+
+  height: 2rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+
+  svg {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
 `;
