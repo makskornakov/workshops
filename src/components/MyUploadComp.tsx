@@ -92,6 +92,9 @@ export default function MyUploadComp({ currentImage }: { currentImage: string })
                   if (removeButtonRef.current) {
                     removeButtonRef.current.disabled = false;
                   }
+
+                  setUserImage(url.url);
+                  setSelectedImage(null);
                 }
               }}
             >

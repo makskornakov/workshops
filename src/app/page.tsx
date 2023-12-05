@@ -23,29 +23,7 @@ export default async function Home() {
     <>
       <PageHeading>Home Page</PageHeading>
       <Main>
-        <div>
-          This is the main page
-          {/* <LoginButton /> */}
-          {/* <RegisterButton /> */}
-          {/* <LogoutButton /> */}
-          {/* <ProfileButton /> */}
-          {/* <h1>Server Session</h1> */}
-          {/* <pre>{JSON.stringify(session)}</pre> */}
-          {/* <MagicLinkEmail
-          url="http://localhost:3000/api/auth/signin/email"
-          host="http://localhost:3000"
-        /> */}
-        </div>
-        {/* <h1>Welcome to Next.js with Linaria!</h1>
-  
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            <p>{user.name}</p>
-            <p>{user.email}</p>
-          </li>
-        ))}
-      </ul> */}
+        <div>This is the main page</div>
       </Main>
     </>
   );

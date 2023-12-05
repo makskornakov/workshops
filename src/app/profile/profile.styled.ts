@@ -26,23 +26,14 @@ export const ProfileSectionContainer = styled.div`
 
 const sharedSectionStyle: CSSProperties = {
   width: '100%',
-  minHeight: '10rem',
+  minHeight: '16rem',
   background: 'none',
   border: '1px solid #333333',
   borderRadius: '0.5rem',
   padding: '1.5rem',
   display: 'flex',
+  position: 'relative',
 
-  '> div': {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem',
-
-    p: {
-      fontSize: '0.9rem',
-      fontWeight: 300,
-    },
-  },
   h2: {
     fontWeight: 400,
   },
@@ -55,8 +46,24 @@ export const ProfileSection = styled.section`
 
   flex-direction: column;
 `;
+
+export const ProfileSectionInside = styled.div`
+  /* outline: 1px solid red; */
+  height: 80%;
+  min-height: 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  p {
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
+`;
+
 export const AvatarSection = styled.section`
   /* outline: 1px solid blue; */
+
   ${sharedSectionStyle}
 
   flex-direction: row;
@@ -73,4 +80,26 @@ export const ProfileSidebar = styled.div`
   & > a {
     ${SmallLinkStyle}
   }
+`;
+
+export const ProfileSectionFooter = styled.div`
+  /* make it on the bottom and 100% width */
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid #333333;
+  left: 0;
+  font-weight: 300;
+  font-size: 0.9rem;
+  color: #b1b1b1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 0 1.5rem;
+
+  /* outline: 1px solid limegreen; */
+
+  width: 100%;
+  height: 20%;
 `;
