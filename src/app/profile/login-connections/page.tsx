@@ -2,25 +2,45 @@ import { revalidatePath } from 'next/cache';
 import Link from 'next/link';
 import { getUser, getUserAccounts } from '~/app/utils/prismaUser';
 import prisma from '../../../../lib/prisma';
+import { ProfileSection } from '../profile.styled';
 
 export default async function LoginConnections() {
   const user = await getUser();
 
   return (
-    <>
-      <h2>Login Connections</h2>
-      <Link
-        href={'/api/auth/signin'}
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+      }}
+    >
+      <h2
         style={{
-          // color: 'blue',
-          textDecoration: 'underline',
-          cursor: 'pointer',
+          fontWeight: 400,
+          margin: 'none',
         }}
       >
-        Link another account
-      </Link>
-      <ProfileAccounts user={user} />
-    </>
+        Login Connections
+      </h2>
+      <p style={{ fontWeight: 300, fontSize: '0.9rem' }}>
+        You can link your account to other services to use them for authentication. You can link
+        multiple accounts.
+      </p>
+      <ProfileSection>
+        <Link
+          href={'/api/auth/signin'}
+          style={{
+            // color: 'blue',
+            textDecoration: 'underline',
+            cursor: 'pointer',
+          }}
+        >
+          Link another account
+        </Link>
+        <ProfileAccounts user={user} />
+      </ProfileSection>
+    </div>
   );
 }
 async function ProfileAccounts({ user }: { user: Awaited<ReturnType<typeof getUser>> }) {

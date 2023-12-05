@@ -120,7 +120,7 @@ export const ProfileForm = styled.form`
     border: 1px solid #333333;
     border-radius: 0.5rem;
     padding: 0.5rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 200;
 
     &:focus {
@@ -138,7 +138,7 @@ export const ProfileForm = styled.form`
   }
 
   button {
-    width: 10rem;
+    width: 6rem;
     height: 2rem;
     border: 1px solid #333333;
     border-radius: 0.5rem;
