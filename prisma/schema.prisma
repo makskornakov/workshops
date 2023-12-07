@@ -49,6 +49,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   workshops     Workshop[]
+  materials     Material[]
 }
 
 model VerificationToken {
@@ -59,21 +60,24 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Material {
+  id          String     @id @default(cuid())
+  createdAt   DateTime   @default(now())
+  title       String
+  description String
+  mediaUrl    String
+  paragraph   String?
+  authorId    String
+  author      User       @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  workshops   Workshop[]
+}
+
 model Workshop {
   id          String     @id @default(cuid())
+  authorId    String
   title       String
   description String
   date        DateTime
-  location    String?
-  userId      String
-  user        User       @relation(fields: [userId], references: [id], onDelete: Restrict)
+  author      User       @relation(fields: [authorId], references: [id], onDelete: Restrict)
   materials   Material[]
-}
-
-model Material {
-  id         String   @id @default(cuid())
-  title      String
-  url        String
-  workshopId String
-  workshop   Workshop @relation(fields: [workshopId], references: [id], onDelete: Cascade)
 }

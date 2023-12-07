@@ -41,8 +41,8 @@ export default async function WorkshopForm({ id }: { id?: string }) {
                     title: title as string,
                     description: description as string,
                     date: new Date(date as string),
-                    location: location as string,
-                    userId: user.id,
+                    // location: location as string,
+                    authorId: user.id,
                   },
                 });
                 console.log(workshop);
@@ -53,14 +53,12 @@ export default async function WorkshopForm({ id }: { id?: string }) {
                 const title = data.get('title');
                 const description = data.get('description');
                 const date = data.get('date');
-                const location = data.get('location');
                 const workshop = await prisma.workshop.create({
                   data: {
                     title: title as string,
                     description: description as string,
                     date: new Date(date as string),
-                    location: location as string,
-                    userId: user.id,
+                    authorId: user.id,
                   },
                 });
                 console.log(workshop);
@@ -80,12 +78,12 @@ export default async function WorkshopForm({ id }: { id?: string }) {
           placeholder={new Date().toISOString().slice(0, 10)}
           defaultValue={workshop?.date.toISOString().slice(0, 10)}
         />
-        <input
+        {/* <input
           name="location"
           type="text"
           placeholder="Location"
           defaultValue={workshop?.location?.toString()}
-        />
+        /> */}
 
         <button type="submit">{workshop ? 'Edit' : 'Create'}</button>
       </form>
