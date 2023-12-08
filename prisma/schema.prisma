@@ -65,7 +65,7 @@ model Material {
   createdAt   DateTime   @default(now())
   title       String
   description String
-  mediaUrl    String
+  mediaUrl    String?    @unique
   paragraph   String?
   authorId    String
   author      User       @relation(fields: [authorId], references: [id], onDelete: Restrict)

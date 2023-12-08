@@ -8,19 +8,20 @@ import ClientMaterialForm from './ClientEditor';
 
 type User = NonNullable<Awaited<ReturnType<typeof getUser>>>;
 
-export default async function MaterialEditor({ id }: { id?: string }) {
+export default async function MaterialEditor({ id }: { id: string }) {
   const user = await getUser();
   if (!user) {
     redirect('/api/auth/signin');
   }
 
-  const material = id
-    ? await prisma.material.findUnique({
-        where: {
-          id: id,
-        },
-      })
-    : undefined;
+  const material = await prisma.material.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  if (!material) {
+    redirect('/materials');
+  }
 
   return (
     <>
@@ -29,18 +30,46 @@ export default async function MaterialEditor({ id }: { id?: string }) {
         <p>Author: {user.name}</p>
 
         <ClientMaterialForm
-          material={material ?? undefined}
+          material={material}
           action={async (formData) => {
             'use server';
-            return materialAction(formData, user.id, material?.id);
+            return materialAction(formData, user.id, material.id);
           }}
+          // deleteAction={async () => {
+          //   'use server';
+          //   if (!material) return;
+          //   if (user.id === material?.authorId) {
+          //     const res = await prisma.material.delete({
+          //       where: {
+          //         id: material?.id,
+          //       },
+          //     });
+          //     console.log('deleted material', res);
+          //     redirect('/materials');
+          //   }
+          // }}
+          // uploadAction={async (formData) => {
+          //   'use server';
+          //   const uploadedImage = formData.get('mediaUrl') as File;
+          //   if (!uploadedImage) return;
+
+          //   const res = await edgestore.avatarFiles.upload({
+          //     file: uploadedImage,
+          //     onProgressChange: (progress) => {
+          //       console.log(progress);
+          //     },
+          //     // options: {
+          //     //   replaceTargetUrl: currentImage,
+          //     // },
+          //   });
+          // }}
         />
       </div>
     </>
   );
 }
 
-export async function materialAction(formData: FormData, userId: string, materialId?: string) {
+export async function materialAction(formData: FormData, userId: string, materialId: string) {
   // 'use server';
   const data = formData;
   const title = data.get('title');
@@ -57,17 +86,14 @@ export async function materialAction(formData: FormData, userId: string, materia
     authorId: userId,
   };
 
-  const result = materialId
-    ? await prisma.material.update({
-        where: {
-          id: materialId,
-        },
-        data: materialObj as Material,
-      })
-    : await prisma.material.create({
-        data: materialObj as Material,
-      });
-  console.log(result);
+  const result = await prisma.material.update({
+    where: {
+      id: materialId,
+    },
+    data: materialObj as Material,
+  });
+
+  // console.log(result);
 
   redirect(`/materials/${result.id}`);
 }

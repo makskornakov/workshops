@@ -8,6 +8,9 @@ export const PageHeading = styled.h1`
   padding: 2rem 7rem;
   width: 100%;
   border-bottom: 1px solid #333333;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 `;
 
 export const ProfileContainer = styled.div`

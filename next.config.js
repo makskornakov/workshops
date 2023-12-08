@@ -6,10 +6,16 @@ const nextConfig = {
     remotePatterns: [
       { hostname: 'lh3.googleusercontent.com' },
       { hostname: 'avatars.githubusercontent.com' },
-      // { hostname: 'utfs.io' }, // вроде utfs.io это и есть uploadthing
-      // { hostname: 'uploadthing.com' },
       { hostname: 'files.edgestore.dev' },
     ],
+
+    // allow any possible image host
+    // remotePatterns: [
+    //   {
+    //     protocol: 'https',
+    //     hostname: '**',
+    //   },
+    // ],
   },
   // transpilePackages: ['@auth/prisma-adapter'],
 };
