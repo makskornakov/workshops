@@ -65,11 +65,7 @@ export default async function MaterialLibrary() {
   );
 }
 
-export const MaterialCard = ({
-  material,
-}: {
-  material: Material & { author: { name: string } };
-}) => {
+const MaterialCard = ({ material }: { material: Material & { author: { name: string } } }) => {
   return (
     <Link
       href={`/materials/${material.id}`}

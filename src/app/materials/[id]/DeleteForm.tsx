@@ -28,7 +28,7 @@ export default function DeleteForm({ material }: { material: Material }) {
 
         await deleteMaterial(material.id);
 
-        revalidatePath('/materials', 'page');
+        // revalidatePath('/materials', 'page');
 
         router.push('/materials');
       }}
