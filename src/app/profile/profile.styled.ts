@@ -137,6 +137,7 @@ export const ProfileForm = styled.form`
     padding: 0.5rem;
     font-size: 0.9rem;
     font-weight: 200;
+    transition: border 0.2s ease-in-out;
 
     &:focus {
       outline: none;

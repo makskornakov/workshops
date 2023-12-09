@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import ClientMaterialForm from './ClientEditor';
 
-type User = NonNullable<Awaited<ReturnType<typeof getUser>>>;
+// type User = NonNullable<Awaited<ReturnType<typeof getUser>>>;
 
 export default async function MaterialEditor({ id }: { id: string }) {
   const user = await getUser();
@@ -18,6 +18,7 @@ export default async function MaterialEditor({ id }: { id: string }) {
     where: {
       id: id,
     },
+    include: { author: { select: { name: true } } },
   });
   if (!material) {
     redirect('/materials');
@@ -25,44 +26,23 @@ export default async function MaterialEditor({ id }: { id: string }) {
 
   return (
     <>
-      <PageHeading>{material ? `Edit Material: ${material.title}` : 'Create Material'}</PageHeading>
+      <PageHeading style={{ gap: '.5rem' }}>
+        Editing Material:{' '}
+        <span
+          style={{
+            color: '#a6a6a6',
+          }}
+        >
+          {material.title}
+        </span>
+      </PageHeading>
       <div>
-        <p>Author: {user.name}</p>
-
         <ClientMaterialForm
-          material={material}
+          material={material as Material & { author: { name: string } }}
           action={async (formData) => {
             'use server';
             return materialAction(formData, user.id, material.id);
           }}
-          // deleteAction={async () => {
-          //   'use server';
-          //   if (!material) return;
-          //   if (user.id === material?.authorId) {
-          //     const res = await prisma.material.delete({
-          //       where: {
-          //         id: material?.id,
-          //       },
-          //     });
-          //     console.log('deleted material', res);
-          //     redirect('/materials');
-          //   }
-          // }}
-          // uploadAction={async (formData) => {
-          //   'use server';
-          //   const uploadedImage = formData.get('mediaUrl') as File;
-          //   if (!uploadedImage) return;
-
-          //   const res = await edgestore.avatarFiles.upload({
-          //     file: uploadedImage,
-          //     onProgressChange: (progress) => {
-          //       console.log(progress);
-          //     },
-          //     // options: {
-          //     //   replaceTargetUrl: currentImage,
-          //     // },
-          //   });
-          // }}
         />
       </div>
     </>
@@ -70,18 +50,16 @@ export default async function MaterialEditor({ id }: { id: string }) {
 }
 
 export async function materialAction(formData: FormData, userId: string, materialId: string) {
-  // 'use server';
   const data = formData;
   const title = data.get('title');
   if (title?.toString().trim() === '') return;
 
   const description = data.get('description');
-  const mediaUrl = data.get('mediaUrl');
+
   const content = data.get('content');
   const materialObj = {
     title: title,
     description: description,
-    mediaUrl: mediaUrl,
     paragraph: content,
     authorId: userId,
   };
@@ -92,8 +70,6 @@ export async function materialAction(formData: FormData, userId: string, materia
     },
     data: materialObj as Material,
   });
-
-  // console.log(result);
 
   redirect(`/materials/${result.id}`);
 }

@@ -1,138 +1,172 @@
 'use client';
 import { Material } from '@prisma/client';
-import Image from 'next/image';
+import UploadMediaZone from './UploadMedia';
 import { useState } from 'react';
-import { assignMaterialMediaUrl } from '~/actions/saveAvatarUrl';
 import { useEdgeStore } from '~/lib/edgestore';
+import { assignMaterialMediaUrl } from '~/actions/saveAvatarUrl';
+import { useEventListener } from 'usehooks-ts';
+import { MaterialEditorForm } from './Editor.styled';
 
 export default function ClientMaterialForm({
   action,
-  // uploadAction,
   material,
 }: {
-  action: (formData: FormData) => void;
-  // uploadAction: (formData: FormData) => void;
-  material: Material;
+  action: (formData: FormData) => Promise<void>;
+  material: Material & { author: { name: string } };
 }) {
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [mediaUrl, setMediaUrl] = useState<string | null>(material.mediaUrl);
+  const [file, setFile] = useState<File | null>(null);
+  const [uploadingFile, setUploadingFile] = useState(false);
+  const [saving, setSaving] = useState(false);
+
   const { edgestore } = useEdgeStore();
 
-  const imageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const uploadedImageURL = URL.createObjectURL(event.target.files[0]);
-      setSelectedImage(event.target.files[0]);
-      setMediaUrl(uploadedImageURL);
-      // setUserImage(uploadedImageURL);
+  const [pageDragOver, setPageDragOver] = useState(false);
+
+  // only on dragover start
+  useEventListener(
+    'dragenter',
+    () => {
+      console.log('dragenter');
+      setPageDragOver(true);
+    },
+    undefined,
+    true,
+  );
+  useEventListener(
+    'dragend',
+    () => {
+      console.log('dragend');
+      setPageDragOver(false);
+    },
+    undefined,
+    true,
+  );
+
+  function checkCoordinates(event: DragEvent) {
+    const boundOffset = 0;
+    // return true if coordinates are outside of the window
+    if (event.clientX <= 15 || event.clientY <= boundOffset) {
+      return true;
     }
-  };
-  const removeSelectedImage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    setSelectedImage(null);
-    setMediaUrl(material.mediaUrl);
-    // delete media file in future
-  };
+    if (
+      event.clientX >= window.innerWidth - boundOffset ||
+      event.clientY >= window.innerHeight - boundOffset
+    ) {
+      return true;
+    }
+    return false;
+  }
 
-  // const mediaUrl = material?.mediaUrl
+  useEventListener(
+    'dragleave',
+    (event) => {
+      console.log('dragleave', event);
+
+      if (checkCoordinates(event)) {
+        setPageDragOver(false);
+      }
+    },
+    undefined,
+    true,
+  );
+  useEventListener(
+    'drop',
+    (event) => {
+      console.log('drop', event);
+      setPageDragOver(false);
+    },
+    undefined,
+    true,
+  );
+
   return (
-    <>
-      <form
-        style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '10rem' }}
-        action={action}
-        // onSubmit={(e) => {
-        //   // console me title
-        //   const data = new FormData(e.target as HTMLFormElement);
-        //   const title = data.get('title') as string;
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <MaterialEditorForm
+        // action={action}
+        action={async (formData) => {
+          if (file) {
+            // console.log('set to true');
+            setTimeout(() => {
+              // Workaround to prevent batching
+              setUploadingFile(true);
+            });
+            const res = await edgestore.mediaFiles.upload({
+              file: file,
+              // onProgressChange: (progress) => {
+              //   // setProgress(progress);
+              // },
+              ...(material.mediaUrl
+                ? {
+                    options: {
+                      replaceTargetUrl: material.mediaUrl,
+                    },
+                  }
+                : undefined),
+              input: {
+                materialId: material.id,
+              },
+            });
+            console.log(res);
+            setFile(null);
+            // console.log('set to false');
+            setTimeout(() => {
+              // Workaround to prevent batching
+              setUploadingFile(false);
+            });
+            setTimeout(() => {
+              setSaving(true);
+            });
 
-        //   const explicit = checkExplicit(title);
-        //   if (explicit) {
-        //     e.preventDefault();
-        //     alert(`Сам ты ${explicit}`);
-        //     return;
-        //   }
-        // }}
+            await assignMaterialMediaUrl(material.id, res.url);
+            setSaving(false);
+          }
+
+          await action(formData);
+        }}
       >
-        <label htmlFor="title">Title</label>
-
-        <input type="text" id="title" name="title" defaultValue={material?.title} />
-        <label htmlFor="description">Description</label>
-        <textarea id="description" name="description" defaultValue={material?.description} />
-        {/* <label htmlFor="mediaUrl">Media URL</label> */}
-        {/* <form action={uploadAction}> */}
-        {/* {selectedImage && (
-          <Image src={URL.createObjectURL(selectedImage)} alt="Thumb" width={150} height={150} />
-        )} */}
-        {(selectedImage || mediaUrl) && (
-          <div style={{ width: '100%', position: 'relative', height: '150px' }}>
-            <Image
-              src={selectedImage ? URL.createObjectURL(selectedImage) : mediaUrl ?? ''}
-              alt="Thumb"
-              objectFit="contain"
-              fill
+        <div>
+          <div>
+            <label htmlFor="title">Title</label>
+            <input type="text" id="title" name="title" defaultValue={material?.title} />
+          </div>
+          <div>
+            <label>Media Content</label>
+            <UploadMediaZone
+              material={material}
+              file={file}
+              setFile={setFile}
+              uploadingFile={uploadingFile}
+              setUploadingFile={setUploadingFile}
+              pageDragOver={pageDragOver}
             />
           </div>
-        )}
-        <input accept="image/*" type="file" id="my-upload-input" onChange={imageChange} />
-        <button
-          type="button"
-          onClick={async () => {
-            // e.preventDefault();
-            if (!selectedImage || !material.id) return;
-            try {
-              const res = await edgestore.mediaFiles.upload({
-                file: selectedImage,
-                onProgressChange: (progress) => {
-                  console.log(progress);
-                },
-                ...(material.mediaUrl
-                  ? {
-                      options: {
-                        replaceTargetUrl: material.mediaUrl,
-                      },
-                    }
-                  : undefined),
-                input: {
-                  materialId: material.id,
-                },
-              });
-              console.log(res);
-              setMediaUrl(res.url);
-              await assignMaterialMediaUrl(material.id, res.url);
-            } catch (error) {
-              console.log(error);
-            }
-          }}
-        >
-          Upload
-        </button>
-        <button onClick={removeSelectedImage}>Remove</button>
-
-        {/* </form> */}
-        {/* <label htmlFor="mediaUrl">Media URL</label> */}
-        {/* <input
-          type="text"
-          id="mediaUrl"
-          name="mediaUrl"
-          defaultValue={material?.mediaUrl}
-          value={mediaUrl ?? ''}
-        /> */}
-        <label htmlFor="Content">Content</label>
-        <textarea id="content" name="content" defaultValue={material?.paragraph ?? ''} />
-
-        <button type="submit">{material ? 'Edit' : 'Create'} Material</button>
-      </form>
-    </>
+        </div>
+        <div>
+          <div>
+            <label htmlFor="description">Description</label>
+            <textarea id="description" name="description" defaultValue={material?.description} />
+          </div>
+          <div
+            style={{
+              height: '100%',
+            }}
+          >
+            <label htmlFor="Content">Content</label>
+            <textarea
+              id="content"
+              name="content"
+              defaultValue={material?.paragraph ?? ''}
+              style={{ maxHeight: '20rem', flexGrow: 1 }}
+            />
+          </div>
+        </div>
+        <div>
+          <p>Author: {material.author.name}</p>
+          <button type="submit" disabled={uploadingFile || saving}>
+            {saving ? 'Saving...' : 'Save'}
+          </button>
+        </div>
+      </MaterialEditorForm>
+    </div>
   );
 }
-
-// function checkExplicit(title: string): boolean | string {
-//   const explicitWords = ['penis', 'hui'];
-
-//   for (let word of explicitWords) {
-//     if (title.toLowerCase().includes(word)) {
-//       return word;
-//     }
-//   }
-
-//   return false;
-// }
