@@ -9,7 +9,7 @@ const defaultCategories: Category[] = [
     description: 'Default category',
   },
   {
-    name: 'Business and Entrepreneurship:',
+    name: 'Business and Entrepreneurship',
     description:
       'Materials for business planning, marketing strategies, financial literacy, and entrepreneurial thinking',
   },
