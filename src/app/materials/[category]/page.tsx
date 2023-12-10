@@ -2,7 +2,7 @@ import { PageHeading } from '../../profile/profile.styled';
 import prisma from '../../../../lib/prisma';
 import Link from 'next/link';
 import { StyledButton } from '~/components/layout/navbar/NavBar.styled';
-import { getUser } from '../../utils/prismaUser';
+import { getUser } from '../../../utils/prismaUser';
 import { redirect } from 'next/navigation';
 import { Material } from '@prisma/client';
 import SelectComp from '../../../components/ui/SelectComp';

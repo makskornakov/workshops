@@ -15,10 +15,10 @@ const links = [
 ];
 
 const userLinks = [
-  {
-    href: '/workshops',
-    label: 'Workshops',
-  },
+  // {
+  //   href: '/workshops',
+  //   label: 'Workshops',
+  // },
 
   {
     href: '/profile',
@@ -33,14 +33,6 @@ export default function LinksNav({ isUser }: { isUser: boolean }) {
   const linksToRender = isUser ? [...links, ...userLinks] : links;
   return (
     <LinkContainer>
-      {/* <Link href={'/'} style={pathname === '/' ? { color: '#fff' } : {}}>
-        Home
-      </Link>
-      {isUser && (
-        <Link href={'/profile'} style={resolvedPathname[1] === 'profile' ? { color: '#fff' } : {}}>
-          Profile
-        </Link>
-      )} */}
       {linksToRender.map((link) => (
         <Link
           href={link.href}

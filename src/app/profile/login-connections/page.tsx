@@ -1,6 +1,5 @@
 import { revalidatePath } from 'next/cache';
-// import Link from 'next/link';
-import { getUser, getUserAccounts } from '~/app/utils/prismaUser';
+import { getUser, getUserAccounts } from '~/utils/prismaUser';
 import prisma from '../../../../lib/prisma';
 import {
   ConnectedAccountForm,
@@ -12,11 +11,9 @@ import {
 import { getProviders } from 'next-auth/react';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-// import { LoginProviderButton } from '~/components/signIn.styled';
 import { ConnectionButtons } from './ConnectionButtons';
 import { StyledButton } from '~/components/layout/navbar/NavBar.styled';
 import Link from 'next/link';
-// import { Fragment } from 'react';
 
 export default async function LoginConnections() {
   const user = await getUser();
@@ -24,9 +21,7 @@ export default async function LoginConnections() {
   const accounts = await getUserAccounts(user);
 
   // find accounts that is github and get github data
-
   const ghAccount = accounts?.find((acc) => acc.provider === 'github');
-
   const ghData = ghAccount ? await getGitHubData(ghAccount.providerAccountId) : undefined;
 
   return (

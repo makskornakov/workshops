@@ -75,7 +75,6 @@ export default function ServerSelectComp({
         {selectedCategory.name}
         <span></span>
         <SelectLinksContainer style={{ display: selectOpen ? 'flex' : 'none' }}>
-          {/* <Link href={`/materials/${'all'}`}>All</Link> */}
           {completeCategories.map((category) => (
             <Link
               key={category.slug}
@@ -100,7 +99,7 @@ const CategoryWrapper = styled.div`
 const SelectContainer = styled.label<{ 'data-open': boolean }>`
   border: 1px solid #b1b1b1;
   border-radius: 0.25rem;
-  /* padding left .5rem tob and bottm .5rem, right 2.5rem */
+
   padding: 0.4rem;
   padding-right: 1rem;
   font-size: 0.8rem;

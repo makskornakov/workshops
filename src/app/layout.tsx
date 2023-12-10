@@ -2,8 +2,6 @@ import './globals.linaria.global';
 import { Inter } from 'next/font/google';
 import NavBar from '~/components/layout/navbar/NavBar';
 import Providers from '~/components/layout/Providers';
-// import Image from 'next/image';
-// import '@uploadthing/react/styles.css';
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -1,5 +1,5 @@
 import prisma from '../../../lib/prisma';
-import { getUser } from '../utils/prismaUser';
+import { getUser } from '../../utils/prismaUser';
 
 export default async function WorkshopForm({ id }: { id?: string }) {
   const user = await getUser();

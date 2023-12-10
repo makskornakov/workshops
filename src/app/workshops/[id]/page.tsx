@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { getUser } from '../../utils/prismaUser';
+import { getUser } from '../../../utils/prismaUser';
 import WorkshopForm from '../WorkshopForm';
 
 export default async function Workshops({ params }: { params: { id: string } }) {

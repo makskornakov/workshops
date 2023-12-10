@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { getUser } from '../app/utils/prismaUser';
+import { getUser } from '../utils/prismaUser';
 import { ProfileForm } from '../app/profile/profile.styled';
 import { useFormStatus } from 'react-dom';
 
@@ -24,7 +24,7 @@ export default function ProfileSettingsForm({
 const StatedFormElements = ({ user }: { user: User }) => {
   const { pending } = useFormStatus();
   const [name, setName] = useState(user?.name ?? '');
-  // const [buttonText, setButtonText] = useState('Save');
+
   return (
     <>
       <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />

@@ -10,7 +10,6 @@ export function SignInButtons({
 }: {
   providers: NonNullable<Awaited<ReturnType<typeof getProviders>>>;
 }) {
-  // console.log('providers', providers);
   return (
     <>
       {Object.values(providers).map((provider) => (

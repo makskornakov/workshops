@@ -3,7 +3,7 @@ import { Header, HeaderContainer, StyledLink } from './NavBar.styled';
 import Link from 'next/link';
 import SignOutButton from './SignOutButton';
 import Image from 'next/image';
-import { getUser } from '~/app/utils/prismaUser';
+import { getUser } from '~/utils/prismaUser';
 import LinksNav from './LinksNav';
 
 import logo from '~/icons/logo.svg';
@@ -30,8 +30,6 @@ export default async function NavBar() {
             >
               Workshop Studio
             </Link>
-
-            {/* {user ? <SignOutButton /> : <Link href={'/api/auth/signin'}>Sign in</Link>} */}
           </div>
         </div>
         <div>
@@ -46,7 +44,6 @@ export default async function NavBar() {
                 )}
                 <p>{user.name}</p>
               </Link>
-              {/* <StyledLink href={'/profile'}>Profile</StyledLink> */}
               <SignOutButton />
             </>
           ) : (

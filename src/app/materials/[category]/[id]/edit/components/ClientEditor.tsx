@@ -4,7 +4,6 @@ import UploadMediaZone from '../../../../../../components/UploadMedia';
 import { useState } from 'react';
 import { useEdgeStore } from '~/lib/edgestore';
 import { assignMaterialMediaUrl } from '~/actions/serverActions';
-import { useEventListener } from 'usehooks-ts';
 import { MaterialEditorForm, SelectWrapLabel } from './Editor.styled';
 import { styled } from '@linaria/react';
 
@@ -42,63 +41,6 @@ export default function ClientMaterialForm({
     }
     setControlledInputs((prev) => ({ ...prev, [name]: value }));
   }
-
-  // only on dragover start
-  useEventListener(
-    'dragenter',
-    () => {
-      console.log('dragenter');
-      setPageDragOver(true);
-    },
-    undefined,
-    true,
-  );
-  useEventListener(
-    'dragend',
-    () => {
-      console.log('dragend');
-      setPageDragOver(false);
-    },
-    undefined,
-    true,
-  );
-
-  function checkCoordinates(event: DragEvent) {
-    const boundOffset = 0;
-    // return true if coordinates are outside of the window
-    if (event.clientX <= 15 || event.clientY <= boundOffset) {
-      return true;
-    }
-    if (
-      event.clientX >= window.innerWidth - boundOffset ||
-      event.clientY >= window.innerHeight - boundOffset
-    ) {
-      return true;
-    }
-    return false;
-  }
-
-  useEventListener(
-    'dragleave',
-    (event) => {
-      console.log('dragleave', event);
-
-      if (checkCoordinates(event)) {
-        setPageDragOver(false);
-      }
-    },
-    undefined,
-    true,
-  );
-  useEventListener(
-    'drop',
-    (event) => {
-      console.log('drop', event);
-      setPageDragOver(false);
-    },
-    undefined,
-    true,
-  );
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -186,6 +128,7 @@ export default function ClientMaterialForm({
               uploadingFile={uploadingFile}
               setUploadingFile={setUploadingFile}
               pageDragOver={pageDragOver}
+              setPageDragOver={setPageDragOver}
             />
           </div>
         </div>

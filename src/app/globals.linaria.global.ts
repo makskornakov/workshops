@@ -1,7 +1,7 @@
 import { css } from '@linaria/core';
 
-import { media } from './utils/media-queries';
-import { reset } from './utils/reset';
+import { media } from '../utils/media-queries';
+import { reset } from '../utils/reset';
 
 export const globals = css`
   :global() {

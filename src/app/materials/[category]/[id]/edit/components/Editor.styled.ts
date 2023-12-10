@@ -22,10 +22,11 @@ export const UploadDiv = styled.div<{ 'data-is-dragging': boolean; 'data-is-focu
   font-weight: 300;
   cursor: pointer;
   color: #888;
-  transition-duration: 0.2s;
+  transition-duration: 0s;
   transition-property: border-color, color;
 
   &[data-is-focused='true'] {
+    transition-duration: 0.2s;
     border-color: #fff;
     color: #fff;
   }

@@ -1,4 +1,4 @@
-import { getUser } from '~/app/utils/prismaUser';
+import { getUser } from '~/utils/prismaUser';
 import MaterialEditor from './components/ServerEditor';
 import prisma from '../../../../../../lib/prisma';
 import { redirect } from 'next/navigation';

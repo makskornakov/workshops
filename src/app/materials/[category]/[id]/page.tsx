@@ -1,7 +1,7 @@
 import { PageHeading } from '~/app/profile/profile.styled';
 import prisma from '../../../../../lib/prisma';
 import Link from 'next/link';
-import { getUser } from '~/app/utils/prismaUser';
+import { getUser } from '~/utils/prismaUser';
 import { StyledLink } from '~/components/layout/navbar/NavBar.styled';
 
 import Image from 'next/image';

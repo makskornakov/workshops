@@ -4,9 +4,24 @@ import { assignMaterialMediaUrl } from '~/actions/serverActions';
 import { useEdgeStore } from '~/lib/edgestore';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
-// import { CSSProperties } from '@linaria/core';
+
 import { UploadDiv } from '../app/materials/[category]/[id]/edit/components/Editor.styled';
-// import { ProfileSection } from '../../profile/profile.styled';
+import { useEventListener } from 'usehooks-ts';
+
+function checkDragCoordinates(event: DragEvent) {
+  const boundOffset = 0;
+
+  if (event.clientX <= 15 || event.clientY <= boundOffset) {
+    return true;
+  }
+  if (
+    event.clientX >= window.innerWidth - boundOffset ||
+    event.clientY >= window.innerHeight - boundOffset
+  ) {
+    return true;
+  }
+  return false;
+}
 
 export default function UploadMediaZone({
   material,
@@ -15,6 +30,7 @@ export default function UploadMediaZone({
   uploadingFile,
   setUploadingFile,
   pageDragOver,
+  setPageDragOver,
 }: {
   material: Material;
   file: File | null;
@@ -22,6 +38,7 @@ export default function UploadMediaZone({
   uploadingFile: boolean;
   setUploadingFile: (uploadingFile: boolean) => void;
   pageDragOver: boolean;
+  setPageDragOver: (pageDragOver: boolean) => void;
 }) {
   const [mediaUrl, setMediaUrl] = useState<string | null>(material.mediaUrl);
 
@@ -50,6 +67,48 @@ export default function UploadMediaZone({
     // ! resolve later
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // only on dragover start
+  useEventListener(
+    'dragenter',
+    () => {
+      console.log('dragenter');
+      setPageDragOver(true);
+    },
+    undefined,
+    true,
+  );
+  useEventListener(
+    'dragend',
+    () => {
+      console.log('dragend');
+      setPageDragOver(false);
+    },
+    undefined,
+    true,
+  );
+
+  useEventListener(
+    'dragleave',
+    (event) => {
+      console.log('dragleave', event);
+
+      if (checkDragCoordinates(event)) {
+        setPageDragOver(false);
+      }
+    },
+    undefined,
+    true,
+  );
+  useEventListener(
+    'drop',
+    (event) => {
+      console.log('drop', event);
+      setPageDragOver(false);
+    },
+    undefined,
+    true,
+  );
 
   return (
     <section>
