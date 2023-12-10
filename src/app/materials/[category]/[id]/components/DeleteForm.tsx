@@ -1,19 +1,14 @@
 'use client';
 import { Material } from '@prisma/client';
-import { StyledButton } from '~/components/NavBar.styled';
+import { StyledButton } from '~/components/layout/navbar/NavBar.styled';
 import { useEdgeStore } from '~/lib/edgestore';
 
 import { useRouter } from 'next/navigation';
-import { deleteMaterial } from '~/actions/saveAvatarUrl';
-// import Router from 'next/router';
+import { deleteMaterial } from '~/actions/serverActions';
 
 export default function DeleteForm({ material }: { material: Material }) {
   const { edgestore } = useEdgeStore();
   const router = useRouter();
-
-  // if ('kek') {
-  //   redirect('/materials');
-  // }
 
   return (
     <form
@@ -26,9 +21,9 @@ export default function DeleteForm({ material }: { material: Material }) {
 
         await deleteMaterial(material.id);
 
-        // revalidatePath('/materials', 'page');
-
         router.push('/materials');
+
+        // revalidatePath('/materials', 'page');
       }}
     >
       <StyledButton type="submit" red>

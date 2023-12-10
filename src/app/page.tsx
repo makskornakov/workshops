@@ -1,7 +1,7 @@
 // import Image from 'next/image';
 // import { LoginButton, LogoutButton, ProfileButton, RegisterButton } from '../components/buttons';
 
-import { Main } from './page.styled';
+// import { Main } from './page.styled';
 // import prisma from '../../lib/prisma';
 // import MagicLinkEmail from './utils/magicLink';
 import { PageHeading } from './profile/profile.styled';
@@ -22,9 +22,7 @@ export default async function Home() {
   return (
     <>
       <PageHeading>Home Page</PageHeading>
-      <Main>
-        <div>This is the main page</div>
-      </Main>
+      <div>This is the main page</div>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 import { renderAsync } from '@react-email/components';
-import MagicLinkEmail from './magicLink';
+import MagicLinkEmail from './MagicLink';
 
 interface Params {
   identifier: string;

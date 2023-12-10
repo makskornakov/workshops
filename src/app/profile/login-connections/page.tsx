@@ -14,7 +14,7 @@ import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 // import { LoginProviderButton } from '~/components/signIn.styled';
 import { ConnectionButtons } from './ConnectionButtons';
-import { StyledButton } from '~/components/NavBar.styled';
+import { StyledButton } from '~/components/layout/navbar/NavBar.styled';
 import Link from 'next/link';
 // import { Fragment } from 'react';
 

@@ -1,11 +1,11 @@
 import { PageHeading } from '../../profile/profile.styled';
 import prisma from '../../../../lib/prisma';
 import Link from 'next/link';
-import { StyledButton } from '~/components/NavBar.styled';
+import { StyledButton } from '~/components/layout/navbar/NavBar.styled';
 import { getUser } from '../../utils/prismaUser';
 import { redirect } from 'next/navigation';
 import { Material } from '@prisma/client';
-import SelectComp from './SelectComp';
+import SelectComp from '../../../components/ui/SelectComp';
 import { styled } from '@linaria/react';
 
 export default async function MaterialLibrary({ params }: { params: { category: string } }) {

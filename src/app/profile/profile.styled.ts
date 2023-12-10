@@ -1,6 +1,6 @@
 import { styled } from '@linaria/react';
 
-import { SmallLinkStyle } from '~/components/NavBar.styled';
+import { SmallLinkStyle } from '~/components/layout/navbar/NavBar.styled';
 
 export const PageHeading = styled.h1`
   /* outline: 1px solid pink; */

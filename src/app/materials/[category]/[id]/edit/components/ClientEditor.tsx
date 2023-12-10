@@ -1,14 +1,14 @@
 'use client';
 import { Material } from '@prisma/client';
-import UploadMediaZone from './UploadMedia';
+import UploadMediaZone from '../../../../../../components/UploadMedia';
 import { useState } from 'react';
 import { useEdgeStore } from '~/lib/edgestore';
-import { assignMaterialMediaUrl } from '~/actions/saveAvatarUrl';
+import { assignMaterialMediaUrl } from '~/actions/serverActions';
 import { useEventListener } from 'usehooks-ts';
 import { MaterialEditorForm, SelectWrapLabel } from './Editor.styled';
 import { styled } from '@linaria/react';
 
-import { maxMaterialFieldsLengths as maxLengths } from '~/config';
+import { maxMaterialFieldsLengths as maxLengths } from '~/configs/config';
 
 export default function ClientMaterialForm({
   action,

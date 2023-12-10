@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from './authOptions';
+import { authOptions } from '../../configs/authOptions';
 import prisma from '../../../lib/prisma';
 
 export async function getUser() {

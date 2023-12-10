@@ -2,7 +2,7 @@
 import { getProviders, signIn } from 'next-auth/react';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import { LoginProviderButton } from '~/components/signIn.styled';
+import { LoginProviderButton } from '~/app/auth/signin/signIn.styled';
 import { ConnectionsWrapper } from '../profile.styled';
 export function ConnectionButtons({
   providers,

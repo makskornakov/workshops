@@ -4,7 +4,7 @@ import { getProviders } from 'next-auth/react';
 // import { redirect } from 'next/navigation';
 import { SignInButtons } from './SignInButtons';
 
-import { LoginForm } from '~/components/signIn.styled';
+import { LoginForm } from '~/app/auth/signin/signIn.styled';
 import { getUser } from '~/app/utils/prismaUser';
 import { redirect } from 'next/navigation';
 
@@ -41,7 +41,38 @@ export default async function SignIn({
   return (
     <LoginForm>
       <h1>Sign In to Workshops</h1>
-      {searchParams.error && <p>Error: {searchParams.error}</p>}
+      {searchParams.error && (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '.5rem',
+            alignItems: 'center',
+          }}
+        >
+          {searchParams.error === 'OAuthAccountNotLinked' ? (
+            <>
+              <p
+                style={{
+                  borderBottom: '1px solid #e32323',
+                }}
+              >
+                This provider is not linked yet
+              </p>
+              <p
+                style={{
+                  fontSize: '0.9rem',
+                  color: '#c9c9c9',
+                }}
+              >
+                Sign in with the same provider and then link accounts
+              </p>
+            </>
+          ) : (
+            searchParams.error
+          )}
+        </div>
+      )}
       <SignInButtons providers={providers} />
     </LoginForm>
   );

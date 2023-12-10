@@ -1,11 +1,11 @@
 import { PageHeading } from '~/app/profile/profile.styled';
-import prisma from '../../../../lib/prisma';
+import prisma from '../../../../../../../lib/prisma';
 import type { Material } from '@prisma/client';
 import { getUser } from '~/app/utils/prismaUser';
 import { redirect } from 'next/navigation';
 // import { revalidatePath } from 'next/cache';
 import ClientMaterialForm from './ClientEditor';
-import { maxMaterialFieldsLengths } from '~/config';
+import { maxMaterialFieldsLengths } from '~/configs/config';
 // type User = NonNullable<Awaited<ReturnType<typeof getUser>>>;
 
 export default async function MaterialEditor({ id }: { id: string }) {

@@ -13,8 +13,8 @@ import {
   // ProfileSidebar,
 } from './profile.styled';
 // import { UploadDnD } from '~/components/UploadZone';
-import MyUploadComp from '~/components/MyUploadComp';
-import ProfileSettingsForm from './clientEditor';
+import ProfilePictureUpload from '~/app/profile/components/ProfilePictureUpload';
+import ProfileSettingsForm from '../../components/OneInputClientForm';
 // import { MultiUploader } from '~/components/example';
 // import MyCompAgain from '~/components/myCompAgain';
 
@@ -39,7 +39,7 @@ export default async function Profile() {
             <h2>Profile Picture</h2>
             <p>Avatar is used across the site, in future it will be used for public workshops</p>
           </div>
-          {user.image && <MyUploadComp currentImage={user.image} />}
+          {user.image && <ProfilePictureUpload currentImage={user.image} />}
         </ProfileSectionInside>
         <ProfileSectionFooter>
           <p>Better use square image.</p>

@@ -5,8 +5,8 @@ import EmailProvider from 'next-auth/providers/email';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 // import { PrismaClient } from '@prisma/client';
 import { NextAuthOptions } from 'next-auth';
-import prisma from '../../../lib/prisma';
-import { sendVerification } from '~/app/utils/verificationEmail';
+import prisma from '../../lib/prisma';
+import { sendVerification } from '~/configs/email/verificationEmail';
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -16,36 +16,11 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXT_PUBLIC_SECRET ?? '',
   pages: {
     signIn: '/auth/signin',
-    error: '/auth/error', // Error code passed in query string as ?error=
+    // error: '/auth/error', // Error code passed in query string as ?error=
     verifyRequest: '/auth/email-verified',
   },
 
   providers: [
-    // CredentialsProvider({
-    //   name: 'Email',
-    //   credentials: {
-    //     email: {
-    //       label: 'Email',
-    //       type: 'email',
-    //       placeholder: 'example@example.com',
-    //     },
-    //     password: { label: 'Password', type: 'password' },
-    //     confirmPassword: { label: 'Confirm Password', type: 'password' },
-    //   },
-
-    //   async authorize(credentials) {
-    //     const user = {
-    //       email: credentials.email,
-    //       image: '',
-    //     };
-    //     if (credentials.password !== credentials.confirmPassword) {
-    //       throw new Error('Passwords do not match');
-    //     }
-    //     if (user) {
-    //       return user;
-    //     }
-    //   },
-    // }),
     GoogleProvider({
       // name: 'Google',
       clientId: process.env.GOOGLE_ID ?? '',

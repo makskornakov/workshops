@@ -1,11 +1,11 @@
 import { Material } from '@prisma/client';
 import { useEffect, useState } from 'react';
-import { assignMaterialMediaUrl } from '~/actions/saveAvatarUrl';
+import { assignMaterialMediaUrl } from '~/actions/serverActions';
 import { useEdgeStore } from '~/lib/edgestore';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 // import { CSSProperties } from '@linaria/core';
-import { UploadDiv } from './Editor.styled';
+import { UploadDiv } from '../app/materials/[category]/[id]/edit/components/Editor.styled';
 // import { ProfileSection } from '../../profile/profile.styled';
 
 export default function UploadMediaZone({

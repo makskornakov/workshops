@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { getUser } from '../utils/prismaUser';
-import { ProfileForm } from './profile.styled';
+import { getUser } from '../app/utils/prismaUser';
+import { ProfileForm } from '../app/profile/profile.styled';
 import { useFormStatus } from 'react-dom';
 
 type User = NonNullable<Awaited<ReturnType<typeof getUser>>>;
