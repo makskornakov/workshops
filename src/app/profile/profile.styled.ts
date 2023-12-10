@@ -149,19 +149,17 @@ export const ProfileForm = styled.form`
     &:hover {
       border-color: var(--secondary-color);
       color: var(--secondary-color);
-      /* background-color: var(--secondary-color); */
     }
 
     &:disabled {
       color: var(--tertiary-color);
       border-color: var(--tertiary-color);
-      /* background-color: var(--tertiary-color); */
+
       cursor: not-allowed;
 
       &:hover {
         color: var(--tertiary-color);
         border-color: var(--tertiary-color);
-        /* background-color: var(--tertiary-color); */
       }
     }
   }
@@ -170,7 +168,6 @@ export const ProfileForm = styled.form`
 export const ConnectionsWrapper = styled.div`
   /* outline: 1px solid red; */
 
-  /* margin-top: 1.5rem; */
   display: flex;
   flex-direction: row;
   gap: 1rem;
@@ -196,11 +193,17 @@ export const ConnectedAccountForm = styled.form`
   span {
     font-size: 0.9rem;
     font-weight: 300;
-    color: var(--secondary-color);
+    color: var(--tertiary-color);
   }
+
   > div {
+    > p {
+      color: var(--main-color);
+    }
     > p:last-child {
-      color: var(--tertiary-color);
+      font-size: 0.85rem;
+      font-weight: 200;
+      color: var(--secondary-color);
     }
   }
 `;

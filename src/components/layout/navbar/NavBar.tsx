@@ -37,11 +37,29 @@ export default async function NavBar() {
                 style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
               >
                 {user.image && (
-                  <Image src={user.image} alt={user.name + ' photo'} width={40} height={40} />
+                  <div
+                    style={{
+                      borderRadius: '50%',
+                      overflow: 'hidden',
+                      width: '3rem',
+                      height: '3rem',
+                      position: 'relative',
+                    }}
+                  >
+                    <Image
+                      src={user.image}
+                      alt={user.name + ' photo'}
+                      fill
+                      quality={50}
+                      style={{
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
                 )}
                 <p>{user.name}</p>
+                <SignOutButton />
               </Link>
-              <SignOutButton />
             </>
           ) : (
             <>
