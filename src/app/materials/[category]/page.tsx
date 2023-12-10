@@ -1,7 +1,7 @@
 import { PageHeading } from '~/styles/shared';
 import prisma from '../../../../lib/prisma';
 import Link from 'next/link';
-import { StyledButton } from '~/components/layout/navbar/NavBar.styled';
+import { StyledButton } from '~/styles/shared';
 import { getUser } from '../../../utils/prismaUser';
 import { redirect } from 'next/navigation';
 import { Material } from '@prisma/client';

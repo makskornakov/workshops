@@ -1,9 +1,9 @@
-import { CSSProperties } from '@linaria/core';
 import { styled } from '@linaria/react';
 import Link from 'next/link';
+import { css } from '~/utils/styleUtils';
 
 export const Header = styled.header`
-  border-bottom: 1px solid #333333;
+  border-bottom: 1px solid var(--border-color);
 
   position: sticky;
   top: 0;
@@ -40,17 +40,19 @@ export const HeaderContainer = styled.div`
     column-gap: 1rem;
   }
 `;
-export const SmallLinkStyle: CSSProperties = {
-  color: '#b5b5b5',
-  textDecoration: 'none',
-  fontSize: '0.9rem',
-  fontWeight: 300,
-  transition: 'all 0.2s ease-in-out',
 
-  '&:hover': {
-    color: '#fff',
-  },
-};
+export const SmallLinkStyle = css`
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 300;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: var(--main-color);
+  }
+`;
+
 export const LinkContainer = styled.nav`
   padding: 0.25rem 0rem;
   /* background: blue; */
@@ -61,49 +63,4 @@ export const LinkContainer = styled.nav`
   > a {
     ${SmallLinkStyle};
   }
-`;
-
-const LinkButtonStyle: CSSProperties = {
-  background: 'none',
-  color: '#b1b1b1',
-  borderColor: ' #b1b1b1',
-
-  borderStyle: 'solid',
-  borderWidth: '1px',
-  borderRadius: '0.25rem',
-  fontSize: '.8rem',
-  padding: '0.5rem 1rem',
-  cursor: 'pointer',
-  transitionDuration: '0.2s',
-  transitionProperty: 'color, border-color',
-
-  '&:hover': {
-    // background: '#333',
-    color: '#ddd',
-    borderColor: '#ddd',
-  },
-
-  '&:disabled': {
-    background: '#222',
-    borderColor: '#b1b1b1',
-    color: '#b1b1b1',
-    cursor: 'not-allowed',
-
-    '&:hover': {
-      background: '#222',
-      color: '#b1b1b1',
-    },
-  },
-};
-
-export const StyledButton = styled.button<{ small?: boolean; red?: boolean }>`
-  ${LinkButtonStyle};
-  font-size: ${({ small }) => (small ? '.75rem' : '.8rem')};
-  padding: ${({ small }) => (small ? '0.4rem 0.75rem' : '0.5rem 1rem')};
-  border-color: ${(props) => (props.red ? '#F02E2E' : '#b1b1b1')};
-  /* color  : ${({ red }) => (red ? '#d20000' : '#000')}; */
-`;
-
-export const StyledLink = styled(Link)`
-  ${LinkButtonStyle};
 `;

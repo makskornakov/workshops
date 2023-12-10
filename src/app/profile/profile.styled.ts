@@ -1,6 +1,7 @@
 import { styled } from '@linaria/react';
 
 import { SmallLinkStyle } from '~/components/layout/navbar/NavBar.styled';
+import { css } from '~/utils/styleUtils';
 
 export const ProfileContainer = styled.div`
   /* outline: 1px solid red; */
@@ -34,10 +35,6 @@ export const ProfileSidebar = styled.div`
     ${SmallLinkStyle}
   }
 `;
-/** Fake css function for syntax highlighting */
-function css(...args: any) {
-  return args as string;
-}
 
 const sharedSectionStyle = css`
   /* outline: 1px solid yellow; */
@@ -45,7 +42,7 @@ const sharedSectionStyle = css`
   width: 100%;
   /* min-height: 16rem; */
   background: none;
-  border: 1px solid #333333;
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   display: flex;
   /* gap: 1rem; */
@@ -91,11 +88,11 @@ export const ProfileSectionFooter = styled.div`
 
   /* position: absolute; */
   /* bottom: 0; */
-  border-top: 1px solid #333333;
+  border-top: 1px solid var(--border-color);
   /* left: 0; */
   font-weight: 300;
   font-size: 0.9rem;
-  color: #b1b1b1;
+  color: var(--tertiary-color);
 
   display: flex;
   flex-direction: column;
@@ -121,8 +118,8 @@ export const ProfileForm = styled.form`
     background: none;
     width: 20rem;
     height: 2rem;
-    color: #ffffff;
-    border: 1px solid #333333;
+    color: var(--main-color);
+    border: 1px solid var(--border-color);
     border-radius: 0.5rem;
     padding: 0.5rem;
     font-size: 0.9rem;
@@ -131,29 +128,41 @@ export const ProfileForm = styled.form`
 
     &:focus {
       outline: none;
-      border: 1px solid #b1b1b1;
+      border: 1px solid var(--secondary-color);
     }
   }
 
   button {
     width: 6rem;
     height: 2rem;
-    border: 1px solid #333333;
+    border: 1px solid;
+    border-color: var(--border-color);
     border-radius: 0.5rem;
-    background-color: #ffffff;
-    color: #333333;
+    background: none;
+
+    color: var(--border-color);
     cursor: pointer;
     font-weight: 300;
     font-size: 1.15rem;
     transition: background-color 0.3s ease-in-out;
 
     &:hover {
-      background-color: #b1b1b1;
+      border-color: var(--secondary-color);
+      color: var(--secondary-color);
+      /* background-color: var(--secondary-color); */
     }
 
     &:disabled {
-      background-color: #b1b1b1;
+      color: var(--tertiary-color);
+      border-color: var(--tertiary-color);
+      /* background-color: var(--tertiary-color); */
       cursor: not-allowed;
+
+      &:hover {
+        color: var(--tertiary-color);
+        border-color: var(--tertiary-color);
+        /* background-color: var(--tertiary-color); */
+      }
     }
   }
 `;
@@ -187,11 +196,11 @@ export const ConnectedAccountForm = styled.form`
   span {
     font-size: 0.9rem;
     font-weight: 300;
-    color: #b1b1b1;
+    color: var(--secondary-color);
   }
   > div {
     > p:last-child {
-      color: #a1a1a1;
+      color: var(--tertiary-color);
     }
   }
 `;

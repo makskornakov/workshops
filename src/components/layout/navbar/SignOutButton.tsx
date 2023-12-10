@@ -1,6 +1,6 @@
 'use client';
 import { signOut } from 'next-auth/react';
-import { StyledButton } from './NavBar.styled';
+import { StyledButton } from '~/styles/shared';
 
 export default function SignOutButton() {
   return (

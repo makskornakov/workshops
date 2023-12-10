@@ -1,5 +1,6 @@
 import React from 'react';
-import { Header, HeaderContainer, LogoLink, StyledLink } from './NavBar.styled';
+import { Header, HeaderContainer, LogoLink } from './NavBar.styled';
+import { StyledLink } from '~/styles/shared';
 import Link from 'next/link';
 import SignOutButton from './SignOutButton';
 import Image from 'next/image';

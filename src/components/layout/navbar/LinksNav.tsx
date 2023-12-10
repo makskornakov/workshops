@@ -37,7 +37,9 @@ export default function LinksNav({ isUser }: { isUser: boolean }) {
         <Link
           href={link.href}
           key={link.href}
-          style={resolvedPathname[1] === link.href.split('/')[1] ? { color: '#fff' } : {}}
+          style={
+            resolvedPathname[1] === link.href.split('/')[1] ? { color: 'var(--main-color)' } : {}
+          }
         >
           {link.label}
         </Link>

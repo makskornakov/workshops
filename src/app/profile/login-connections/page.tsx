@@ -12,7 +12,7 @@ import { getProviders } from 'next-auth/react';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { ConnectionButtons } from './ConnectionButtons';
-import { StyledButton } from '~/components/layout/navbar/NavBar.styled';
+import { StyledButton } from '~/styles/shared';
 import Link from 'next/link';
 
 export default async function LoginConnections() {

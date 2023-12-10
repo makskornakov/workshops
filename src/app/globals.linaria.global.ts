@@ -1,7 +1,7 @@
 import { css } from '@linaria/core';
 
 import { media } from '../utils/media-queries';
-import { reset } from '../utils/reset';
+import { reset } from '../utils/styleUtils';
 
 export const globals = css`
   :global() {
@@ -13,16 +13,16 @@ export const globals = css`
 
       --background-color: #e9e9e9;
       --main-color: #111;
-      --secondary-color: #333;
-      --tertiary-color: #555;
+      --secondary-color: #666;
+      --tertiary-color: #999;
 
       --border-color: #999;
 
       ${media.prefersColorSchemeDark} {
         --background-color: #111111;
-        --main-color: #fff;
-        --secondary-color: #ddd;
-        --tertiary-color: #aaa;
+        --main-color: #efefef;
+        --secondary-color: #b1b1b1;
+        --tertiary-color: #5d5d5d;
 
         --border-color: #333;
       }

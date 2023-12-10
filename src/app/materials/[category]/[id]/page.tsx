@@ -2,7 +2,7 @@ import { PageHeading } from '~/styles/shared';
 import prisma from '../../../../../lib/prisma';
 import Link from 'next/link';
 import { getUser } from '~/utils/prismaUser';
-import { StyledLink } from '~/components/layout/navbar/NavBar.styled';
+import { StyledLink } from '~/styles/shared';
 
 import Image from 'next/image';
 

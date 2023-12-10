@@ -1,6 +1,6 @@
 'use client';
 import { Material } from '@prisma/client';
-import { StyledButton } from '~/components/layout/navbar/NavBar.styled';
+import { StyledButton } from '~/styles/shared';
 import { useEdgeStore } from '~/lib/edgestore';
 
 import { useRouter } from 'next/navigation';
