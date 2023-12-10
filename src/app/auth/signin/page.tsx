@@ -5,6 +5,8 @@ import { getProviders } from 'next-auth/react';
 import { SignInButtons } from './SignInButtons';
 
 import { LoginForm } from '~/components/signIn.styled';
+import { getUser } from '~/app/utils/prismaUser';
+import { redirect } from 'next/navigation';
 
 export default async function SignIn({
   searchParams,
@@ -13,6 +15,10 @@ export default async function SignIn({
 }) {
   console.log('searchParams', searchParams);
 
+  const user = await getUser();
+  if (user) {
+    redirect('/profile/login-connections');
+  }
   // const session = await getServerSession(authOptions);
 
   // If the user is already logged in, redirect.

@@ -39,7 +39,7 @@ export const SmallLinkStyle: CSSProperties = {
   },
 };
 export const LinkContainer = styled.nav`
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 0rem;
   /* background: blue; */
   display: flex;
   align-items: flex-start;
