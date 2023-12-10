@@ -67,6 +67,19 @@ export default async function MaterialLibrary({ params }: { params: { category: 
     },
   });
 
+  categories.sort((a, b) => {
+    if (a.slug === 'uncategorized') {
+      return -1;
+    }
+    if (b.slug === 'uncategorized') {
+      return 1;
+    }
+    if (a.name < b.name) {
+      return -1;
+    }
+    return 1;
+  });
+
   // console.log(categories);
   // console.log(params.category);
   return (
