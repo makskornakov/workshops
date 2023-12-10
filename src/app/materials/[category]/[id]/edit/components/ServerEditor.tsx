@@ -28,6 +28,7 @@ export default async function MaterialEditor({ id }: { id: string }) {
     select: {
       name: true,
       slug: true,
+      description: true,
     },
   });
 

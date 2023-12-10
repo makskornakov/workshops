@@ -36,6 +36,7 @@ export default async function MaterialLibrary({ params }: { params: { category: 
             category: {
               select: {
                 slug: true,
+                description: true,
               },
             },
           },
@@ -114,47 +115,42 @@ export default async function MaterialLibrary({ params }: { params: { category: 
             <StyledButton type="submit">Create new</StyledButton>
           </form>
         </div>
-        {/* <SelectComp
-          categories={categories}
-          categorySlug={theCategory === 'all' ? 'all' : theCategory.slug}
-        /> */}
-        {/* <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
-          <Link href="/materials/all" style={theCategory === 'all' ? { color: 'red' } : {}}>
-            All
-          </Link>
-          {categories.map((category) => (
-            <Link
-              key={category.name}
-              href={`/materials/${category.slug}`}
-              style={
-                category.name === (theCategory === 'all' ? theCategory : theCategory.name)
-                  ? { color: 'red' }
-                  : {}
-              }
-            >
-              {category.name}
-            </Link>
-            // </option>
-          ))}
-        </div> */}
       </PageHeading>
       <div
         style={{
-          width: '80%',
+          display: 'flex',
           margin: '2rem auto',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          flexDirection: 'column',
+          width: '80%',
           gap: '1rem',
         }}
       >
-        {materials.map((material) => (
-          <MaterialCard
-            key={material.id}
-            material={
-              material as Material & { author: { name: string }; category: { slug: string } }
-            }
-          />
-        ))}
+        <p
+          style={{
+            color: 'var(--secondary-color)',
+            fontWeight: 300,
+            fontSize: '.9rem',
+          }}
+        >
+          {theCategory === 'all' ? 'All materials' : theCategory.description}
+        </p>
+        <div
+          style={{
+            width: '100%',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '1rem',
+          }}
+        >
+          {materials.map((material) => (
+            <MaterialCard
+              key={material.id}
+              material={
+                material as Material & { author: { name: string }; category: { slug: string } }
+              }
+            />
+          ))}
+        </div>
       </div>
     </>
   );

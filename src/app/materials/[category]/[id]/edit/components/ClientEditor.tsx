@@ -16,11 +16,12 @@ export default function ClientMaterialForm({
 }: {
   action: (formData: FormData) => Promise<void>;
   material: Material & { author: { name: string }; category: { name: string } };
-  categories: { name: string; slug: string }[];
+  categories: { name: string; slug: string; description: string }[];
 }) {
   const [file, setFile] = useState<File | null>(null);
   const [uploadingFile, setUploadingFile] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [chosenCategory, setChosenCategory] = useState(material.category.name);
 
   const { edgestore } = useEdgeStore();
 
@@ -110,7 +111,13 @@ export default function ClientMaterialForm({
           <div>
             <label htmlFor="category">Category</label>
             <SelectWrapLabel>
-              <select id="category" name="category" defaultValue={material.category.name}>
+              <select
+                id="category"
+                name="category"
+                defaultValue={material.category.name}
+                value={chosenCategory}
+                onChange={(e) => setChosenCategory(e.target.value)}
+              >
                 {categories.map((category) => (
                   <option key={category.slug} value={category.name}>
                     {category.name}
@@ -118,6 +125,14 @@ export default function ClientMaterialForm({
                 ))}
               </select>
             </SelectWrapLabel>
+            <p
+              style={{
+                fontSize: '0.85rem',
+                color: 'var(--tertiary-color)',
+              }}
+            >
+              {categories.find((category) => category.name === chosenCategory)?.description}
+            </p>
           </div>
           <div>
             <label>Media Content</label>
