@@ -55,16 +55,6 @@ export default async function LoginConnections() {
           >
             Add new connection
           </h2>
-          {/* <Link
-          href={'/api/auth/signin'}
-          style={{
-            // color: 'blue',
-            textDecoration: 'underline',
-            cursor: 'pointer',
-          }}
-        >
-          Link another account
-        </Link> */}
 
           {providers && <ConnectionButtons providers={providers} />}
         </ProfileSectionInside>
@@ -169,9 +159,6 @@ async function ProfileAccounts({
 }
 
 function displayConnectionDate(date: Date) {
-  // display how long ago the connection was made
-  // example: 2 days ago, 1min ago, 5 weeks ago etc
-
   const now = new Date();
   const diff = now.getTime() - date.getTime();
   const diffInDays = diff / (1000 * 3600 * 24);

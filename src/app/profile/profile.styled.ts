@@ -82,13 +82,6 @@ export const ProfileSection = styled.section`
   flex-direction: column;
 `;
 
-// export const AvatarSection = styled.section`
-//   /* outline: 1px solid blue; */
-
-//   ${sharedSectionStyle}/* flex-direction: row; */
-//   /* justify-content: space-between; */
-// `;
-
 export const ProfileSectionInside = styled.div`
   /* outline: 1px solid pink; */
   padding: 1.5rem;
