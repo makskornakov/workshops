@@ -1,7 +1,7 @@
 import { styled } from '@linaria/react';
 
 export const LoginForm = styled.div`
-  margin-top: 6rem;
+  margin-top: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
