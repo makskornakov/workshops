@@ -103,7 +103,6 @@ export default async function MaterialLibrary({ params }: { params: { category: 
               const material = await prisma.material.create({
                 data: {
                   title: 'Untitled',
-                  description: '',
                   authorId: user.id,
                   categorySlug: 'uncategorized',
                 },
@@ -169,8 +168,18 @@ const MaterialCard = ({
   return (
     <StyledMaterialCard href={`/materials/${material.category.slug}/${material.id}`}>
       <h3>{material.title}</h3>
-      {material.description && <p>{material.description}</p>}
-      <p>
+      {material.description && (
+        <p
+          style={{
+            color: '#ddd',
+            fontSize: '.9rem',
+            fontWeight: 300,
+          }}
+        >
+          {material.description}
+        </p>
+      )}
+      <p style={{ marginTop: 'auto' }}>
         {material.author.name} - {new Date(material.createdAt).toLocaleDateString()}
       </p>
     </StyledMaterialCard>
@@ -198,6 +207,8 @@ const StyledMaterialCard = styled(Link)`
     transition-property: color;
   }
   p {
+    font-size: 0.85rem;
+    font-weight: 200;
     color: #a6a6a6;
   }
 

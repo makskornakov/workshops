@@ -5,7 +5,7 @@ import { getUser } from '~/app/utils/prismaUser';
 import { redirect } from 'next/navigation';
 // import { revalidatePath } from 'next/cache';
 import ClientMaterialForm from './ClientEditor';
-
+import { maxMaterialFieldsLengths } from '~/config';
 // type User = NonNullable<Awaited<ReturnType<typeof getUser>>>;
 
 export default async function MaterialEditor({ id }: { id: string }) {
@@ -81,9 +81,21 @@ export async function materialAction(formData: FormData, userId: string, materia
     description: description,
     paragraph: content,
     authorId: userId,
-    // categoryName: validCategory.name,
     categorySlug: validCategory.slug,
   };
+
+  if (!materialObj.title || !materialObj.authorId || !materialObj.categorySlug)
+    throw new Error('Missing fields');
+
+  if (
+    materialObj.title.toString().length > maxMaterialFieldsLengths.title ||
+    (materialObj.description &&
+      materialObj.description.toString().length > maxMaterialFieldsLengths.description) ||
+    (materialObj.paragraph &&
+      materialObj.paragraph.toString().length > maxMaterialFieldsLengths.content)
+  ) {
+    throw new Error('Field too long');
+  }
 
   const result = await prisma.material.update({
     where: {

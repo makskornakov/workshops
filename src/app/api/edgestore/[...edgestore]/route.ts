@@ -1,6 +1,6 @@
 import { initEdgeStore } from '@edgestore/server';
 import { createEdgeStoreNextHandler } from '@edgestore/server/adapters/next/app';
-import { maxAvatarSize, maxMediaSize } from './config';
+import { maxAvatarSize, maxMediaSize } from '../../../../config';
 import { getUser } from '~/app/utils/prismaUser';
 import prisma from '../../../../../lib/prisma';
 import z from 'zod';

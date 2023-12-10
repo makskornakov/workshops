@@ -6,7 +6,7 @@ import { MainUploadLabel, UploadButton, UploadWrapper } from './upload.styled';
 import { useEdgeStore } from '~/lib/edgestore';
 import { saveAvatarUrl } from '~/actions/saveAvatarUrl';
 import { formatFileSize } from '@edgestore/react/utils';
-import { maxAvatarSize } from '~/app/api/edgestore/[...edgestore]/config';
+import { maxAvatarSize } from '~/config';
 
 export default function MyUploadComp({ currentImage }: { currentImage: string }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);

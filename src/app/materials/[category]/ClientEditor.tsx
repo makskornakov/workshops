@@ -6,6 +6,9 @@ import { useEdgeStore } from '~/lib/edgestore';
 import { assignMaterialMediaUrl } from '~/actions/saveAvatarUrl';
 import { useEventListener } from 'usehooks-ts';
 import { MaterialEditorForm, SelectWrapLabel } from './Editor.styled';
+import { styled } from '@linaria/react';
+
+import { maxMaterialFieldsLengths as maxLengths } from '~/config';
 
 export default function ClientMaterialForm({
   action,
@@ -23,6 +26,22 @@ export default function ClientMaterialForm({
   const { edgestore } = useEdgeStore();
 
   const [pageDragOver, setPageDragOver] = useState(false);
+
+  // restricting textarea lengths
+
+  const [controlledInputs, setControlledInputs] = useState({
+    title: material.title,
+    description: material.description ?? '',
+    content: material.paragraph ?? '',
+  });
+
+  function handleChange(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
+    const { name, value } = event.target;
+    if (value.length > maxLengths[name as keyof typeof maxLengths]) {
+      return;
+    }
+    setControlledInputs((prev) => ({ ...prev, [name]: value }));
+  }
 
   // only on dragover start
   useEventListener(
@@ -86,50 +105,65 @@ export default function ClientMaterialForm({
       <MaterialEditorForm
         // action={action}
         action={async (formData) => {
-          if (file) {
-            // console.log('set to true');
-            setTimeout(() => {
-              // Workaround to prevent batching
-              setUploadingFile(true);
-            });
-            const res = await edgestore.mediaFiles.upload({
-              file: file,
-              // onProgressChange: (progress) => {
-              //   // setProgress(progress);
-              // },
-              ...(material.mediaUrl
-                ? {
-                    options: {
-                      replaceTargetUrl: material.mediaUrl,
-                    },
-                  }
-                : undefined),
-              input: {
-                materialId: material.id,
-              },
-            });
-            console.log(res);
-            setFile(null);
-            // console.log('set to false');
-            setTimeout(() => {
-              // Workaround to prevent batching
-              setUploadingFile(false);
-            });
-            setTimeout(() => {
-              setSaving(true);
-            });
+          try {
+            if (file) {
+              // console.log('set to true');
+              setTimeout(() => {
+                // Workaround to prevent batching
+                setUploadingFile(true);
+              });
+              const res = await edgestore.mediaFiles.upload({
+                file: file,
+                // onProgressChange: (progress) => {
+                //   // setProgress(progress);
+                // },
+                ...(material.mediaUrl
+                  ? {
+                      options: {
+                        replaceTargetUrl: material.mediaUrl,
+                      },
+                    }
+                  : undefined),
+                input: {
+                  materialId: material.id,
+                },
+              });
+              console.log(res);
+              setFile(null);
+              // console.log('set to false');
+              setTimeout(() => {
+                // Workaround to prevent batching
+                setUploadingFile(false);
+              });
+              setTimeout(() => {
+                setSaving(true);
+              });
 
-            await assignMaterialMediaUrl(material.id, res.url);
-            setSaving(false);
+              await assignMaterialMediaUrl(material.id, res.url);
+              setSaving(false);
+            }
+            await action(formData);
+          } catch (error) {
+            console.log(error);
           }
-
-          await action(formData);
         }}
       >
         <div>
           <div>
             <label htmlFor="title">Title</label>
-            <input type="text" id="title" name="title" defaultValue={material?.title} />
+            <label style={{ position: 'relative' }}>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={controlledInputs.title}
+                onChange={handleChange}
+              ></input>
+              <StyledLengthCounter style={{ bottom: '0.5rem' }}>
+                {controlledInputs.title.length}
+                <span> / {maxLengths.title}</span>
+              </StyledLengthCounter>
+            </label>
           </div>
           <div>
             <label htmlFor="category">Category</label>
@@ -158,7 +192,18 @@ export default function ClientMaterialForm({
         <div>
           <div>
             <label htmlFor="description">Description</label>
-            <textarea id="description" name="description" defaultValue={material?.description} />
+            <label style={{ position: 'relative' }}>
+              <textarea
+                id="description"
+                name="description"
+                value={controlledInputs.description}
+                onChange={handleChange}
+              ></textarea>
+              <StyledLengthCounter>
+                {controlledInputs.description.length}
+                <span> / {maxLengths.description}</span>
+              </StyledLengthCounter>
+            </label>
           </div>
           <div
             style={{
@@ -166,12 +211,19 @@ export default function ClientMaterialForm({
             }}
           >
             <label htmlFor="Content">Content</label>
-            <textarea
-              id="content"
-              name="content"
-              defaultValue={material?.paragraph ?? ''}
-              style={{ maxHeight: '20rem', flexGrow: 1 }}
-            />
+            <label style={{ position: 'relative', flexGrow: 1 }}>
+              <textarea
+                id="content"
+                name="content"
+                value={controlledInputs.content}
+                style={{ height: '100%', maxHeight: '20rem' }}
+                onChange={handleChange}
+              ></textarea>
+              <StyledLengthCounter>
+                {controlledInputs.content.length}
+                <span> / {maxLengths.content}</span>
+              </StyledLengthCounter>
+            </label>
           </div>
         </div>
         <div>
@@ -184,3 +236,14 @@ export default function ClientMaterialForm({
     </div>
   );
 }
+
+const StyledLengthCounter = styled.span`
+  font-size: 0.85rem;
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.7rem;
+
+  & > span {
+    color: #808080;
+  }
+`;
