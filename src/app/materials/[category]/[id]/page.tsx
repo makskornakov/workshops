@@ -1,12 +1,12 @@
 import { PageHeading } from '~/app/profile/profile.styled';
 import prisma from '../../../../../lib/prisma';
 import Link from 'next/link';
-import { getUser } from '~/app/utils/prismaUser';
-import { StyledLink } from '~/components/NavBar.styled';
+import { getUser } from '~/utils/prismaUser';
+import { StyledLink } from '~/components/layout/navbar/NavBar.styled';
 
 import Image from 'next/image';
 
-import DeleteForm from './DeleteForm';
+import DeleteForm from './components/DeleteForm';
 import { styled } from '@linaria/react';
 
 export default async function MaterialPage({
@@ -61,7 +61,7 @@ export default async function MaterialPage({
         </span>
       </PageHeading>
 
-      <MaterialPreview>
+      <MaterialPreview style={{ minHeight: material.mediaUrl ? '50vh' : 'auto' }}>
         <div>
           <div style={{ display: 'flex', flexDirection: 'row', gap: '.5rem' }}>
             <h3>Category: </h3>
@@ -124,7 +124,6 @@ const MaterialPreview = styled.div`
   /* outline: 1px solid red; */
 
   width: 80%;
-  min-height: 50vh;
   margin: 2rem auto;
   display: flex;
   flex-direction: row;

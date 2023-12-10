@@ -1,7 +1,4 @@
 import { Body, Container, Head, Heading, Html, Link, Text } from '@react-email/components';
-// import * as React from 'react';
-
-// const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
 
 export default function MagicLinkEmail({ url, host }: { url: string; host: string }) {
   return (
@@ -70,7 +67,7 @@ const link = {
   margin: 'auto',
   width: '200px',
   padding: '12px 24px',
-  border: '1.5px solid #00f5a7',
+  border: '1.5px solid #4af500',
   borderRadius: '5px',
   color: 'black',
   fontFamily:

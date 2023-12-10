@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { getUser } from '../utils/prismaUser';
-import { ProfileForm } from './profile.styled';
+import { ProfileForm } from '../app/profile/profile.styled';
 import { useFormStatus } from 'react-dom';
 
 type User = NonNullable<Awaited<ReturnType<typeof getUser>>>;
@@ -24,7 +24,7 @@ export default function ProfileSettingsForm({
 const StatedFormElements = ({ user }: { user: User }) => {
   const { pending } = useFormStatus();
   const [name, setName] = useState(user?.name ?? '');
-  // const [buttonText, setButtonText] = useState('Save');
+
   return (
     <>
       <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />

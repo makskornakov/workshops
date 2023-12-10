@@ -1,6 +1,5 @@
 import { revalidatePath } from 'next/cache';
-// import Link from 'next/link';
-import { getUser, getUserAccounts } from '~/app/utils/prismaUser';
+import { getUser, getUserAccounts } from '~/utils/prismaUser';
 import prisma from '../../../../lib/prisma';
 import {
   ConnectedAccountForm,
@@ -12,11 +11,9 @@ import {
 import { getProviders } from 'next-auth/react';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-// import { LoginProviderButton } from '~/components/signIn.styled';
 import { ConnectionButtons } from './ConnectionButtons';
-import { StyledButton } from '~/components/NavBar.styled';
+import { StyledButton } from '~/components/layout/navbar/NavBar.styled';
 import Link from 'next/link';
-// import { Fragment } from 'react';
 
 export default async function LoginConnections() {
   const user = await getUser();
@@ -24,9 +21,7 @@ export default async function LoginConnections() {
   const accounts = await getUserAccounts(user);
 
   // find accounts that is github and get github data
-
   const ghAccount = accounts?.find((acc) => acc.provider === 'github');
-
   const ghData = ghAccount ? await getGitHubData(ghAccount.providerAccountId) : undefined;
 
   return (
@@ -60,16 +55,6 @@ export default async function LoginConnections() {
           >
             Add new connection
           </h2>
-          {/* <Link
-          href={'/api/auth/signin'}
-          style={{
-            // color: 'blue',
-            textDecoration: 'underline',
-            cursor: 'pointer',
-          }}
-        >
-          Link another account
-        </Link> */}
 
           {providers && <ConnectionButtons providers={providers} />}
         </ProfileSectionInside>
@@ -174,9 +159,6 @@ async function ProfileAccounts({
 }
 
 function displayConnectionDate(date: Date) {
-  // display how long ago the connection was made
-  // example: 2 days ago, 1min ago, 5 weeks ago etc
-
   const now = new Date();
   const diff = now.getTime() - date.getTime();
   const diffInDays = diff / (1000 * 3600 * 24);

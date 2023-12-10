@@ -2,8 +2,7 @@
 import { getProviders, signIn } from 'next-auth/react';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-// import SignInEmail from '~/components/emailForm';
-import { LoginProviderButton } from '~/components/signIn.styled';
+import { LoginProviderButton } from '~/app/auth/signin/signIn.styled';
 import { ConnectionsWrapper } from '../profile.styled';
 export function ConnectionButtons({
   providers,
@@ -16,7 +15,7 @@ export function ConnectionButtons({
         <div key={provider.name}>
           {provider.id !== 'email' && (
             <LoginProviderButton
-              onClick={() => signIn(provider.id, { callbackUrl: '/profile' })}
+              onClick={() => signIn(provider.id, { callbackUrl: '/profile/login-connections' })}
               bg={provider.id == 'github' ? '#555' : 'white'}
               color={provider.id == 'github' ? 'white' : 'black'}
               small

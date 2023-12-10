@@ -1,11 +1,11 @@
 import { PageHeading } from '../../profile/profile.styled';
 import prisma from '../../../../lib/prisma';
 import Link from 'next/link';
-import { StyledButton } from '~/components/NavBar.styled';
-import { getUser } from '../../utils/prismaUser';
+import { StyledButton } from '~/components/layout/navbar/NavBar.styled';
+import { getUser } from '../../../utils/prismaUser';
 import { redirect } from 'next/navigation';
 import { Material } from '@prisma/client';
-import SelectComp from './SelectComp';
+import SelectComp from '../../../components/ui/SelectComp';
 import { styled } from '@linaria/react';
 
 export default async function MaterialLibrary({ params }: { params: { category: string } }) {
@@ -103,7 +103,6 @@ export default async function MaterialLibrary({ params }: { params: { category: 
               const material = await prisma.material.create({
                 data: {
                   title: 'Untitled',
-                  description: '',
                   authorId: user.id,
                   categorySlug: 'uncategorized',
                 },
@@ -169,8 +168,18 @@ const MaterialCard = ({
   return (
     <StyledMaterialCard href={`/materials/${material.category.slug}/${material.id}`}>
       <h3>{material.title}</h3>
-      {material.description && <p>{material.description}</p>}
-      <p>
+      {material.description && (
+        <p
+          style={{
+            color: '#ddd',
+            fontSize: '.9rem',
+            fontWeight: 300,
+          }}
+        >
+          {material.description}
+        </p>
+      )}
+      <p style={{ marginTop: 'auto' }}>
         {material.author.name} - {new Date(material.createdAt).toLocaleDateString()}
       </p>
     </StyledMaterialCard>
@@ -198,6 +207,8 @@ const StyledMaterialCard = styled(Link)`
     transition-property: color;
   }
   p {
+    font-size: 0.85rem;
+    font-weight: 200;
     color: #a6a6a6;
   }
 

@@ -2,13 +2,13 @@
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { VscLoading } from 'react-icons/vsc';
-import { MainUploadLabel, UploadButton, UploadWrapper } from './upload.styled';
+import { MainUploadLabel, UploadButton, UploadWrapper } from '../../../components/upload.styled';
 import { useEdgeStore } from '~/lib/edgestore';
-import { saveAvatarUrl } from '~/actions/saveAvatarUrl';
+import { saveAvatarUrl } from '~/actions/serverActions';
 import { formatFileSize } from '@edgestore/react/utils';
-import { maxAvatarSize } from '~/app/api/edgestore/[...edgestore]/config';
+import { maxAvatarSize } from '~/configs/config';
 
-export default function MyUploadComp({ currentImage }: { currentImage: string }) {
+export default function ProfilePictureUpload({ currentImage }: { currentImage: string }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [userImage, setUserImage] = useState<string>(currentImage);
   const { edgestore } = useEdgeStore();

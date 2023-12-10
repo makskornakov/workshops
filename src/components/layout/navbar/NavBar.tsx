@@ -3,8 +3,10 @@ import { Header, HeaderContainer, StyledLink } from './NavBar.styled';
 import Link from 'next/link';
 import SignOutButton from './SignOutButton';
 import Image from 'next/image';
-import { getUser } from '~/app/utils/prismaUser';
+import { getUser } from '~/utils/prismaUser';
 import LinksNav from './LinksNav';
+
+import logo from '~/icons/logo.svg';
 
 export default async function NavBar() {
   const user = await getUser();
@@ -12,19 +14,23 @@ export default async function NavBar() {
   return (
     <Header>
       <HeaderContainer>
-        <div style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-          <Link href={'/'}>Gsw.st</Link>
-          <Link
-            href={'/'}
-            style={{
-              fontSize: '0.9rem',
-              color: '#c9c9c9',
-            }}
-          >
-            Workshop Studio
+        <div style={{ alignItems: 'center', gap: '1rem' }}>
+          <Link href={'/'}>
+            <Image src={logo} alt={'logo'} width={40} height={40} />
           </Link>
-
-          {/* {user ? <SignOutButton /> : <Link href={'/api/auth/signin'}>Sign in</Link>} */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+            <Link href={'/'}>Gsw.st</Link>
+            <Link
+              href={'/'}
+              style={{
+                fontSize: '0.9rem',
+                fontWeight: 300,
+                color: '#c9c9c9',
+              }}
+            >
+              Workshop Studio
+            </Link>
+          </div>
         </div>
         <div>
           {user ? (
@@ -38,7 +44,6 @@ export default async function NavBar() {
                 )}
                 <p>{user.name}</p>
               </Link>
-              {/* <StyledLink href={'/profile'}>Profile</StyledLink> */}
               <SignOutButton />
             </>
           ) : (

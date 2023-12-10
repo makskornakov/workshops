@@ -1,5 +1,5 @@
 import prisma from '../../../lib/prisma';
-import { getUser } from '../utils/prismaUser';
+import { getUser } from '../../utils/prismaUser';
 
 export default async function WorkshopForm({ id }: { id?: string }) {
   const user = await getUser();
@@ -40,7 +40,7 @@ export default async function WorkshopForm({ id }: { id?: string }) {
                     title: title as string,
                     description: description as string,
                     date: new Date(date as string),
-                    // location: location as string,
+
                     authorId: user.id,
                   },
                 });
@@ -77,12 +77,6 @@ export default async function WorkshopForm({ id }: { id?: string }) {
           placeholder={new Date().toISOString().slice(0, 10)}
           defaultValue={workshop?.date.toISOString().slice(0, 10)}
         />
-        {/* <input
-          name="location"
-          type="text"
-          placeholder="Location"
-          defaultValue={workshop?.location?.toString()}
-        /> */}
 
         <button type="submit">{workshop ? 'Edit' : 'Create'}</button>
       </form>

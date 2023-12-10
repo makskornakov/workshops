@@ -1,16 +1,9 @@
-// import Link from 'next/link';
-import {
-  PageHeading,
-  ProfileContainer,
-  ProfileSectionContainer,
-  // ProfileSidebar,
-} from './profile.styled';
+import { PageHeading, ProfileContainer, ProfileSectionContainer } from './profile.styled';
 import { redirect } from 'next/navigation';
-import { getUser } from '../utils/prismaUser';
+import { getUser } from '../../utils/prismaUser';
 import ProfileSideBar from './sideBar';
 
 export default async function ProfileLayout({ children }: React.PropsWithChildren) {
-  // const pathname = usePathname();
   const user = await getUser();
 
   if (!user) {

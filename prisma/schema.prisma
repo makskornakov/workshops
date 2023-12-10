@@ -71,7 +71,7 @@ model Material {
   id           String     @id @default(cuid())
   createdAt    DateTime   @default(now())
   title        String
-  description  String
+  description  String?
   mediaUrl     String?    @unique
   paragraph    String?
   authorId     String

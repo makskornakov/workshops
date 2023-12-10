@@ -1,16 +1,15 @@
 'use client';
 import { getProviders, signIn } from 'next-auth/react';
-import SignInEmail from '~/components/emailForm';
+import SignInEmail from '~/app/auth/signin/EmailForm';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import { LoginProviderButton } from '~/components/signIn.styled';
+import { LoginProviderButton } from '~/app/auth/signin/signIn.styled';
 
 export function SignInButtons({
   providers,
 }: {
   providers: NonNullable<Awaited<ReturnType<typeof getProviders>>>;
 }) {
-  // console.log('providers', providers);
   return (
     <>
       {Object.values(providers).map((provider) => (
