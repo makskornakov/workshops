@@ -8,6 +8,10 @@ const links = [
     href: '/',
     label: 'Home',
   },
+  {
+    href: '/materials',
+    label: 'Materials',
+  },
 ];
 
 const userLinks = [
@@ -15,6 +19,7 @@ const userLinks = [
     href: '/workshops',
     label: 'Workshops',
   },
+
   {
     href: '/profile',
     label: 'Profile',

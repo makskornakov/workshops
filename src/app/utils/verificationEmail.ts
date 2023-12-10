@@ -49,8 +49,8 @@ export async function sendVerification(params: Params) {
     to: identifier,
     from: provider.from,
     subject: `Sign in to ${host}`,
-    // text: text({ url, host }),
-    react: await renderAsync(MagicLinkEmail({ url, host })),
+    text: text({ url, host }),
+    html: await renderAsync(MagicLinkEmail({ url, host })),
   });
   if (result.error) {
     throw new Error(`Email(s) (${result.error.message}) could not be sent: ${result.error.name}`);

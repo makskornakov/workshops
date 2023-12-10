@@ -1,4 +1,4 @@
-import { CSSProperties, css } from '@linaria/core';
+import { CSSProperties } from '@linaria/core';
 import { styled } from '@linaria/react';
 import Link from 'next/link';
 
@@ -51,38 +51,43 @@ export const LinkContainer = styled.nav`
 `;
 
 const LinkButtonStyle: CSSProperties = {
-  background: '#222',
-  color: '#fff',
-  borderColor: ' #fff',
+  background: 'none',
+  color: '#b1b1b1',
+  borderColor: ' #b1b1b1',
+
   borderStyle: 'solid',
   borderWidth: '1px',
-  borderRadius: '5px',
+  borderRadius: '0.25rem',
   fontSize: '.8rem',
   padding: '0.5rem 1rem',
   cursor: 'pointer',
-  transition: 'all 0.2s ease-in-out',
+  transitionDuration: '0.2s',
+  transitionProperty: 'color, border-color',
+
   '&:hover': {
-    background: '#333',
+    // background: '#333',
+    color: '#ddd',
+    borderColor: '#ddd',
   },
 
   '&:disabled': {
     background: '#222',
-    borderColor: '#c1c1c1',
-    color: '#c1c1c1',
+    borderColor: '#b1b1b1',
+    color: '#b1b1b1',
     cursor: 'not-allowed',
 
     '&:hover': {
       background: '#222',
-      color: '#c1c1c1',
+      color: '#b1b1b1',
     },
   },
 };
 
 export const StyledButton = styled.button<{ small?: boolean; red?: boolean }>`
   ${LinkButtonStyle};
-  font-size: ${({ small }) => (small ? '.7rem' : '.8rem')};
+  font-size: ${({ small }) => (small ? '.75rem' : '.8rem')};
   padding: ${({ small }) => (small ? '0.4rem 0.75rem' : '0.5rem 1rem')};
-  border-color: ${(props) => (props.red ? '#F02E2E' : '#fff')};
+  border-color: ${(props) => (props.red ? '#F02E2E' : '#b1b1b1')};
   /* color  : ${({ red }) => (red ? '#d20000' : '#000')}; */
 `;
 

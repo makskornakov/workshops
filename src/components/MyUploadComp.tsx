@@ -70,7 +70,7 @@ export default function MyUploadComp({ currentImage }: { currentImage: string })
                     removeButtonRef.current.disabled = true;
                   }
 
-                  const res = await edgestore.publicFiles.upload({
+                  const res = await edgestore.avatarFiles.upload({
                     file: selectedImage,
                     onProgressChange: (progress) => {
                       console.log(progress);

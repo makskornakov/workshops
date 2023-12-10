@@ -1,11 +1,11 @@
-import Link from 'next/link';
+// import Link from 'next/link';
 import {
   PageHeading,
   ProfileContainer,
   ProfileSectionContainer,
-  ProfileSidebar,
+  // ProfileSidebar,
 } from './profile.styled';
-import { redirect, usePathname } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { getUser } from '../utils/prismaUser';
 import ProfileSideBar from './sideBar';
 

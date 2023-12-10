@@ -1,11 +1,10 @@
-import { getProviders, signIn } from 'next-auth/react';
-import { getServerSession } from 'next-auth/next';
+import { getProviders } from 'next-auth/react';
+
 // import { authOptions } from '~/app/api/auth/[...nextauth]/route';
 // import { redirect } from 'next/navigation';
 import { SignInButtons } from './SignInButtons';
-import { redirect } from 'next/navigation';
+
 import { LoginForm } from '~/components/signIn.styled';
-import Image from 'next/image';
 
 export default async function SignIn({
   searchParams,

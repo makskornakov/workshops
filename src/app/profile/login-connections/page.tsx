@@ -9,14 +9,14 @@ import {
   ProfileSectionFooter,
   ProfileSectionInside,
 } from '../profile.styled';
-import { getProviders, signIn } from 'next-auth/react';
+import { getProviders } from 'next-auth/react';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 // import { LoginProviderButton } from '~/components/signIn.styled';
 import { ConnectionButtons } from './ConnectionButtons';
 import { StyledButton } from '~/components/NavBar.styled';
 import Link from 'next/link';
-import { Fragment } from 'react';
+// import { Fragment } from 'react';
 
 export default async function LoginConnections() {
   const user = await getUser();
@@ -51,9 +51,16 @@ export default async function LoginConnections() {
           multiple accounts.
         </p>
       </div>
-      <ProfileSection style={{ minHeight: '10rem' }}>
-        <h2>Add new connection</h2>
-        {/* <Link
+      <ProfileSection>
+        <ProfileSectionInside>
+          <h2
+            style={{
+              margin: 'none',
+            }}
+          >
+            Add new connection
+          </h2>
+          {/* <Link
           href={'/api/auth/signin'}
           style={{
             // color: 'blue',
@@ -63,15 +70,17 @@ export default async function LoginConnections() {
         >
           Link another account
         </Link> */}
-        {providers && <ConnectionButtons providers={providers} />}
 
+          {providers && <ConnectionButtons providers={providers} />}
+        </ProfileSectionInside>
         <ProfileSectionFooter>
           <p>
             Some text about how to link accounts. Lorem ipsum dolor sit amet consectetur adipisicing
           </p>
         </ProfileSectionFooter>
       </ProfileSection>
-      <ProfileSection style={{ minHeight: '10rem' }}>
+
+      <ProfileSection>
         <ProfileSectionInside>
           <h2>Linked accounts:</h2>
           <ProfileAccounts user={user} accounts={accounts} ghData={ghData} />
