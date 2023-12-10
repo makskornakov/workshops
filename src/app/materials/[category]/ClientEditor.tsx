@@ -5,14 +5,16 @@ import { useState } from 'react';
 import { useEdgeStore } from '~/lib/edgestore';
 import { assignMaterialMediaUrl } from '~/actions/saveAvatarUrl';
 import { useEventListener } from 'usehooks-ts';
-import { MaterialEditorForm } from './Editor.styled';
+import { MaterialEditorForm, SelectWrapLabel } from './Editor.styled';
 
 export default function ClientMaterialForm({
   action,
   material,
+  categories,
 }: {
   action: (formData: FormData) => Promise<void>;
-  material: Material & { author: { name: string } };
+  material: Material & { author: { name: string }; category: { name: string } };
+  categories: { name: string; slug: string }[];
 }) {
   const [file, setFile] = useState<File | null>(null);
   const [uploadingFile, setUploadingFile] = useState(false);
@@ -128,6 +130,18 @@ export default function ClientMaterialForm({
           <div>
             <label htmlFor="title">Title</label>
             <input type="text" id="title" name="title" defaultValue={material?.title} />
+          </div>
+          <div>
+            <label htmlFor="category">Category</label>
+            <SelectWrapLabel>
+              <select id="category" name="category" defaultValue={material.category.name}>
+                {categories.map((category) => (
+                  <option key={category.slug} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </SelectWrapLabel>
           </div>
           <div>
             <label>Media Content</label>

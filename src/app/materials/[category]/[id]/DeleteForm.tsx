@@ -1,11 +1,9 @@
 'use client';
 import { Material } from '@prisma/client';
-import { getUser } from '~/app/utils/prismaUser';
 import { StyledButton } from '~/components/NavBar.styled';
 import { useEdgeStore } from '~/lib/edgestore';
-import prisma from '../../../../lib/prisma';
-import { revalidatePath } from 'next/cache';
-import { redirect, useRouter } from 'next/navigation';
+
+import { useRouter } from 'next/navigation';
 import { deleteMaterial } from '~/actions/saveAvatarUrl';
 // import Router from 'next/router';
 
@@ -33,7 +31,9 @@ export default function DeleteForm({ material }: { material: Material }) {
         router.push('/materials');
       }}
     >
-      <StyledButton type="submit">Delete</StyledButton>
+      <StyledButton type="submit" red>
+        Delete
+      </StyledButton>
     </form>
   );
 }

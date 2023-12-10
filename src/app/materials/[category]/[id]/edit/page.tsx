@@ -1,9 +1,13 @@
 import { getUser } from '~/app/utils/prismaUser';
 import MaterialEditor from '../../ServerEditor';
-import prisma from '../../../../../lib/prisma';
+import prisma from '../../../../../../lib/prisma';
 import { redirect } from 'next/navigation';
 
-export default async function EditMaterial({ params }: { params: { id: string } }) {
+export default async function EditMaterial({
+  params,
+}: {
+  params: { category: string; id: string };
+}) {
   const user = await getUser();
 
   const materialId = params.id;

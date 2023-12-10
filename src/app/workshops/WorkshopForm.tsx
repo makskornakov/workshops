@@ -1,4 +1,3 @@
-import { Material, Workshop } from '@prisma/client';
 import prisma from '../../../lib/prisma';
 import { getUser } from '../utils/prismaUser';
 
@@ -32,7 +31,7 @@ export default async function WorkshopForm({ id }: { id?: string }) {
                 const title = data.get('title');
                 const description = data.get('description');
                 const date = data.get('date');
-                const location = data.get('location');
+                // const location = data.get('location');
                 const workshop = await prisma.workshop.update({
                   where: {
                     id: id,

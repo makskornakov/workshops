@@ -60,16 +60,25 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Material {
-  id          String     @id @default(cuid())
-  createdAt   DateTime   @default(now())
-  title       String
+model Category {
+  name        String     @unique
+  slug        String     @unique
   description String
-  mediaUrl    String?    @unique
-  paragraph   String?
-  authorId    String
-  author      User       @relation(fields: [authorId], references: [id], onDelete: Restrict)
-  workshops   Workshop[]
+  materials   Material[]
+}
+
+model Material {
+  id           String     @id @default(cuid())
+  createdAt    DateTime   @default(now())
+  title        String
+  description  String
+  mediaUrl     String?    @unique
+  paragraph    String?
+  authorId     String
+  author       User       @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  workshops    Workshop[]
+  categorySlug String
+  category     Category   @relation(fields: [categorySlug], references: [slug], onDelete: Restrict)
 }
 
 model Workshop {

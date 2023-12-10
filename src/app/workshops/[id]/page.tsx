@@ -1,5 +1,4 @@
 import { redirect } from 'next/navigation';
-import { PageHeading } from '../../profile/profile.styled';
 import { getUser } from '../../utils/prismaUser';
 import WorkshopForm from '../WorkshopForm';
 

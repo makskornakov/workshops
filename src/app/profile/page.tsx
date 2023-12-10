@@ -1,17 +1,16 @@
-import Image from 'next/image';
-import Link from 'next/link';
+// import Image from 'next/image';
+// import Link from 'next/link';
 import prisma from '../../../lib/prisma';
 import { redirect } from 'next/navigation';
-import { getUser, getUserAccounts } from '../utils/prismaUser';
+import { getUser } from '../utils/prismaUser';
 import { revalidatePath } from 'next/cache';
 import {
-  AvatarSection,
-  ProfileContainer,
-  ProfileForm,
+  // ProfileContainer,
+  // ProfileForm,
   ProfileSection,
   ProfileSectionFooter,
   ProfileSectionInside,
-  ProfileSidebar,
+  // ProfileSidebar,
 } from './profile.styled';
 // import { UploadDnD } from '~/components/UploadZone';
 import MyUploadComp from '~/components/MyUploadComp';
@@ -27,18 +26,25 @@ export default async function Profile() {
 
   return (
     <>
-      <AvatarSection>
-        <ProfileSectionInside>
-          <h2>Profile Picture</h2>
-          <p>Avatar is used across the site, in future it will be used for public workshops</p>
-        </ProfileSectionInside>
-        <ProfileSectionInside>
+      <ProfileSection>
+        <ProfileSectionInside
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingBottom: '0px',
+          }}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <h2>Profile Picture</h2>
+            <p>Avatar is used across the site, in future it will be used for public workshops</p>
+          </div>
           {user.image && <MyUploadComp currentImage={user.image} />}
         </ProfileSectionInside>
         <ProfileSectionFooter>
           <p>Better use square image.</p>
         </ProfileSectionFooter>
-      </AvatarSection>
+      </ProfileSection>
       <ProfileSection>
         <ProfileSectionInside>
           <h2>Profile Name</h2>

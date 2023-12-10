@@ -1,4 +1,4 @@
-import { CSSProperties, styled } from '@linaria/react';
+import { styled } from '@linaria/react';
 
 export const UploadDiv = styled.div<{ 'data-is-dragging': boolean; 'data-is-focused': boolean }>`
   &[data-is-dragging='true'] {
@@ -34,7 +34,7 @@ export const UploadDiv = styled.div<{ 'data-is-dragging': boolean; 'data-is-focu
 export const MaterialEditorForm = styled.form`
   /* outline: 1px solid red; */
 
-  width: 65%;
+  width: 80%;
   margin: 3rem auto;
   display: flex;
   flex-direction: row;
@@ -141,6 +141,66 @@ export const MaterialEditorForm = styled.form`
     &:disabled {
       background-color: #b1b1b1;
       cursor: not-allowed;
+    }
+  }
+`;
+
+export const SelectWrapLabel = styled.label`
+  position: relative;
+
+  select {
+    background: none;
+    appearance: none;
+    width: 100%;
+
+    color: #ffffff;
+    border: 1px solid;
+    border-color: #333333;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    position: relative;
+    font-weight: 200;
+    transition: border 0.2s ease-in-out;
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 35%;
+    right: 1.5rem;
+
+    border: solid;
+    border-color: #b1b1b1;
+    border-width: 0 1px 1px 0;
+    padding: 0.3rem;
+
+    transform: rotate(45deg) translateY(-50%);
+    transition-duration: 0.2s;
+    transition-property: border-color;
+  }
+
+  &:focus-within {
+    select {
+      outline: none;
+      border-color: #b1b1b1;
+    }
+
+    &::after {
+      border-color: #ffffff;
+    }
+  }
+
+  &:hover {
+    select {
+      border-color: #b1b1b1;
+    }
+
+    &::after {
+      border-color: #ffffff;
     }
   }
 `;

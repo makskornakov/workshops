@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, HeaderContainer, LinkContainer, StyledLink } from './NavBar.styled';
+import { Header, HeaderContainer, StyledLink } from './NavBar.styled';
 import Link from 'next/link';
 import SignOutButton from './SignOutButton';
 import Image from 'next/image';

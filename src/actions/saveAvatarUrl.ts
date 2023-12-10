@@ -3,7 +3,7 @@
 import { getUser } from '~/app/utils/prismaUser';
 import prisma from '../../lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { useEdgeStore } from '~/lib/edgestore';
+// import { useEdgeStore } from '~/lib/edgestore';
 
 export async function saveAvatarUrl(url: string) {
   const user = await getUser();

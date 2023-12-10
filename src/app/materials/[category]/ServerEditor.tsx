@@ -1,9 +1,9 @@
 import { PageHeading } from '~/app/profile/profile.styled';
-import prisma from '../../../lib/prisma';
+import prisma from '../../../../lib/prisma';
 import type { Material } from '@prisma/client';
 import { getUser } from '~/app/utils/prismaUser';
 import { redirect } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
+// import { revalidatePath } from 'next/cache';
 import ClientMaterialForm from './ClientEditor';
 
 // type User = NonNullable<Awaited<ReturnType<typeof getUser>>>;
@@ -18,11 +18,18 @@ export default async function MaterialEditor({ id }: { id: string }) {
     where: {
       id: id,
     },
-    include: { author: { select: { name: true } } },
+    include: { author: { select: { name: true } }, category: { select: { name: true } } },
   });
   if (!material) {
     redirect('/materials');
   }
+
+  const categories = await prisma.category.findMany({
+    select: {
+      name: true,
+      slug: true,
+    },
+  });
 
   return (
     <>
@@ -38,7 +45,8 @@ export default async function MaterialEditor({ id }: { id: string }) {
       </PageHeading>
       <div>
         <ClientMaterialForm
-          material={material as Material & { author: { name: string } }}
+          material={material as Material & { author: { name: string }; category: { name: string } }}
+          categories={categories}
           action={async (formData) => {
             'use server';
             return materialAction(formData, user.id, material.id);
@@ -55,6 +63,17 @@ export async function materialAction(formData: FormData, userId: string, materia
   if (title?.toString().trim() === '') return;
 
   const description = data.get('description');
+  const category = data.get('category');
+
+  // validate category
+  const validCategory = await prisma.category.findUnique({
+    where: {
+      name: category?.toString(),
+    },
+  });
+  if (!validCategory) {
+    return;
+  }
 
   const content = data.get('content');
   const materialObj = {
@@ -62,6 +81,8 @@ export async function materialAction(formData: FormData, userId: string, materia
     description: description,
     paragraph: content,
     authorId: userId,
+    // categoryName: validCategory.name,
+    categorySlug: validCategory.slug,
   };
 
   const result = await prisma.material.update({
@@ -69,7 +90,14 @@ export async function materialAction(formData: FormData, userId: string, materia
       id: materialId,
     },
     data: materialObj as Material,
+    include: {
+      category: {
+        select: {
+          name: true,
+        },
+      },
+    },
   });
 
-  redirect(`/materials/${result.id}`);
+  redirect(`/materials/${result.categorySlug}/${result.id}`);
 }

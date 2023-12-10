@@ -1,4 +1,3 @@
-import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
 import GithubProvider from 'next-auth/providers/github';
 import EmailProvider from 'next-auth/providers/email';
@@ -98,7 +97,7 @@ export const authOptions: NextAuthOptions = {
     // },
   ],
   events: {
-    async linkAccount({ account, profile, user }) {
+    async linkAccount({ account, profile }) {
       console.log('linkAccount.profile', profile);
       console.log('account', account);
       // add name from google to prisma account field name

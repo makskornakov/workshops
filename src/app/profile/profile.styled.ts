@@ -1,11 +1,11 @@
 import { styled } from '@linaria/react';
-import { CSSProperties } from '@linaria/core';
+
 import { SmallLinkStyle } from '~/components/NavBar.styled';
 
 export const PageHeading = styled.h1`
   /* outline: 1px solid pink; */
   font-weight: 400;
-  padding: 2rem 7rem;
+  padding: 2rem 10%;
   width: 100%;
   border-bottom: 1px solid #333333;
   display: flex;
@@ -14,34 +14,54 @@ export const PageHeading = styled.h1`
 `;
 
 export const ProfileContainer = styled.div`
+  /* outline: 1px solid red; */
+  width: 80%;
+  /* height: 100%; */
+
   display: flex;
-  gap: 4rem;
-  margin: 4rem 7rem;
+  margin: 4rem auto;
+  gap: 5%;
 `;
 
 export const ProfileSectionContainer = styled.div`
   /* outline: 1px solid blue; */
-  width: 75%;
+
+  width: 70%;
   display: flex;
+  /* padding-bottom: 2rem; */
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 `;
 
+export const ProfileSidebar = styled.div`
+  /* outline: 1px solid green; */
+
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  & > a {
+    ${SmallLinkStyle}
+  }
+`;
 /** Fake css function for syntax highlighting */
 function css(...args: any) {
   return args as string;
 }
 
 const sharedSectionStyle = css`
+  /* outline: 1px solid yellow; */
+
   width: 100%;
-  min-height: 16rem;
+  /* min-height: 16rem; */
   background: none;
   border: 1px solid #333333;
   border-radius: 0.5rem;
-  padding: 1.5rem;
   display: flex;
+  /* gap: 1rem; */
   position: relative;
-  padding-bottom: 4rem;
+  /* padding-bottom: 3rem; */
 
   h2 {
     font-size: 1.2rem;
@@ -56,16 +76,23 @@ const sharedSectionStyle = css`
 `;
 
 export const ProfileSection = styled.section`
-  /* outline: 1px solid red; */
-
+  /* padding-bottom: 3rem; */
   ${sharedSectionStyle}
 
   flex-direction: column;
 `;
 
+// export const AvatarSection = styled.section`
+//   /* outline: 1px solid blue; */
+
+//   ${sharedSectionStyle}/* flex-direction: row; */
+//   /* justify-content: space-between; */
+// `;
+
 export const ProfileSectionInside = styled.div`
-  /* outline: 1px solid red; */
-  height: 80%;
+  /* outline: 1px solid pink; */
+  padding: 1.5rem;
+
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -76,33 +103,14 @@ export const ProfileSectionInside = styled.div`
   }
 `;
 
-export const AvatarSection = styled.section`
-  /* outline: 1px solid blue; */
-
-  ${sharedSectionStyle}
-
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-export const ProfileSidebar = styled.div`
-  width: 15rem;
-  /* outline: 1px solid green; */
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-
-  & > a {
-    ${SmallLinkStyle}
-  }
-`;
-
 export const ProfileSectionFooter = styled.div`
   /* make it on the bottom and 100% width */
-  position: absolute;
-  bottom: 0;
+  /* outline: 1px solid red; */
+
+  /* position: absolute; */
+  /* bottom: 0; */
   border-top: 1px solid #333333;
-  left: 0;
+  /* left: 0; */
   font-weight: 300;
   font-size: 0.9rem;
   color: #b1b1b1;
@@ -116,7 +124,7 @@ export const ProfileSectionFooter = styled.div`
   /* outline: 1px solid limegreen; */
 
   width: 100%;
-  height: 20%;
+  height: 2.5rem;
 `;
 
 export const ProfileForm = styled.form`
@@ -171,14 +179,14 @@ export const ProfileForm = styled.form`
 export const ConnectionsWrapper = styled.div`
   /* outline: 1px solid red; */
 
-  margin-top: 1.5rem;
+  /* margin-top: 1.5rem; */
   display: flex;
   flex-direction: row;
   gap: 1rem;
 `;
 
 export const ConnectedAccounts = styled.div`
-  /* outline: 1px solid red; */
+  /* outline: 1px solid limegreen; */
 
   display: flex;
   flex-direction: column;

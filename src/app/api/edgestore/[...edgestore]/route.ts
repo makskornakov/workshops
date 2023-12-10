@@ -1,8 +1,5 @@
 import { initEdgeStore } from '@edgestore/server';
-import {
-  CreateContextOptions,
-  createEdgeStoreNextHandler,
-} from '@edgestore/server/adapters/next/app';
+import { createEdgeStoreNextHandler } from '@edgestore/server/adapters/next/app';
 import { maxAvatarSize, maxMediaSize } from './config';
 import { getUser } from '~/app/utils/prismaUser';
 import prisma from '../../../../../lib/prisma';
@@ -37,6 +34,7 @@ const edgeStoreRouter = es.router({
           // we only need the authorId from author
           select: { author: { select: { id: true } } },
         });
+        console.log('material', material);
       } catch (error) {
         throw new Error(
           "You are not the author of this material or there's no uploaded media associated with it",
