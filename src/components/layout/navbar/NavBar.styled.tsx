@@ -13,6 +13,19 @@ export const Header = styled.header`
   flex-direction: column;
   row-gap: 1rem;
 `;
+export const LogoLink = styled(Link)`
+  width: 3rem;
+  height: 3rem;
+
+  background-image: url('/light-favicon.svg');
+  @media (prefers-color-scheme: dark) {
+    background-image: url('/dark-favicon.svg');
+  }
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+`;
 
 export const HeaderContainer = styled.div`
   /* background: red; */

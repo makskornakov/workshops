@@ -1,4 +1,4 @@
-import { PageHeading } from '../../profile/profile.styled';
+import { PageHeading } from '~/styles/shared';
 import prisma from '../../../../lib/prisma';
 import Link from 'next/link';
 import { StyledButton } from '~/components/layout/navbar/NavBar.styled';

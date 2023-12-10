@@ -6,7 +6,7 @@ import { materialEditAction } from '~/actions/serverActions';
 import type { Material } from '@prisma/client';
 
 import ClientMaterialForm from './ClientEditor';
-import { PageHeading } from '~/app/profile/profile.styled';
+import { PageHeading } from '~/styles/shared';
 
 export default async function MaterialEditor({ id }: { id: string }) {
   const user = await getUser();

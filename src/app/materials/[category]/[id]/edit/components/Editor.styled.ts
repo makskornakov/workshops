@@ -1,37 +1,5 @@
 import { styled } from '@linaria/react';
 
-export const UploadDiv = styled.div<{ 'data-is-dragging': boolean; 'data-is-focused': boolean }>`
-  &[data-is-dragging='true'] {
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: 1.5rem;
-  }
-
-  border: 1.5px dashed #888;
-  padding: 1rem;
-  font-weight: 300;
-  cursor: pointer;
-  color: #888;
-  transition-duration: 0s;
-  transition-property: border-color, color;
-
-  &[data-is-focused='true'] {
-    transition-duration: 0.2s;
-    border-color: #fff;
-    color: #fff;
-  }
-`;
-
 export const MaterialEditorForm = styled.form`
   /* outline: 1px solid red; */
 

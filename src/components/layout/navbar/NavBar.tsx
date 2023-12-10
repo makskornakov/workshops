@@ -1,12 +1,10 @@
 import React from 'react';
-import { Header, HeaderContainer, StyledLink } from './NavBar.styled';
+import { Header, HeaderContainer, LogoLink, StyledLink } from './NavBar.styled';
 import Link from 'next/link';
 import SignOutButton from './SignOutButton';
 import Image from 'next/image';
 import { getUser } from '~/utils/prismaUser';
 import LinksNav from './LinksNav';
-
-import logo from '~/icons/logo.svg';
 
 export default async function NavBar() {
   const user = await getUser();
@@ -15,9 +13,7 @@ export default async function NavBar() {
     <Header>
       <HeaderContainer>
         <div style={{ alignItems: 'center', gap: '1rem' }}>
-          <Link href={'/'}>
-            <Image src={logo} alt={'logo'} width={40} height={40} />
-          </Link>
+          <LogoLink href={'/'} />
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             <Link href={'/'}>Gsw.st</Link>
             <Link

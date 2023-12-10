@@ -5,7 +5,7 @@ import { useEdgeStore } from '~/lib/edgestore';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 
-import { UploadDiv } from '../app/materials/[category]/[id]/edit/components/Editor.styled';
+import { UploadDiv } from './upload.styled';
 import { useEventListener } from 'usehooks-ts';
 
 function checkDragCoordinates(event: DragEvent) {

@@ -2,17 +2,6 @@ import { styled } from '@linaria/react';
 
 import { SmallLinkStyle } from '~/components/layout/navbar/NavBar.styled';
 
-export const PageHeading = styled.h1`
-  /* outline: 1px solid pink; */
-  font-weight: 400;
-  padding: 2rem 10%;
-  width: 100%;
-  border-bottom: 1px solid #333333;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-`;
-
 export const ProfileContainer = styled.div`
   /* outline: 1px solid red; */
   width: 80%;

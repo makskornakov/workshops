@@ -1,4 +1,4 @@
-import { PageHeading } from '~/app/profile/profile.styled';
+import { PageHeading } from '~/styles/shared';
 import prisma from '../../../../../lib/prisma';
 import Link from 'next/link';
 import { getUser } from '~/utils/prismaUser';

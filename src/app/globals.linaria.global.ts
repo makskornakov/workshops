@@ -8,34 +8,23 @@ export const globals = css`
     /* @import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100;400&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap'); */
     :root {
-      --max-width: 1100px;
-      --border-radius: 12px;
-      --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono',
-        'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono',
-        'Courier New', monospace;
+      --border-radius-small: 0.25rem;
+      --border-radius-medium: 0.5rem;
 
-      --background-color: #fff;
-      --secondary-glow: radial-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+      --background-color: #e9e9e9;
+      --main-color: #111;
+      --secondary-color: #333;
+      --tertiary-color: #555;
 
-      --tile-start-rgb: 239, 245, 249;
-      --tile-end-rgb: 228, 232, 233;
-      --tile-border: conic-gradient(
-        #00000080,
-        #00000040,
-        #00000030,
-        #00000020,
-        #00000010,
-        #00000010,
-        #00000080
-      );
-
-      --callout-rgb: 238, 240, 241;
-      --callout-border-rgb: 172, 175, 176;
-      --card-rgb: 180, 185, 188;
-      --card-border-rgb: 131, 134, 135;
+      --border-color: #999;
 
       ${media.prefersColorSchemeDark} {
         --background-color: #111111;
+        --main-color: #fff;
+        --secondary-color: #ddd;
+        --tertiary-color: #aaa;
+
+        --border-color: #333;
       }
     }
 
@@ -52,69 +41,12 @@ export const globals = css`
     }
 
     body {
-      color: #fff;
+      color: var(--main-color);
       background: var(--background-color);
     }
 
     a {
       ${reset.a}
     }
-
-    /* spin animation */
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-    /* applied to container */
-    .custom-class {
-      /* display: none; */
-      background: none;
-    }
-
-    /* applied to button */
-    .custom-class > *[data-ut-element='button'] {
-      font-size: 1.6rem;
-      color: rgb(0 0 0 / 1);
-      background-color: transparent;
-    }
-
-    /* applied to button when uploading */
-    .custom-class > *[data-ut-element='button'][data-state='readying'] {
-      /* background-color: rgb(239 68 68 / 0.5); */
-      color: rgb(0 0 0 / 0.5);
-      cursor: not-allowed;
-    }
-
-    /* applied to button when uploading */
-    .custom-class > *[data-ut-element='button'][data-state='uploading'] {
-      /* background-color: rgb(239 68 68 / 0.5); */
-      color: rgb(0 0 0 / 0.5);
-      cursor: not-allowed;
-
-      > svg {
-        color: #fff;
-        width: 4rem;
-        height: 4rem;
-        animation: spin 1s linear infinite;
-
-        /* shadow for it to be visible */
-        filter: drop-shadow(0 0 0.5rem #000);
-      }
-    }
-
-    /* applied to upload indicator when uploading */
-    .custom-class > *[data-ut-element='button'][data-state='uploading']::after {
-      content: none !important;
-    }
-
-    /* ${media.prefersColorSchemeDark} {
-      html {
-        color-scheme: dark;
-      }
-    } */
   }
 `;

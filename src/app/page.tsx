@@ -1,4 +1,4 @@
-import { PageHeading } from './profile/profile.styled';
+import { PageHeading } from '~/styles/shared';
 
 export default async function Home() {
   return (

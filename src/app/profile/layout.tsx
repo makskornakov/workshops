@@ -1,4 +1,5 @@
-import { PageHeading, ProfileContainer, ProfileSectionContainer } from './profile.styled';
+import { ProfileContainer, ProfileSectionContainer } from './profile.styled';
+import { PageHeading } from '~/styles/shared';
 import { redirect } from 'next/navigation';
 import { getUser } from '../../utils/prismaUser';
 import ProfileSideBar from './sideBar';
