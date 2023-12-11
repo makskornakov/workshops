@@ -1,24 +1,31 @@
 import { PageHeading } from '~/styles/shared';
 
-import BackLink from './BackLink';
 import { styled } from '@linaria/react';
+import Link from 'next/link';
+import { FiArrowLeft } from 'react-icons/fi';
 
 export default function Heading({
   title,
   customBackPathname,
+  noBackButton,
   style,
   children,
   ...props
 }: React.PropsWithChildren<{
   title?: string;
   customBackPathname?: string;
+  noBackButton?: boolean;
   style?: React.CSSProperties;
 }>) {
   return (
     <PageHeading style={{ position: 'relative', ...style }} {...props}>
-      <StyledBackButton>
-        <BackLink customPathname={customBackPathname} />
-      </StyledBackButton>
+      {!noBackButton && (
+        <StyledBackButton>
+          <Link href={customBackPathname ?? './'}>
+            <FiArrowLeft />
+          </Link>
+        </StyledBackButton>
+      )}
       {title}
       {children}
     </PageHeading>
