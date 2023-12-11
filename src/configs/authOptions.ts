@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_SECRET ?? '',
       // allowDangerousEmailAccountLinking: true,
       async profile(profile) {
-        console.log('Google profile', profile);
+        // console.log('Google profile', profile);
         return {
           id: profile.sub,
           name: profile.name,

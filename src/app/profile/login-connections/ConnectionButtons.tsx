@@ -15,7 +15,7 @@ export function ConnectionButtons({
         <div key={provider.name}>
           {provider.id !== 'email' && (
             <LoginProviderButton
-              onClick={() => signIn(provider.id, { callbackUrl: '/profile/login-connections' })}
+              onClick={() => signIn(provider.id)}
               bg={provider.id == 'github' ? '#555' : 'white'}
               color={provider.id == 'github' ? 'white' : 'black'}
               small

@@ -14,7 +14,7 @@ export default async function SignIn({
 
   const user = await getUser();
   if (user) {
-    redirect('/profile/login-connections');
+    redirect(searchParams.callbackUrl || '/profile');
   }
 
   const providers = await getProviders();

@@ -7,7 +7,7 @@ export function SignOutButton() {
   return (
     <StyledButton
       onClick={() => {
-        signOut();
+        signOut({ callbackUrl: '/' });
       }}
     >
       Sign out
