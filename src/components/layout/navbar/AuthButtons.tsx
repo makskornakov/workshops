@@ -6,8 +6,9 @@ import { usePathname } from 'next/navigation';
 export function SignOutButton() {
   return (
     <StyledButton
-      onClick={() => {
-        signOut({ callbackUrl: '/' });
+      onClick={async () => {
+        await signOut();
+        window.location.reload();
       }}
     >
       Sign out

@@ -57,8 +57,8 @@ export default async function NavBar() {
                   </div>
                 )}
                 <p>{user.name}</p>
-                <SignOutButton />
               </Link>
+              <SignOutButton />
             </>
           ) : (
             // pathname is not /auth/signin
