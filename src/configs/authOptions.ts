@@ -14,7 +14,6 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXT_PUBLIC_SECRET ?? '',
   pages: {
     signIn: '/auth/signin',
-
     verifyRequest: '/auth/email-verified',
   },
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Header, HeaderContainer, LogoLink } from './NavBar.styled';
-import { StyledLink } from '~/styles/shared';
 import Link from 'next/link';
-import SignOutButton from './SignOutButton';
+import { SignInButton, SignOutButton } from './AuthButtons';
 import Image from 'next/image';
 import { getUser } from '~/utils/prismaUser';
 import LinksNav from './LinksNav';
@@ -62,9 +61,8 @@ export default async function NavBar() {
               </Link>
             </>
           ) : (
-            <>
-              <StyledLink href={'/api/auth/signin'}>Sign in</StyledLink>
-            </>
+            // pathname is not /auth/signin
+            <SignInButton />
           )}
         </div>
       </HeaderContainer>
