@@ -7,7 +7,10 @@ import { StyledLink } from '~/styles/shared';
 import Image from 'next/image';
 
 import DeleteForm from './components/DeleteForm';
+import { IoTimeOutline } from 'react-icons/io5';
+import { IoBarChartOutline } from 'react-icons/io5';
 import { styled } from '@linaria/react';
+import { complexityValues, timeConsumptionValues } from '~/configs/config';
 
 export default async function MaterialPage({
   params,
@@ -41,32 +44,51 @@ export default async function MaterialPage({
   return (
     <>
       <PageHeading
-        style={{
-          gap: '.4rem',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          paddingBottom: '0.6rem',
-        }}
+        style={
+          {
+            // gap: '.4rem',
+            // flexDirection: 'column',
+            // alignItems: 'flex-start',
+            // paddingBottom: '0.6rem',
+          }
+        }
       >
         {material.title}
-        <span
-          style={{
-            lineHeight: '1rem',
-            color: '#a6a6a6',
-            fontSize: '.95rem',
-            fontWeight: 300,
-          }}
-        >
-          {material.author.name} - {new Date(material.createdAt).toLocaleDateString()}
-        </span>
       </PageHeading>
 
       <MaterialPreview style={{ minHeight: material.mediaUrl ? '50vh' : 'auto' }}>
         <div>
-          <div style={{ display: 'flex', flexDirection: 'row', gap: '.5rem' }}>
-            <h3>Category: </h3>
+          <h3>
+            {material.author.name} - {new Date(material.createdAt).toLocaleDateString()}
+          </h3>
+          {/* <div style={{ display: 'flex', flexDirection: 'row', gap: '.5rem' }}> */}
+          <h3>
+            Category:{' '}
             <Link href={`/materials/${material.categorySlug}`}>{material.category.name}</Link>
-          </div>
+          </h3>
+          <TimeAndComplexity>
+            <h3>
+              <IoTimeOutline />{' '}
+              <span
+                style={{
+                  color: `hsl(${(5 - material.timeConsumption) * 25}, 85%, 50%)`,
+                }}
+              >
+                {timeConsumptionValues[material.timeConsumption - 1]}
+              </span>
+            </h3>
+            <h3>
+              <IoBarChartOutline />{' '}
+              <span
+                style={{
+                  color: `hsl(${(5 - material.complexity) * 25}, 85%, 50%)`,
+                }}
+              >
+                {complexityValues[material.complexity - 1]}
+              </span>
+            </h3>
+          </TimeAndComplexity>
+
           {material.description && (
             <>
               <p>{material.description}</p>
@@ -119,6 +141,39 @@ export default async function MaterialPage({
     </>
   );
 }
+
+const TimeAndComplexity = styled.div`
+  /* outline: 1px solid red; */
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100%;
+
+  & > h3 {
+    /* outline: 1px solid blue; */
+
+    display: flex;
+    flex-direction: row;
+    gap: 0.6rem;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 300;
+
+    & > svg {
+      height: 1.25rem;
+      width: 1.25rem;
+      color: var(--secondary-color);
+    }
+  }
+
+  /* h3 first child */
+  & > h3:first-child {
+    /* outline: 1px solid green; */
+
+    border-right: 1px solid var(--tertiary-color);
+    padding-right: 2rem;
+  }
+`;
 
 const MaterialPreview = styled.div`
   /* outline: 1px solid red; */

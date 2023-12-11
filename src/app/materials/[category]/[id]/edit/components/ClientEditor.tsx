@@ -7,10 +7,11 @@ import { assignMaterialMediaUrl } from '~/actions/serverActions';
 import { MaterialEditorForm, SelectWrapLabel } from './Editor.styled';
 import { styled } from '@linaria/react';
 
-import { maxMaterialFieldsLengths as maxLengths } from '~/configs/config';
-
-const timeConsumptionValues = ['5min', '10min', '15min', '30min', '1h+'];
-const complexityValues = ['very simple', 'simple', 'medium', 'advanced', 'specialized'];
+import {
+  complexityValues,
+  maxMaterialFieldsLengths as maxLengths,
+  timeConsumptionValues,
+} from '~/configs/config';
 
 export default function ClientMaterialForm({
   action,
