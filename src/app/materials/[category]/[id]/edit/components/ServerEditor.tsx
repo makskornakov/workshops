@@ -32,6 +32,19 @@ export default async function MaterialEditor({ id }: { id: string }) {
     },
   });
 
+  categories.sort((a, b) => {
+    if (a.slug === 'uncategorized') {
+      return -1;
+    }
+    if (b.slug === 'uncategorized') {
+      return 1;
+    }
+    if (a.name < b.name) {
+      return -1;
+    }
+    return 1;
+  });
+
   return (
     <>
       <PageHeading style={{ gap: '.5rem' }}>
