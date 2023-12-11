@@ -14,9 +14,14 @@ import { FcGoogle } from 'react-icons/fc';
 import { ConnectionButtons } from './ConnectionButtons';
 import { StyledButton } from '~/styles/shared';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 export default async function LoginConnections() {
   const user = await getUser();
+
+  if (!user) {
+    redirect('/api/auth/signin');
+  }
   const providers = await getProviders();
   const accounts = await getUserAccounts(user);
 
