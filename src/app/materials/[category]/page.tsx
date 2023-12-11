@@ -1,4 +1,3 @@
-import { PageHeading } from '~/styles/shared';
 import prisma from '../../../../lib/prisma';
 import Link from 'next/link';
 import { StyledButton } from '~/styles/shared';
@@ -7,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { Material } from '@prisma/client';
 import SelectComp from '../../../components/ui/SelectComp';
 import { styled } from '@linaria/react';
+import Heading from '~/components/layout/heading/Heading';
 
 export default async function MaterialLibrary({ params }: { params: { category: string } }) {
   // console.log('selectedCategory', params.category);
@@ -82,10 +82,12 @@ export default async function MaterialLibrary({ params }: { params: { category: 
 
   // console.log(categories);
   // console.log(params.category);
+
+  //? because default is /all and we want to go back to /, so from materials library we now */}
   return (
     <>
-      <PageHeading>
-        Material Library
+      <Heading title="Material Library" customBackPathname="/">
+        always go home
         <div
           style={{
             display: 'flex',
@@ -130,7 +132,7 @@ export default async function MaterialLibrary({ params }: { params: { category: 
             <StyledButton type="submit">Create new</StyledButton>
           </form>
         </div>
-      </PageHeading>
+      </Heading>
       <div
         style={{
           display: 'flex',

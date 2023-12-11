@@ -1,11 +1,11 @@
 import { ProfileContainer, ProfileSectionContainer } from './profile.styled';
-import { PageHeading } from '~/styles/shared';
 import ProfileSideBar from './sideBar';
+import Heading from '~/components/layout/heading/Heading';
 
 export default async function ProfileLayout({ children }: React.PropsWithChildren) {
   return (
     <>
-      <PageHeading>Account Settings</PageHeading>
+      <Heading title="Account Settings" />
       <ProfileContainer>
         <ProfileSideBar />
         <ProfileSectionContainer>{children}</ProfileSectionContainer>

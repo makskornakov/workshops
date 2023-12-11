@@ -2,11 +2,10 @@ import prisma from '../../../../../../../lib/prisma';
 import { getUser } from '~/utils/prismaUser';
 import { redirect } from 'next/navigation';
 import { materialEditAction } from '~/actions/serverActions';
+import ClientMaterialForm from './ClientEditor';
+import Heading from '~/components/layout/heading/Heading';
 
 import type { Material } from '@prisma/client';
-
-import ClientMaterialForm from './ClientEditor';
-import { PageHeading } from '~/styles/shared';
 
 export default async function MaterialEditor({ id }: { id: string }) {
   const user = await getUser();
@@ -47,7 +46,7 @@ export default async function MaterialEditor({ id }: { id: string }) {
 
   return (
     <>
-      <PageHeading style={{ gap: '.5rem' }}>
+      <Heading style={{ gap: '.5rem' }}>
         Editing Material:{' '}
         <span
           style={{
@@ -56,7 +55,7 @@ export default async function MaterialEditor({ id }: { id: string }) {
         >
           {material.title}
         </span>
-      </PageHeading>
+      </Heading>
       <div>
         <ClientMaterialForm
           material={material as Material & { author: { name: string }; category: { name: string } }}

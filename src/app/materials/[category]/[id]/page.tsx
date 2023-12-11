@@ -1,4 +1,3 @@
-import { PageHeading } from '~/styles/shared';
 import prisma from '../../../../../lib/prisma';
 import Link from 'next/link';
 import { getUser } from '~/utils/prismaUser';
@@ -10,6 +9,7 @@ import DeleteForm from './components/DeleteForm';
 import { IoTimeOutline } from 'react-icons/io5';
 import { IoBarChartOutline } from 'react-icons/io5';
 import { styled } from '@linaria/react';
+import Heading from '~/components/layout/heading/Heading';
 import { complexityValues, timeConsumptionValues } from '~/configs/config';
 
 export default async function MaterialPage({
@@ -43,19 +43,7 @@ export default async function MaterialPage({
 
   return (
     <>
-      <PageHeading
-        style={
-          {
-            // gap: '.4rem',
-            // flexDirection: 'column',
-            // alignItems: 'flex-start',
-            // paddingBottom: '0.6rem',
-          }
-        }
-      >
-        {material.title}
-      </PageHeading>
-
+      <Heading title={material.title} />
       <MaterialPreview style={{ minHeight: material.mediaUrl ? '50vh' : 'auto' }}>
         <div>
           <h3>

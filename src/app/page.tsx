@@ -1,9 +1,9 @@
-import { PageHeading } from '~/styles/shared';
+import Heading from '~/components/layout/heading/Heading';
 
 export default async function Home() {
   return (
     <>
-      <PageHeading>Home Page</PageHeading>
+      <Heading title="Home" />
       <div>This is the main page</div>
     </>
   );
