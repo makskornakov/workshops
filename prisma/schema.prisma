@@ -68,17 +68,23 @@ model Category {
 }
 
 model Material {
-  id           String     @id @default(cuid())
-  createdAt    DateTime   @default(now())
-  title        String
-  description  String?
-  mediaUrl     String?    @unique
-  paragraph    String?
-  authorId     String
-  author       User       @relation(fields: [authorId], references: [id], onDelete: Restrict)
-  workshops    Workshop[]
-  categorySlug String
-  category     Category   @relation(fields: [categorySlug], references: [slug], onDelete: Restrict)
+  id              String     @id @default(cuid())
+  createdAt       DateTime   @default(now())
+  title           String
+  // very simple / simple / medium / advanced / specialized
+  // 1 2 3 4 5
+  complexity      Int        @default(2)
+  // 5min, 10min, 15min, 30min, 1h+
+  // 1 2 3 4 5
+  timeConsumption Int        @default(1)
+  description     String?
+  mediaUrl        String?    @unique
+  paragraph       String?
+  authorId        String
+  author          User       @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  workshops       Workshop[]
+  categorySlug    String
+  category        Category   @relation(fields: [categorySlug], references: [slug], onDelete: Restrict)
 }
 
 model Workshop {

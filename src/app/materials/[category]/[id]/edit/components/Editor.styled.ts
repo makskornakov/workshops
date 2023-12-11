@@ -86,7 +86,7 @@ export const MaterialEditorForm = styled.form`
   }
 
   textarea {
-    min-height: 6rem;
+    min-height: 4rem;
     max-height: 8rem;
     resize: vertical;
   }

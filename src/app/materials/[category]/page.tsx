@@ -119,6 +119,8 @@ export default async function MaterialLibrary({ params }: { params: { category: 
                   title: 'Untitled',
                   authorId: user.id,
                   categorySlug: 'uncategorized',
+                  // timeConsumption: ''
+                  // complexity: 1,
                 },
               });
               // console.log('created material', material);

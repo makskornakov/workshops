@@ -69,6 +69,8 @@ export async function materialEditAction(formData: FormData, userId: string, mat
 
   const description = data.get('description');
   const category = data.get('category');
+  const complexity = data.get('complexity');
+  const timeConsumption = data.get('timeConsumption');
 
   // validate category
   const validCategory = await prisma.category.findUnique({
@@ -87,6 +89,8 @@ export async function materialEditAction(formData: FormData, userId: string, mat
     paragraph: content,
     authorId: userId,
     categorySlug: validCategory.slug,
+    complexity: Number(complexity),
+    timeConsumption: Number(timeConsumption),
   };
 
   if (!materialObj.title || !materialObj.authorId || !materialObj.categorySlug)

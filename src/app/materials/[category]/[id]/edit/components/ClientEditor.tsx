@@ -9,6 +9,9 @@ import { styled } from '@linaria/react';
 
 import { maxMaterialFieldsLengths as maxLengths } from '~/configs/config';
 
+const timeConsumptionValues = ['5min', '10min', '15min', '30min', '1h+'];
+const complexityValues = ['very simple', 'simple', 'medium', 'advanced', 'specialized'];
+
 export default function ClientMaterialForm({
   action,
   material,
@@ -22,6 +25,12 @@ export default function ClientMaterialForm({
   const [uploadingFile, setUploadingFile] = useState(false);
   const [saving, setSaving] = useState(false);
   const [chosenCategory, setChosenCategory] = useState(material.category.name);
+
+  console.log('material comlexity and time', material.complexity, material.timeConsumption);
+  const [chosenComplexity, setChosenComplexity] = useState<number>(material.complexity);
+  const [chosenTimeConsumption, setChosenTimeConsumption] = useState<number>(
+    material.timeConsumption,
+  );
 
   const { edgestore } = useEdgeStore();
 
@@ -85,6 +94,8 @@ export default function ClientMaterialForm({
               await assignMaterialMediaUrl(material.id, res.url);
               setSaving(false);
             }
+            formData.append('complexity', chosenComplexity.toString());
+            formData.append('timeConsumption', chosenTimeConsumption.toString());
             await action(formData);
           } catch (error) {
             console.log(error);
@@ -114,7 +125,7 @@ export default function ClientMaterialForm({
               <select
                 id="category"
                 name="category"
-                defaultValue={material.category.name}
+                // defaultValue={material.category.name}
                 value={chosenCategory}
                 onChange={(e) => setChosenCategory(e.target.value)}
               >
@@ -148,6 +159,20 @@ export default function ClientMaterialForm({
           </div>
         </div>
         <div>
+          <StyledRangeContainer>
+            <MyRangeComponent
+              title="Complexity:"
+              value={chosenComplexity}
+              setValue={setChosenComplexity}
+              dictionary={complexityValues}
+            />
+            <MyRangeComponent
+              title="Time consumption:"
+              value={chosenTimeConsumption}
+              setValue={setChosenTimeConsumption}
+              dictionary={timeConsumptionValues}
+            />
+          </StyledRangeContainer>
           <div>
             <label htmlFor="description">Description</label>
             <label style={{ position: 'relative' }}>
@@ -195,6 +220,84 @@ export default function ClientMaterialForm({
   );
 }
 
+const MyRangeComponent = ({
+  title,
+  value,
+  setValue,
+  dictionary,
+}: {
+  title: string;
+  value: number;
+  setValue: (value: number) => void;
+  dictionary: string[];
+}) => {
+  return (
+    <label>
+      <p>
+        {title}
+        <span
+          style={{
+            color: `hsl(${(5 - value) * 25}, 85%, 50%)`,
+          }}
+        >
+          {' '}
+          {dictionary[value - 1]}
+        </span>
+      </p>
+      <input
+        type="range"
+        value={value}
+        onChange={(e) => {
+          setValue(+e.target.value);
+        }}
+        min={1}
+        max={5}
+        step={1}
+      />
+    </label>
+  );
+};
+const StyledRangeContainer = styled.div`
+  /* outline: 1px solid red; */
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: space-between;
+
+  label {
+    width: 40%;
+    /* outline: 1px solid blue; */
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  input[type='range'] {
+    appearance: none;
+    width: 100%;
+    /* min-width: 100px; */
+    height: 0.4rem;
+    background: #333333;
+    outline: none;
+    border-radius: var(--border-radius-small);
+    cursor: pointer;
+    padding: 0;
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 1rem;
+      height: 1rem;
+      background-color: var(--secondary-color);
+      border-radius: 50%;
+      transition: background-color 0.2s ease-in-out;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: var(--main-color);
+      }
+    }
+  }
+`;
 const StyledLengthCounter = styled.span`
   font-size: 0.85rem;
   position: absolute;
