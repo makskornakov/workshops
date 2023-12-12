@@ -7,6 +7,7 @@ import { Material } from '@prisma/client';
 import SelectComp from '../../../components/ui/SelectComp';
 import { styled } from '@linaria/react';
 import Heading from '~/components/layout/heading/Heading';
+import { colorVar } from '~/utils/colors';
 
 export default async function MaterialLibrary({ params }: { params: { category: string } }) {
   // console.log('selectedCategory', params.category);
@@ -143,7 +144,7 @@ export default async function MaterialLibrary({ params }: { params: { category: 
       >
         <p
           style={{
-            color: 'var(--secondary-color)',
+            color: colorVar('secondary-color'),
             fontWeight: 300,
             fontSize: '.9rem',
           }}

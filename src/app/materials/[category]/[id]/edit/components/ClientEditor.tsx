@@ -15,6 +15,7 @@ import {
 } from '~/configs/config';
 import Heading from '~/components/layout/heading/Heading';
 import { usePreventClosingWindowWhileSending } from '~/hooks/usePreventClosingWindowWhileSending';
+import { colorVar } from '~/utils/colors';
 
 function useMaterialForm(
   material: Material & { author: { name: string }; category: { name: string } },
@@ -159,7 +160,7 @@ export default function ClientMaterialForm({
             <p
               style={{
                 fontSize: '0.85rem',
-                color: 'var(--tertiary-color)',
+                color: colorVar('tertiary-color'),
               }}
             >
               {categories.find((category) => category.name === chosenCategory)?.description}
@@ -262,7 +263,7 @@ const MyRangeComponent = ({
   dictionary: string[];
   register: ReturnType<typeof useMaterialForm>['register'];
 } & React.JSX.IntrinsicElements['input']) => {
-  console.log('watchedValue', watchedValue);
+  // console.log('watchedValue', watchedValue);
   return (
     <div>
       <p>
@@ -292,7 +293,7 @@ const StyledRangeContainer = styled.div`
 
     width: 40%;
     font-weight: 300;
-    color: var(--secondary-color);
+    color: ${colorVar('secondary-color')};
     display: flex;
     flex-direction: column;
     gap: 0.7rem;
@@ -312,14 +313,14 @@ const StyledRangeContainer = styled.div`
       appearance: none;
       width: 1rem;
       height: 1rem;
-      background-color: var(--secondary-color);
+      background-color: ${colorVar('secondary-color')};
       border-radius: 50%;
       transition: background-color 0.2s ease-in-out;
 
       &:hover,
       &:focus,
       &:active {
-        background-color: var(--main-color);
+        background-color: ${colorVar('main-color')};
       }
     }
   }

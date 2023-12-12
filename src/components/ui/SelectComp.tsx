@@ -100,7 +100,7 @@ const SelectContainer = styled.label<{ 'data-open': boolean }>`
   border: 1px solid #b1b1b1;
   border-radius: 0.25rem;
 
-  padding: 0.4rem;
+  padding: 0.5rem;
   padding-right: 1rem;
   font-size: 0.8rem;
   color: #b1b1b1;

@@ -11,6 +11,7 @@ import { IoBarChartOutline } from 'react-icons/io5';
 import { styled } from '@linaria/react';
 import Heading from '~/components/layout/heading/Heading';
 import { complexityValues, timeConsumptionValues } from '~/configs/config';
+import { colorVar } from '~/utils/colors';
 
 export default async function MaterialPage({
   params,
@@ -150,7 +151,7 @@ const TimeAndComplexity = styled.div`
     & > svg {
       height: 1.15rem;
       width: 1.15rem;
-      color: var(--secondary-color);
+      color: ${colorVar('secondary-color')};
     }
   }
 
@@ -158,7 +159,7 @@ const TimeAndComplexity = styled.div`
   & > h3:first-child {
     /* outline: 1px solid green; */
 
-    border-right: 1px solid var(--tertiary-color);
+    border-right: 1px solid ${colorVar('tertiary-color')};
     padding-right: 2rem;
   }
 `;

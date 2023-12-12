@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { LinkContainer } from './NavBar.styled';
 import { usePathname } from 'next/navigation';
+import { colorVar } from '~/utils/colors';
 
 const links = [
   {
@@ -38,7 +39,7 @@ export default function LinksNav({ isUser }: { isUser: boolean }) {
           href={link.href}
           key={link.href}
           style={
-            resolvedPathname[1] === link.href.split('/')[1] ? { color: 'var(--main-color)' } : {}
+            resolvedPathname[1] === link.href.split('/')[1] ? { color: colorVar('main-color') } : {}
           }
         >
           {link.label}

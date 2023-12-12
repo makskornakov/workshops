@@ -1,9 +1,10 @@
 import { styled } from '@linaria/react';
 import Link from 'next/link';
+import { colorVar } from '~/utils/colors';
 import { css } from '~/utils/styleUtils';
 
 export const Header = styled.header`
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid ${colorVar('border-color')};
 
   position: sticky;
   top: 0;
@@ -41,16 +42,24 @@ export const HeaderContainer = styled.div`
   }
 `;
 
-export const SmallLinkStyle = css`
-  color: var(--secondary-color);
+// const smallLinkStyleColor = `color: ${colorVar('secondary-color')}`;
+
+// const smallLinkStyleHoverColor = `color: ${colorVar('main-color')};`;
+
+const jointSmallLinkStyle = `
+  color: ${colorVar('secondary-color')};
+
+  &:hover {
+    color: ${colorVar('main-color')};
+  }
+`;
+
+export const smallLinkStyle = css`
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 300;
   transition: all 0.2s ease-in-out;
-
-  &:hover {
-    color: var(--main-color);
-  }
+  ${jointSmallLinkStyle}
 `;
 
 export const LinkContainer = styled.nav`
@@ -61,6 +70,6 @@ export const LinkContainer = styled.nav`
   column-gap: 1.5rem;
 
   > a {
-    ${SmallLinkStyle};
+    ${smallLinkStyle}
   }
 `;

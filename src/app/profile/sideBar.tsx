@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { ProfileSidebar } from './profile.styled';
 import { usePathname } from 'next/navigation';
+import { colorVar } from '~/utils/colors';
 
 const links = [
   {
@@ -26,7 +27,7 @@ export default function ProfileSideBar() {
         <Link
           href={link.href}
           key={link.href}
-          style={pathname === link.href ? { color: 'var(--main-color)' } : {}}
+          style={pathname === link.href ? { color: colorVar('main-color') } : {}}
         >
           {link.label}
         </Link>

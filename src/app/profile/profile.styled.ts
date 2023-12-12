@@ -1,6 +1,7 @@
 import { styled } from '@linaria/react';
 
-import { SmallLinkStyle } from '~/components/layout/navbar/NavBar.styled';
+import { smallLinkStyle } from '~/components/layout/navbar/NavBar.styled';
+import { colorVar } from '~/utils/colors';
 import { css } from '~/utils/styleUtils';
 
 export const ProfileContainer = styled.div`
@@ -32,9 +33,11 @@ export const ProfileSidebar = styled.div`
   gap: 1.5rem;
 
   & > a {
-    ${SmallLinkStyle}
+    ${smallLinkStyle}
   }
 `;
+
+const sharedSectionStyleBorder = `border: 1px solid ${colorVar('border-color')};`;
 
 const sharedSectionStyle = css`
   /* outline: 1px solid yellow; */
@@ -42,7 +45,7 @@ const sharedSectionStyle = css`
   width: 100%;
   /* min-height: 16rem; */
   background: none;
-  border: 1px solid var(--border-color);
+  ${sharedSectionStyleBorder}
   border-radius: 0.5rem;
   display: flex;
   /* gap: 1rem; */
@@ -88,11 +91,12 @@ export const ProfileSectionFooter = styled.div`
 
   /* position: absolute; */
   /* bottom: 0; */
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid ${colorVar('border-color')};
   /* left: 0; */
   font-weight: 300;
   font-size: 0.9rem;
-  color: var(--tertiary-color);
+
+  color: ${colorVar('tertiary-color')};
 
   display: flex;
   flex-direction: column;
@@ -118,8 +122,9 @@ export const ProfileForm = styled.form`
     background: none;
     width: 20rem;
     height: 2rem;
-    color: var(--main-color);
-    border: 1px solid var(--border-color);
+
+    color: ${colorVar('main-color')};
+    border: 1px solid ${colorVar('border-color')};
     border-radius: 0.5rem;
     padding: 0.5rem;
     font-size: 0.9rem;
@@ -128,7 +133,8 @@ export const ProfileForm = styled.form`
 
     &:focus {
       outline: none;
-      border: 1px solid var(--secondary-color);
+
+      border: 1px solid ${colorVar('secondary-color')};
     }
   }
 
@@ -136,30 +142,30 @@ export const ProfileForm = styled.form`
     width: 6rem;
     height: 2rem;
     border: 1px solid;
-    border-color: var(--border-color);
+    border-color: ${colorVar('border-color')};
     border-radius: 0.5rem;
     background: none;
 
-    color: var(--border-color);
+    color: ${colorVar('border-color')};
     cursor: pointer;
     font-weight: 300;
     font-size: 1.15rem;
     transition: background-color 0.3s ease-in-out;
 
     &:hover {
-      border-color: var(--secondary-color);
-      color: var(--secondary-color);
+      border-color: ${colorVar('secondary-color')};
+      color: ${colorVar('secondary-color')};
     }
 
     &:disabled {
-      color: var(--tertiary-color);
-      border-color: var(--tertiary-color);
+      color: ${colorVar('tertiary-color')};
+      border-color: ${colorVar('tertiary-color')};
 
       cursor: not-allowed;
 
       &:hover {
-        color: var(--tertiary-color);
-        border-color: var(--tertiary-color);
+        color: ${colorVar('tertiary-color')};
+        border-color: ${colorVar('tertiary-color')};
       }
     }
   }
@@ -193,17 +199,19 @@ export const ConnectedAccountForm = styled.form`
   span {
     font-size: 0.9rem;
     font-weight: 300;
-    color: var(--tertiary-color);
+
+    color: ${colorVar('tertiary-color')};
   }
 
   > div {
     > p {
-      color: var(--main-color);
+      color: ${colorVar('main-color')};
     }
     > p:last-child {
       font-size: 0.85rem;
       font-weight: 200;
-      color: var(--secondary-color);
+
+      color: ${colorVar('secondary-color')};
     }
   }
 `;

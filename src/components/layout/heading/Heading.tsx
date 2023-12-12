@@ -2,6 +2,7 @@ import { PageHeading } from '~/styles/shared';
 
 import { styled } from '@linaria/react';
 import BackButton from './BackButton';
+import { colorVar } from '~/utils/colors';
 // import Link from 'next/link';
 // import { FiArrowLeft } from 'react-icons/fi';
 
@@ -46,13 +47,13 @@ const StyledBackButton = styled.div`
   svg {
     width: 100%;
     height: 100%;
-    color: var(--secondary-color);
+    color: ${colorVar('secondary-color')};
     transition: color 0.2s ease-in-out;
   }
 
   &:hover {
     svg {
-      color: var(--main-color);
+      color: ${colorVar('main-color')};
     }
   }
 `;
