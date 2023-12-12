@@ -8,6 +8,8 @@ import Image from 'next/image';
 import { UploadDiv } from './upload.styled';
 import { useEventListener } from 'usehooks-ts';
 
+export const materialMediaFileInputId = 'material-media-file-input';
+
 function checkDragCoordinates(event: DragEvent) {
   const boundOffset = 0;
 
@@ -72,7 +74,7 @@ export default function UploadMediaZone({
   useEventListener(
     'dragenter',
     () => {
-      console.log('dragenter');
+      // console.log('dragenter');
       setPageDragOver(true);
     },
     undefined,
@@ -81,7 +83,7 @@ export default function UploadMediaZone({
   useEventListener(
     'dragend',
     () => {
-      console.log('dragend');
+      // console.log('dragend');
       setPageDragOver(false);
     },
     undefined,
@@ -91,7 +93,7 @@ export default function UploadMediaZone({
   useEventListener(
     'dragleave',
     (event) => {
-      console.log('dragleave', event);
+      // console.log('dragleave', event);
 
       if (checkDragCoordinates(event)) {
         setPageDragOver(false);
@@ -102,8 +104,8 @@ export default function UploadMediaZone({
   );
   useEventListener(
     'drop',
-    (event) => {
-      console.log('drop', event);
+    () => {
+      // console.log('drop', event);
       setPageDragOver(false);
     },
     undefined,
@@ -112,25 +114,31 @@ export default function UploadMediaZone({
 
   return (
     <section>
-      <div>
-        {mediaUrl && (
-          <div style={{ width: '100%', position: 'relative', height: '150px' }}>
-            <Image
-              src={mediaUrl}
-              alt="Thumb"
-              fill
-              style={{ objectFit: 'contain' }}
-              sizes="1wv"
-              // quality={1}
-            />
-          </div>
-        )}
-      </div>
+      {mediaUrl && (
+        <div
+          style={{ width: '100%', position: 'relative', height: '150px' }}
+          onClick={() => {
+            const fileInput = document.getElementById(materialMediaFileInputId) as HTMLInputElement;
+            if (fileInput) fileInput.click();
+          }}
+        >
+          <Image
+            src={mediaUrl}
+            alt="Thumb"
+            fill
+            style={{ objectFit: 'contain' }}
+            sizes="1wv"
+            // quality={1}
+          />
+        </div>
+      )}
 
       {file ? (
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <button
-            onClick={() => {
+            type="reset"
+            onClick={(event) => {
+              event.preventDefault();
               setMediaUrl(material.mediaUrl);
               setFile(null);
             }}
@@ -180,7 +188,7 @@ export default function UploadMediaZone({
             data-is-focused={isFocused || isFileDialogActive || isDragActive}
             {...getRootProps({ className: 'dropzone' })}
           >
-            <input {...getInputProps()} />
+            <input {...getInputProps()} id={materialMediaFileInputId} />
             <p>
               {pageDragOver
                 ? 'Drop your file anywhere'

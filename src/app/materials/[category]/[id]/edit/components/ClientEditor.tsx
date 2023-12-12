@@ -1,17 +1,35 @@
 'use client';
 import { Material } from '@prisma/client';
-import UploadMediaZone from '../../../../../../components/UploadMedia';
+import UploadMediaZone, { materialMediaFileInputId } from '~/components/UploadMedia';
 import { useState } from 'react';
 import { useEdgeStore } from '~/lib/edgestore';
 import { assignMaterialMediaUrl } from '~/actions/serverActions';
 import { MaterialEditorForm, SelectWrapLabel } from './Editor.styled';
 import { styled } from '@linaria/react';
+import { useForm } from 'react-hook-form';
 
 import {
   complexityValues,
   maxMaterialFieldsLengths as maxLengths,
   timeConsumptionValues,
 } from '~/configs/config';
+import Heading from '~/components/layout/heading/Heading';
+import { usePreventClosingWindowWhileSending } from '~/hooks/usePreventClosingWindowWhileSending';
+
+function useMaterialForm(
+  material: Material & { author: { name: string }; category: { name: string } },
+) {
+  return useForm({
+    defaultValues: {
+      title: material.title,
+      description: material.description ?? '',
+      content: material.paragraph ?? '',
+      category: material.category.name,
+      complexity: material.complexity,
+      timeConsumption: material.timeConsumption,
+    },
+  });
+}
 
 export default function ClientMaterialForm({
   action,
@@ -27,40 +45,36 @@ export default function ClientMaterialForm({
   const [saving, setSaving] = useState(false);
   const [chosenCategory, setChosenCategory] = useState(material.category.name);
 
-  console.log('material comlexity and time', material.complexity, material.timeConsumption);
-  const [chosenComplexity, setChosenComplexity] = useState<number>(material.complexity);
-  const [chosenTimeConsumption, setChosenTimeConsumption] = useState<number>(
-    material.timeConsumption,
-  );
+  const {
+    register,
+    watch,
+    formState: { isDirty },
+  } = useMaterialForm(material);
+  usePreventClosingWindowWhileSending(isDirty);
 
   const { edgestore } = useEdgeStore();
 
   const [pageDragOver, setPageDragOver] = useState(false);
-
-  // restricting textarea lengths
-
-  const [controlledInputs, setControlledInputs] = useState({
-    title: material.title,
-    description: material.description ?? '',
-    content: material.paragraph ?? '',
-  });
-
-  function handleChange(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) {
-    const { name, value } = event.target;
-    if (value.length > maxLengths[name as keyof typeof maxLengths]) {
-      return;
-    }
-    setControlledInputs((prev) => ({ ...prev, [name]: value }));
-  }
-
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <>
+      <Heading
+        title="Editing Material: "
+        style={{ gap: '.5rem' }}
+        requireConfirmation={isDirty || !!file}
+      >
+        <span
+          style={{
+            color: '#a6a6a6',
+          }}
+        >
+          {material.title}
+        </span>
+      </Heading>
+
       <MaterialEditorForm
-        // action={action}
         action={async (formData) => {
           try {
             if (file) {
-              // console.log('set to true');
               setTimeout(() => {
                 // Workaround to prevent batching
                 setUploadingFile(true);
@@ -81,9 +95,8 @@ export default function ClientMaterialForm({
                   materialId: material.id,
                 },
               });
-              console.log(res);
+
               setFile(null);
-              // console.log('set to false');
               setTimeout(() => {
                 // Workaround to prevent batching
                 setUploadingFile(false);
@@ -95,8 +108,7 @@ export default function ClientMaterialForm({
               await assignMaterialMediaUrl(material.id, res.url);
               setSaving(false);
             }
-            formData.append('complexity', chosenComplexity.toString());
-            formData.append('timeConsumption', chosenTimeConsumption.toString());
+
             await action(formData);
           } catch (error) {
             console.log(error);
@@ -105,38 +117,45 @@ export default function ClientMaterialForm({
       >
         <div>
           <div>
-            <label htmlFor="title">Title</label>
             <label style={{ position: 'relative' }}>
+              Title
               <input
                 type="text"
-                id="title"
-                name="title"
-                value={controlledInputs.title}
-                onChange={handleChange}
+                defaultValue={material.title}
+                maxLength={maxLengths.title}
+                {...register('title', { required: true })}
               ></input>
               <StyledLengthCounter style={{ bottom: '0.5rem' }}>
-                {controlledInputs.title.length}
+                {watch('title').length}
                 <span> / {maxLengths.title}</span>
               </StyledLengthCounter>
             </label>
           </div>
           <div>
-            <label htmlFor="category">Category</label>
-            <SelectWrapLabel>
-              <select
-                id="category"
-                name="category"
-                // defaultValue={material.category.name}
-                value={chosenCategory}
-                onChange={(e) => setChosenCategory(e.target.value)}
-              >
-                {categories.map((category) => (
-                  <option key={category.slug} value={category.name}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-            </SelectWrapLabel>
+            <label
+              onClick={(event) => {
+                event.preventDefault();
+                const selectComponent = event.currentTarget.querySelector('select');
+                selectComponent?.dispatchEvent(new MouseEvent('mousedown')); // just .click() would not work, this is a hack.
+              }}
+            >
+              Category
+              <SelectWrapLabel>
+                <select
+                  defaultValue={material.category.name}
+                  {...register('category', {
+                    required: true,
+                    onChange: (e) => setChosenCategory(e.target.value),
+                  })}
+                >
+                  {categories.map((category) => (
+                    <option key={category.slug} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </SelectWrapLabel>
+            </label>
             <p
               style={{
                 fontSize: '0.85rem',
@@ -147,7 +166,7 @@ export default function ClientMaterialForm({
             </p>
           </div>
           <div>
-            <label>Media Content</label>
+            <label htmlFor={materialMediaFileInputId}>Media Content</label>
             <UploadMediaZone
               material={material}
               file={file}
@@ -163,28 +182,31 @@ export default function ClientMaterialForm({
           <StyledRangeContainer>
             <MyRangeComponent
               title="Complexity:"
-              value={chosenComplexity}
-              setValue={setChosenComplexity}
+              watchedValue={watch('complexity')}
+              defaultValue={material.complexity}
+              register={register}
+              name="complexity"
               dictionary={complexityValues}
             />
             <MyRangeComponent
               title="Time consumption:"
-              value={chosenTimeConsumption}
-              setValue={setChosenTimeConsumption}
+              watchedValue={watch('timeConsumption')}
+              defaultValue={material.timeConsumption}
+              register={register}
+              name="timeConsumption"
               dictionary={timeConsumptionValues}
             />
           </StyledRangeContainer>
           <div>
-            <label htmlFor="description">Description</label>
             <label style={{ position: 'relative' }}>
+              Description
               <textarea
-                id="description"
-                name="description"
-                value={controlledInputs.description}
-                onChange={handleChange}
+                maxLength={maxLengths.description}
+                defaultValue={material.description ?? undefined}
+                {...register('description')}
               ></textarea>
               <StyledLengthCounter>
-                {controlledInputs.description.length}
+                {watch('description').length}
                 <span> / {maxLengths.description}</span>
               </StyledLengthCounter>
             </label>
@@ -194,17 +216,22 @@ export default function ClientMaterialForm({
               height: '100%',
             }}
           >
-            <label htmlFor="Content">Content</label>
-            <label style={{ position: 'relative', flexGrow: 1 }}>
+            <label
+              style={{
+                position: 'relative',
+                flexGrow: 1,
+              }}
+            >
+              Content
               <textarea
                 id="content"
-                name="content"
-                value={controlledInputs.content}
-                style={{ height: '100%', maxHeight: '20rem' }}
-                onChange={handleChange}
+                maxLength={maxLengths.content}
+                defaultValue={material.paragraph ?? undefined}
+                style={{ maxHeight: '20rem', height: '100%' }}
+                {...register('content')}
               ></textarea>
               <StyledLengthCounter>
-                {controlledInputs.content.length}
+                {watch('content').length}
                 <span> / {maxLengths.content}</span>
               </StyledLengthCounter>
             </label>
@@ -212,50 +239,45 @@ export default function ClientMaterialForm({
         </div>
         <div>
           <p>Author: {material.author.name}</p>
-          <button type="submit" disabled={uploadingFile || saving}>
+          <button type="submit" disabled={uploadingFile || saving || !isDirty}>
             {saving ? 'Saving...' : 'Save'}
           </button>
         </div>
       </MaterialEditorForm>
-    </div>
+    </>
   );
 }
 
 const MyRangeComponent = ({
   title,
-  value,
-  setValue,
+  name,
   dictionary,
+  watchedValue,
+  register,
+  ...rest
 }: {
   title: string;
-  value: number;
-  setValue: (value: number) => void;
+  name: ReturnType<ReturnType<typeof useMaterialForm>['register']>['name'];
+  watchedValue: number;
   dictionary: string[];
-}) => {
+  register: ReturnType<typeof useMaterialForm>['register'];
+} & React.JSX.IntrinsicElements['input']) => {
+  console.log('watchedValue', watchedValue);
   return (
-    <label>
+    <div>
       <p>
         {title}
         <span
           style={{
-            color: `hsl(${(5 - value) * 25}, 85%, 50%)`,
+            color: `hsl(${(5 - watchedValue) * 25}, 85%, 50%)`,
           }}
         >
           {' '}
-          {dictionary[value - 1]}
+          {dictionary[watchedValue - 1]}
         </span>
       </p>
-      <input
-        type="range"
-        value={value}
-        onChange={(e) => {
-          setValue(+e.target.value);
-        }}
-        min={1}
-        max={5}
-        step={1}
-      />
-    </label>
+      <input type="range" min={1} max={5} step={1} {...rest} {...register(name)} />
+    </div>
   );
 };
 const StyledRangeContainer = styled.div`
@@ -265,17 +287,20 @@ const StyledRangeContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  label {
-    width: 40%;
+  div {
     /* outline: 1px solid blue; */
+
+    width: 40%;
+    font-weight: 300;
+    color: var(--secondary-color);
     display: flex;
     flex-direction: column;
     gap: 0.7rem;
   }
   input[type='range'] {
+    /* min-width: 100px; */
     appearance: none;
     width: 100%;
-    /* min-width: 100px; */
     height: 0.4rem;
     background: #333333;
     outline: none;

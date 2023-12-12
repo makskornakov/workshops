@@ -3,7 +3,7 @@ import { getUser } from '~/utils/prismaUser';
 import { redirect } from 'next/navigation';
 import { materialEditAction } from '~/actions/serverActions';
 import ClientMaterialForm from './ClientEditor';
-import Heading from '~/components/layout/heading/Heading';
+// import Heading from '~/components/layout/heading/Heading';
 
 import type { Material } from '@prisma/client';
 
@@ -46,8 +46,7 @@ export default async function MaterialEditor({ id }: { id: string }) {
 
   return (
     <>
-      <Heading style={{ gap: '.5rem' }}>
-        Editing Material:{' '}
+      {/* <Heading title="Editing Material: " style={{ gap: '.5rem' }} requireConfirmation>
         <span
           style={{
             color: '#a6a6a6',
@@ -55,7 +54,7 @@ export default async function MaterialEditor({ id }: { id: string }) {
         >
           {material.title}
         </span>
-      </Heading>
+      </Heading> */}
       <div>
         <ClientMaterialForm
           material={material as Material & { author: { name: string }; category: { name: string } }}

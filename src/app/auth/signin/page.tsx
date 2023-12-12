@@ -10,7 +10,7 @@ export default async function SignIn({
 }: {
   searchParams: Record<'error' | 'callbackUrl', string | undefined>;
 }) {
-  console.log('searchParams', searchParams);
+  // console.log('searchParams', searchParams);
 
   const user = await getUser();
   if (user) {

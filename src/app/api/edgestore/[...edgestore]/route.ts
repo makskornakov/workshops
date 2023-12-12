@@ -16,17 +16,13 @@ const edgeStoreRouter = es.router({
       }),
     )
     .beforeDelete(async ({ fileInfo }) => {
-      // const targetUrl = fileInfo.replaceTargetUrl;
-      // const materialId = input.materialId;
       const user = await getUser();
 
       if (!user) throw new Error('User not found');
-      console.log('hi from beforeDelete');
       if (!fileInfo.url) return false;
-      console.log('fileInfo.url', fileInfo.url);
-      console.log('user.id', user.id);
+
       try {
-        const material = await prisma.material.findUniqueOrThrow({
+        await prisma.material.findUniqueOrThrow({
           where: {
             mediaUrl: fileInfo.url,
             authorId: user.id,
@@ -34,7 +30,6 @@ const edgeStoreRouter = es.router({
           // we only need the authorId from author
           select: { author: { select: { id: true } } },
         });
-        console.log('material', material);
       } catch (error) {
         throw new Error(
           "You are not the author of this material or there's no uploaded media associated with it",
@@ -68,7 +63,6 @@ const edgeStoreRouter = es.router({
   avatarFiles: es.imageBucket({ maxSize: maxAvatarSize }).beforeUpload(async ({ fileInfo }) => {
     const targetUrl = fileInfo.replaceTargetUrl;
     const user = await getUser();
-    // console.log('user', user);
     if (!user) throw new Error('User not found');
 
     const userInDb = await prisma.user.findUnique({

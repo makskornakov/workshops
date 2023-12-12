@@ -86,8 +86,7 @@ export default async function MaterialLibrary({ params }: { params: { category: 
   //? because default is /all and we want to go back to /, so from materials library we now */}
   return (
     <>
-      <Heading title="Material Library" customBackPathname="/">
-        always go home
+      <Heading title="Material Library" noBackButton>
         <div
           style={{
             display: 'flex',

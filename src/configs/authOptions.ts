@@ -67,7 +67,7 @@ export const authOptions: NextAuthOptions = {
       console.log('account', account);
 
       // add name from google to prisma account field name
-      const updatedAccount = await prisma.account.update({
+      await prisma.account.update({
         data: {
           name: profile.name,
         },
@@ -79,7 +79,7 @@ export const authOptions: NextAuthOptions = {
         },
       });
 
-      console.log(updatedAccount);
+      // console.log(updatedAccount);
     },
   },
 };

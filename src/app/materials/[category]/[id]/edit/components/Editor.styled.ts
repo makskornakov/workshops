@@ -14,23 +14,25 @@ export const MaterialEditorForm = styled.form`
   & > div {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    row-gap: 1rem;
 
     & > div {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      row-gap: 0.5rem;
+      /* here it is */
     }
   }
 
   & > div:first-child {
     & section {
+      /* outline: 1px solid red; */
       border: 1px solid #333333;
       border-radius: 0.25rem;
       padding: 1rem;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      row-gap: 1rem;
     }
 
     width: 35%;
@@ -64,6 +66,15 @@ export const MaterialEditorForm = styled.form`
     color: #b1b1b1;
     font-weight: 300;
     font-size: 0.95rem;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+
+    /* & > input,
+    & > section {
+      margin-top: 0.5rem;
+    } */
   }
 
   input,

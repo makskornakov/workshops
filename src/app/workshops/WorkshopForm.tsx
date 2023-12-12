@@ -32,7 +32,7 @@ export default async function WorkshopForm({ id }: { id?: string }) {
                 const description = data.get('description');
                 const date = data.get('date');
                 // const location = data.get('location');
-                const workshop = await prisma.workshop.update({
+                await prisma.workshop.update({
                   where: {
                     id: id,
                   },
@@ -44,7 +44,7 @@ export default async function WorkshopForm({ id }: { id?: string }) {
                     authorId: user.id,
                   },
                 });
-                console.log(workshop);
+                // console.log(workshop);
               }
             : async (formData) => {
                 'use server';
@@ -52,7 +52,7 @@ export default async function WorkshopForm({ id }: { id?: string }) {
                 const title = data.get('title');
                 const description = data.get('description');
                 const date = data.get('date');
-                const workshop = await prisma.workshop.create({
+                await prisma.workshop.create({
                   data: {
                     title: title as string,
                     description: description as string,
@@ -60,7 +60,7 @@ export default async function WorkshopForm({ id }: { id?: string }) {
                     authorId: user.id,
                   },
                 });
-                console.log(workshop);
+                // console.log(workshop);
               }
         }
       >
