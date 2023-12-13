@@ -1,13 +1,24 @@
 import { styled } from '@linaria/react';
 
 //#region FROM RIGHTSHIFT.DEV
-export const words = ['Workshops', 'Lessons', 'Materials', 'Lectures', 'Courses', 'Classes'];
+export const words = [
+  'Workshops',
+  'Lessons',
+  'Materials',
+  'Lectures',
+  'Courses',
+  'Classes',
+  'sssss',
+];
 
 const wordsQuantity = words.length;
 
 const currentRealStates = 4; // 4 main one + 1 for the last one to hide
+const stepDuration = 0.85;
 
-const animationDurationSeconds = 10.2;
+const animationDurationSeconds = wordsQuantity * stepDuration * 2;
+
+// console.log('AAAAAAA', animationDurationSeconds);
 
 const stepAmount = (currentRealStates + (wordsQuantity - currentRealStates)) * 2;
 // const stepAmount = 10;
@@ -19,6 +30,7 @@ const oneMoveStep = oneStep * 0.6;
 const totalStep = oneMoveStep + oneWaitStep;
 
 const oneStepTestString = `${oneStep}`;
+
 const totalWaitStepsTestString = `${totalStep}`;
 
 // one step is 7.142857142857143 if there are 7 words and 5 steps (4 main ones + 1 for the last one to hide)
