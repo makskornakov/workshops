@@ -1,10 +1,37 @@
 import Heading from '~/components/layout/heading/Heading';
+import { HomeContainer, RotatingWordsContainer } from './page.styled';
+import { TriedRotatingWordsContainer, triedWords } from './tryRotate';
 
 export default async function Home() {
+  // const words = ['Workshops', 'Lessons', 'Materials', 'Lectures', 'Courses', 'Classes', 'LOH'];
+  const words = ['Workshops', 'Lessons', 'Materials', 'Lectures', 'Courses'];
+  // const words = ['Workshops'];
   return (
     <>
       <Heading title="Home" noBackButton />
-      <div>This is the main page</div>
+      <HomeContainer>
+        <div>
+          <h1>
+            Create{' '}
+            <RotatingWordsContainer>
+              {words.map((word) => (
+                <span key={word}>{word}</span>
+              ))}
+            </RotatingWordsContainer>{' '}
+            in minutes
+          </h1>
+
+          <h1 style={{ marginTop: 100 }}>
+            Create{' '}
+            <TriedRotatingWordsContainer>
+              {triedWords.map((word) => (
+                <span key={word}>{word}</span>
+              ))}
+            </TriedRotatingWordsContainer>{' '}
+            in minutes
+          </h1>
+        </div>
+      </HomeContainer>
     </>
   );
 }
