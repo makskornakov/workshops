@@ -59,7 +59,7 @@ const RotatingWordsContainer = styled.div`
     @keyframes rotate-word {
       ${mySteps['1']} {
         opacity: 0;
-        transform: translate(-140%, -25%);
+        transform: translate(-60%, -25%);
         /* transform-origin: left; */
       }
       ${mySteps['2']} {
@@ -99,18 +99,18 @@ const RotatingWordsContainer = styled.div`
         /* transform-origin: left; */
       }
       ${mySteps['9']} {
-        /* opacity: 0; */
+        opacity: 1;
         transform: translate(0%, 25%);
         /* transform-origin: left; */
       }
       ${mySteps['10']} {
-        /* opacity: 0; */
+        opacity: 0.3;
         transform: translate(30%, 25%);
         /* transform-origin: left; */
       }
       ${mySteps['11']} {
-        /* opacity: 0; */
-        transform: translate(140%, 25%);
+        opacity: 0;
+        transform: translate(60%, 25%);
         /* transform-origin: left; */
       }
     }
