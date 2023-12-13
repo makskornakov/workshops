@@ -1,6 +1,5 @@
 import { styled } from '@linaria/react';
 
-//#region FROM RIGHTSHIFT.DEV
 export const words = [
   'Workshops',
   'Lessons',
@@ -8,30 +7,52 @@ export const words = [
   'Lectures',
   'Courses',
   'Classes',
-  'sssss',
+  'Activities',
+  'Events',
 ];
 
 const wordsQuantity = words.length;
 
-const currentRealStates = 4; // 4 main one + 1 for the last one to hide
-const stepDuration = 0.85;
+const currentVisibleStates = 4; // 4 main one + 1 for the last one to hide
+// const stepDuration = 0.85; // seconds
+const holdDuration = 2; // seconds
+const moveDuration = 0.5; // seconds
+const stepDuration = moveDuration + holdDuration;
 
-const animationDurationSeconds = wordsQuantity * stepDuration * 2;
+const stepAmount = (currentVisibleStates + (wordsQuantity - currentVisibleStates)) * 2;
 
-// console.log('AAAAAAA', animationDurationSeconds);
+const animationDurationSeconds = wordsQuantity * stepDuration;
+console.log('animationDurationSeconds', animationDurationSeconds);
 
-const stepAmount = (currentRealStates + (wordsQuantity - currentRealStates)) * 2;
+console.log('AAAAAAA', animationDurationSeconds);
+
 // const stepAmount = 10;
-const stepAmountTestString = `${stepAmount}`;
+// const stepAmountTestString = `${stepAmount}`;
+
+const movePercent =
+  (1 - Math.min(holdDuration, moveDuration) / Math.max(holdDuration, moveDuration)) *
+  Math.sign(moveDuration - holdDuration);
+
+// know from the move percent which can be any positive number we need to get our HoldCoefficient
+const holdCoefficient = -1 * movePercent;
+console.log('holdCoefficient', holdCoefficient);
+
+console.log('movePercent', movePercent);
+// const holdPercent = holdDuration / stepDuration;
+// const stringMovePercent = `${movePercent}`;
+
+console.log('movePercent', movePercent);
+// const oneStep = 100 / stepAmount;
 const oneStep = 100 / stepAmount;
+console.log('oneStep', oneStep);
 
-const oneWaitStep = oneStep * 0.4;
-const oneMoveStep = oneStep * 0.6;
-const totalStep = oneMoveStep + oneWaitStep;
+// const oneWaitStep = oneStep * 0.4;
+// const oneMoveStep = oneStep * 0.6;
+// const totalStep = oneMoveStep + oneWaitStep;
 
-const oneStepTestString = `${oneStep}`;
+// const oneStepTestString = `${oneStep}`;
 
-const totalWaitStepsTestString = `${totalStep}`;
+// const totalWaitStepsTestString = `${totalStep}`;
 
 // one step is 7.142857142857143 if there are 7 words and 5 steps (4 main ones + 1 for the last one to hide)
 
@@ -45,8 +66,10 @@ const totalWaitStepsTestString = `${totalStep}`;
 
 // ! -1 to 1, NEVER 1
 //? it will put 0% for the 2nd step, etc.
-const holdCoefficient = 0.15; // ? Hold time will be increase with this coefficient
+// const holdCoefficient = 0.47; // ? Hold time will be increase with this coefficient
 const calculus = oneStep * holdCoefficient;
+console.log('calculus', calculus);
+
 // const steps = {
 //   1: 'from', // 0
 //   2: `${oneStep * 1 - calculus}%, ${oneStep * 2}%`, // it is subtracted from the beginning tim of teh hold step which makes move step shorter
@@ -58,8 +81,8 @@ const calculus = oneStep * holdCoefficient;
 function createSteps(steps: number) {
   const result = {} as { [key: number]: string };
   result[1] = 'from';
-  for (let i = 2; i <= steps; i++) {
-    result[i] = `${oneStep * ((i - 1) * 2 - 1) - calculus}%, ${oneStep * ((i - 1) * 2)}%`;
+  for (let i = 1; i < steps; i++) {
+    result[i + 1] = `${oneStep * (i * 2 - 1) - calculus}%, ${oneStep * (i * 2)}%`;
   }
   result[steps + 1] = `${oneStep * (steps * 2 - 1) - calculus}%, to`;
   return result;
@@ -68,8 +91,8 @@ function createSteps(steps: number) {
 // const steps = createSteps(stepAmount);
 // const stringSteps = `${stepAmount}`
 
-const steps = createSteps(currentRealStates);
-// console.log('maximus steps', steps);
+const steps = createSteps(currentVisibleStates);
+console.log('maximus steps', steps);
 
 //! rescale the steps by ratio, but preserve the ration of 70-0 = 0-10 + (wordAmount - stepAmount)
 // ? which means we need a function that will smartly rescale the steps, preserving their consistency in length and ratio
@@ -111,7 +134,7 @@ export const RotatingWordsContainer = styled.div`
       left: 0;
     }
     display: inline-block;
-    animation: rotate-word ${animationDurationSeconds}s infinite;
+    animation: rotate-word ${animationDurationSeconds}s infinite linear;
     @keyframes rotate-word {
       ${steps['1']} {
         opacity: 0;
