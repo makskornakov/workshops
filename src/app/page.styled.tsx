@@ -1,3 +1,4 @@
+import { CSSProperties, css } from '@linaria/core';
 import { styled } from '@linaria/react';
 
 export const words = [
@@ -13,6 +14,7 @@ export const words = [
 
 const wordsQuantity = words.length;
 const currentVisibleStates = 4; // 4 main one + 1 for the last one to hide
+const mainStepIndex = 3; // the animation will stat with the first child at the main step index styles
 
 const holdDuration = 4; // seconds
 const moveDuration = 1; // seconds
@@ -42,20 +44,117 @@ const steps = createSteps(currentVisibleStates);
 console.log('MAX steps', steps);
 
 function getAnimationDelay(index: number) {
-  const addedBeggingDelay = animationDurationSeconds * ((oneStep * 3 - calculus) / 100);
+  const addedBeggingDelay = animationDurationSeconds * ((oneStep * mainStepIndex - calculus) / 100);
   const delayBase = (2 * animationDurationSeconds) / stepAmount;
 
   return `${delayBase * -index - addedBeggingDelay}s`;
 }
+
+// !
 // const testAnimationDelay = getAnimationDelay(1);
 // console.log('testAnimationDelay', testAnimationDelay);
+// export const animatedChildStyles = css`
+//   &:not(:first-child) {
+//     position: absolute;
+//     left: 0;
+//   }
+//   display: inline-block;
+//   animation: rotate-word ${animationDurationSeconds}s infinite linear;
+//   @keyframes rotate-word {
+//     ${steps['1']} {
+//       opacity: 0;
+//       transform: translateY(-140%) scale(0);
+//       transform-origin: left;
+//     }
+//     ${steps['2']} {
+//       opacity: 0.3;
+//       transform: translateY(-70%) scale(0.5);
+//       transform-origin: left;
+//     }
+//     ${steps['3']} {
+//       opacity: 1;
+//       transform: none;
+//     }
+//     ${steps['4']} {
+//       opacity: 0.3;
+//       transform: translateY(70%) scale(0.5);
+//       transform-origin: left;
+//     }
+//     ${steps['5']} {
+//       opacity: 0;
+//       transform: translateY(140%) scale(0);
+//       transform-origin: left;
+//     }
+//   }
+
+//   ${[...Array(wordsQuantity)]
+//     .map((_val, index) => {
+//       return `
+//             &:nth-child(${index + 1}) {
+//               animation-delay: ${getAnimationDelay(index)};
+//             }
+//           `;
+//     })
+//     .join('\n')}
+// `;
+
+const animatedChildStylesObject = `
+  &:not(:first-child) {
+    position: absolute;
+    left: 0;
+  }
+  display: inline-block;
+`;
+
+const animationKeyframes = `
+  animation: rotate-word ${animationDurationSeconds}s infinite linear;
+  @keyframes rotate-word {
+    ${steps['1']} {
+      opacity: 0;
+      transform: translateY(-140%) scale(0);
+      transform-origin: left;
+    }
+    ${steps['2']} {
+      opacity: 0.3;
+      transform: translateY(-70%) scale(0.5);
+      transform-origin: left;
+    }
+    ${steps['3']} {
+      opacity: 1;
+      transform: none;
+    }
+    ${steps['4']} {
+      opacity: 0.3;
+      transform: translateY(70%) scale(0.5);
+      transform-origin: left;
+    }
+    ${steps['5']} {
+      opacity: 0;
+      transform: translateY(140%) scale(0);
+      transform-origin: left;
+    }
+  }
+`;
+const combinedAndDelays = `
+  ${animatedChildStylesObject}
+  ${animationKeyframes}
+  ${[...Array(wordsQuantity)]
+    .map((_val, index) => {
+      return `
+            &:nth-child(${index + 1}) {
+              animation-delay: ${getAnimationDelay(index)};
+            }
+          `;
+    })
+    .join('\n')}
+`;
 
 export const RotatingWordsContainer = styled.div`
   position: relative;
   display: inline;
 
   > span {
-    &:not(:first-child) {
+    ${combinedAndDelays}/* &:not(:first-child) {
       position: absolute;
       left: 0;
     }
@@ -85,10 +184,9 @@ export const RotatingWordsContainer = styled.div`
         opacity: 0;
         transform: translateY(140%) scale(0);
         transform-origin: left;
-      }
-    }
+      } */
 
-    ${[...Array(wordsQuantity)]
+    /* ${[...Array(wordsQuantity)]
       .map((_val, index) => {
         return `
             &:nth-child(${index + 1}) {
@@ -96,6 +194,6 @@ export const RotatingWordsContainer = styled.div`
             }
           `;
       })
-      .join('\n')}
+      .join('\n')} */
   }
 `;
