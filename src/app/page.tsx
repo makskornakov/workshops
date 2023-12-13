@@ -4,7 +4,7 @@ import { TriedRotatingWordsContainer, triedWords } from './tryRotate';
 
 export default async function Home() {
   // const words = ['Workshops', 'Lessons', 'Materials', 'Lectures', 'Courses', 'Classes', 'LOH'];
-  const words = ['Workshops', 'Lessons', 'Materials', 'Lectures', 'Courses'];
+  const words = ['Workshops', 'Lessons', 'Materials', 'Lectures', 'Courses', 'Classes'];
   // const words = ['Workshops'];
   return (
     <>

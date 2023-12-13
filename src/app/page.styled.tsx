@@ -65,8 +65,8 @@ export const RotatingWordsInSubheadingContainer = styled.span`
 
 const currentRealStates = 4; // 4 main one + 1 for the last one to hide
 
-const animationDurationSeconds = 15;
-const wordsQuantity = 5;
+const animationDurationSeconds = 10.2;
+const wordsQuantity = 6;
 
 const stepAmount = (currentRealStates + (wordsQuantity - currentRealStates)) * 2;
 // const stepAmount = 10;
@@ -92,11 +92,11 @@ const totalWaitStepsTestString = `${totalStep}`;
 
 // ! -1 to 1, NEVER 1
 //? it will put 0% for the 2nd step, etc.
-const holdCoefficient = 0; // ? Hold time will be increase with this coefficient
+const holdCoefficient = 0.15; // ? Hold time will be increase with this coefficient
 const calculus = oneStep * holdCoefficient;
 const steps = {
   1: 'from', // 0
-  2: `${oneStep - calculus}%, ${oneStep * 2}%`, // it is subtracted from the beginning tim of teh hold step which makes move step shorter
+  2: `${oneStep * 1 - calculus}%, ${oneStep * 2}%`, // it is subtracted from the beginning tim of teh hold step which makes move step shorter
   3: `${oneStep * 3 - calculus}%, ${oneStep * 4}%`, //2
   4: `${oneStep * 5 - calculus}%, ${oneStep * 6}%`, //3
   5: `${oneStep * 7 - calculus}%, to`, // 4,5
