@@ -1,5 +1,5 @@
 import Heading from '~/components/layout/heading/Heading';
-import { HomeContainer, RotatingWordsContainer, words } from './page.styled';
+import { RotatingWordsContainer, words } from './page.styled';
 import { TriedRotatingWordsContainer, triedWords } from './tryRotate';
 
 export default async function Home() {
@@ -8,7 +8,15 @@ export default async function Home() {
   return (
     <>
       <Heading title="Home" noBackButton />
-      <HomeContainer>
+      <main
+        style={{
+          width: '100%',
+          minHeight: '50vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         <div>
           <h1>
             Create{' '}
@@ -30,7 +38,7 @@ export default async function Home() {
             in minutes
           </h1>
         </div>
-      </HomeContainer>
+      </main>
     </>
   );
 }
