@@ -1,72 +1,13 @@
 import { styled } from '@linaria/react';
 
 //#region FROM RIGHTSHIFT.DEV
-const oneRotatingWordAnimationDuration = 5 / 3;
-/** @todo de-hardcode */
-const rotatingWordsQuantity = 3;
-const rotatingWordsAnimationDuration = oneRotatingWordAnimationDuration * rotatingWordsQuantity;
-/** If this is 0, the animation will start from blank to appear. If positive — the appearance from blank will take longer. If negative — decreases the blank time to the point there's no blank at all. */
-const rotatingWordsSharedAnimationDelay =
-  (-rotatingWordsAnimationDuration / rotatingWordsQuantity) * 0.57;
+export const words = ['Workshops', 'Lessons', 'Materials', 'Lectures', 'Courses', 'Classes'];
 
-const percentsNeededToHideAndWaitWhileOtherLettersRotate = 15 * rotatingWordsQuantity;
-const keyframeOfHideStart = 100 - percentsNeededToHideAndWaitWhileOtherLettersRotate;
-const keyframeOfHideStartString = `${keyframeOfHideStart}%`;
-const keyframeOfAppearFinishString = `${keyframeOfHideStart / 2.2}%`;
-const keyframeOfStayFinishString = `${keyframeOfHideStart * (7 / 11)}%`;
-
-export const RotatingWordsInSubheadingContainer = styled.span`
-  display: inline-grid;
-  position: relative;
-
-  > span {
-    animation: topToBottom ${rotatingWordsAnimationDuration}s ease-in-out infinite
-      ${rotatingWordsSharedAnimationDelay}s;
-    transform: scaleY(0);
-
-    &:not(:first-child) {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-  }
-
-  span:nth-child(2) {
-    animation-delay: ${`${
-      rotatingWordsAnimationDuration / rotatingWordsQuantity + rotatingWordsSharedAnimationDelay
-    }s`};
-  }
-  span:nth-child(3) {
-    animation-delay: ${`${
-      (rotatingWordsAnimationDuration / rotatingWordsQuantity) * 2 +
-      rotatingWordsSharedAnimationDelay
-    }s`};
-  }
-
-  @keyframes topToBottom {
-    from {
-      transform: scaleY(0);
-      transform-origin: bottom;
-    }
-    ${keyframeOfAppearFinishString} {
-      transform: scaleY(1);
-    }
-    ${keyframeOfStayFinishString} {
-      transform: scaleY(1);
-      transform-origin: top;
-    }
-    ${keyframeOfHideStartString},
-    to {
-      transform: scaleY(0);
-    }
-  }
-`;
-//#endregion
+const wordsQuantity = words.length;
 
 const currentRealStates = 4; // 4 main one + 1 for the last one to hide
 
 const animationDurationSeconds = 10.2;
-const wordsQuantity = 6;
 
 const stepAmount = (currentRealStates + (wordsQuantity - currentRealStates)) * 2;
 // const stepAmount = 10;
@@ -94,14 +35,29 @@ const totalWaitStepsTestString = `${totalStep}`;
 //? it will put 0% for the 2nd step, etc.
 const holdCoefficient = 0.15; // ? Hold time will be increase with this coefficient
 const calculus = oneStep * holdCoefficient;
-const steps = {
-  1: 'from', // 0
-  2: `${oneStep * 1 - calculus}%, ${oneStep * 2}%`, // it is subtracted from the beginning tim of teh hold step which makes move step shorter
-  3: `${oneStep * 3 - calculus}%, ${oneStep * 4}%`, //2
-  4: `${oneStep * 5 - calculus}%, ${oneStep * 6}%`, //3
-  5: `${oneStep * 7 - calculus}%, to`, // 4,5
-} as const;
-console.log('maximus steps', steps);
+// const steps = {
+//   1: 'from', // 0
+//   2: `${oneStep * 1 - calculus}%, ${oneStep * 2}%`, // it is subtracted from the beginning tim of teh hold step which makes move step shorter
+//   3: `${oneStep * 3 - calculus}%, ${oneStep * 4}%`, //2
+//   4: `${oneStep * 5 - calculus}%, ${oneStep * 6}%`, //3
+//   5: `${oneStep * 7 - calculus}%, to`, // 4,5
+// } as const;
+
+function createSteps(steps: number) {
+  const result = {} as { [key: number]: string };
+  result[1] = 'from';
+  for (let i = 2; i <= steps; i++) {
+    result[i] = `${oneStep * ((i - 1) * 2 - 1) - calculus}%, ${oneStep * ((i - 1) * 2)}%`;
+  }
+  result[steps + 1] = `${oneStep * (steps * 2 - 1) - calculus}%, to`;
+  return result;
+}
+
+// const steps = createSteps(stepAmount);
+// const stringSteps = `${stepAmount}`
+
+const steps = createSteps(currentRealStates);
+// console.log('maximus steps', steps);
 
 //! rescale the steps by ratio, but preserve the ration of 70-0 = 0-10 + (wordAmount - stepAmount)
 // ? which means we need a function that will smartly rescale the steps, preserving their consistency in length and ratio

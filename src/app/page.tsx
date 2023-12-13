@@ -1,10 +1,9 @@
 import Heading from '~/components/layout/heading/Heading';
-import { HomeContainer, RotatingWordsContainer } from './page.styled';
+import { HomeContainer, RotatingWordsContainer, words } from './page.styled';
 import { TriedRotatingWordsContainer, triedWords } from './tryRotate';
 
 export default async function Home() {
   // const words = ['Workshops', 'Lessons', 'Materials', 'Lectures', 'Courses', 'Classes', 'LOH'];
-  const words = ['Workshops', 'Lessons', 'Materials', 'Lectures', 'Courses', 'Classes'];
   // const words = ['Workshops'];
   return (
     <>
