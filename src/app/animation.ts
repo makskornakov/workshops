@@ -35,8 +35,9 @@ export default function rotatingAnimation(
     const addedBeginningDelay =
       animationDurationSeconds * ((oneStep * 2 * (mainStepIndex - 1) - calculus) / 100);
     const delayBase = (2 * animationDurationSeconds) / stepAmount;
+    const correctedBeginningDelay = Math.max(0, addedBeginningDelay);
 
-    return `${delayBase * -index - addedBeginningDelay}s`;
+    return `${delayBase * -index - correctedBeginningDelay}s`;
   }
 
   const animatedChildStylesObject = `
