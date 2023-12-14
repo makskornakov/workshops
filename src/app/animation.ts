@@ -8,12 +8,14 @@ export default function rotatingAnimation(
   const stepAmount = (currentVisibleStates + (wordsQuantity - currentVisibleStates)) * 2;
   const animationDurationSeconds = wordsQuantity * (moveDuration + holdDuration);
 
+  // is the coefficient applied to the movementDuration
   const movePercent =
     (1 - Math.min(holdDuration, moveDuration) / Math.max(holdDuration, moveDuration)) *
     Math.sign(holdDuration - moveDuration);
 
   console.log('movePercent', movePercent);
   const oneStep = 100 / stepAmount;
+  /** Calculus is movementDuration multiplied by its ratio to holdDuration */
   const calculus = oneStep * (movePercent === 1 ? 0.999999999 : movePercent); // ? restrict 1 in future or IDK
 
   function createSteps(steps: number) {
@@ -30,11 +32,11 @@ export default function rotatingAnimation(
   console.log('MAX steps', steps);
 
   function getAnimationDelay(index: number) {
-    const addedBeggingDelay =
-      animationDurationSeconds * ((oneStep * mainStepIndex - calculus) / 100);
+    const addedBeginningDelay =
+      animationDurationSeconds * ((oneStep * 2 * (mainStepIndex - 1) - calculus) / 100);
     const delayBase = (2 * animationDurationSeconds) / stepAmount;
 
-    return `${delayBase * -index - addedBeggingDelay}s`;
+    return `${delayBase * -index - addedBeginningDelay}s`;
   }
 
   const animatedChildStylesObject = `
