@@ -2,6 +2,9 @@ import Heading from '~/components/layout/heading/Heading';
 import { RotatingWordsContainer, words } from './page.styled';
 
 export default async function Home() {
+  const pathWidth = '2px';
+  const pathColor = '#fff';
+
   return (
     <>
       <Heading title="Home" noBackButton />
@@ -15,55 +18,58 @@ export default async function Home() {
           height: '80vh',
         }}
       >
-        <div
-          style={{
-            position: 'absolute',
-            width: '80%',
-            height: '1rem',
-            top: '9rem',
-            backgroundColor: '#ff121245',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            width: '1rem',
-            height: '25%',
-            top: '25%',
-            right: '18rem',
-            backgroundColor: '#ff121245',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            width: '60%',
-            height: '1rem',
-            left: '20%',
-            top: 'calc(50% - 0.5rem)',
-            backgroundColor: '#ff121245',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            width: '1rem',
-            height: '25%',
-            top: '50%',
-            left: '18rem',
-            backgroundColor: '#ff121245',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            width: '80%',
-            height: '1rem',
-            bottom: '9rem',
-            right: '0',
-            backgroundColor: '#ff121245',
-          }}
-        />
+        <div style={{ opacity: 0.2 }}>
+          <div
+            style={{
+              position: 'absolute',
+              width: '80%',
+              height: pathWidth,
+              top: '10rem',
+              left: 0,
+              backgroundColor: pathColor,
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              width: pathWidth,
+              height: '25%',
+              top: '25%',
+              right: '18rem',
+              backgroundColor: pathColor,
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              width: '60%',
+              height: pathWidth,
+              left: '20%',
+              top: 'calc(50% - 0.5rem)',
+              backgroundColor: pathColor,
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              width: pathWidth,
+              height: '25%',
+              top: '50%',
+              left: '18rem',
+              backgroundColor: pathColor,
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              width: '80%',
+              height: pathWidth,
+              bottom: '25%',
+              right: '0',
+              backgroundColor: pathColor,
+            }}
+          />
+        </div>
         <RotatingWordsContainer>
           {words.map((word) => (
             <div key={word}>
