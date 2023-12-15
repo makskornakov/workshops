@@ -1,15 +1,46 @@
-export default function rotatingAnimation(
-  currentStates: number,
-  wordsQuantity: number,
+export function showcaseAnimation(
+  keyframesQuantity: number, // total amount of states in the animation ex 5 for H and 11 for zcards
+  elementQuantity: number,
   moveDuration: number,
   holdDuration: number,
-  inputMainStepIndex?: number,
+  startFromKeyframePoint?: number,
 ) {
-  const currentVisibleStates = currentStates - 1;
-  const stepAmount = (currentVisibleStates + (wordsQuantity - currentVisibleStates)) * 2;
-  const animationDurationSeconds = wordsQuantity * (moveDuration + holdDuration);
+  const { animationDurationSeconds, getAnimationDelay, keyframePoints } = showcaseAnimationCore(
+    keyframesQuantity,
+    elementQuantity,
+    moveDuration,
+    holdDuration,
+    startFromKeyframePoint,
+  );
+  const styles = showcaseAnimationPreparedStyles({
+    animationDurationSeconds,
+    elementQuantity,
+    getAnimationDelay,
+  });
 
-  const mainStepIndex = inputMainStepIndex ?? Math.floor(currentStates / 2) + 1;
+  return {
+    keyframePoints,
+    styles,
+
+    calculations: {
+      animationDurationSeconds,
+      getAnimationDelay,
+    },
+  };
+}
+
+export function showcaseAnimationCore(
+  keyframesQuantity: number, // total amount of states in the animation ex 5 for H and 11 for zcards
+  elementQuantity: number,
+  moveDuration: number,
+  holdDuration: number,
+  startFromKeyframePoint?: number,
+) {
+  const currentVisibleStates = keyframesQuantity - 1;
+  const stepAmount = (currentVisibleStates + (elementQuantity - currentVisibleStates)) * 2;
+  const animationDurationSeconds = elementQuantity * (moveDuration + holdDuration);
+
+  const mainStepIndex = startFromKeyframePoint ?? Math.floor(keyframesQuantity / 2) + 1;
   console.log('mainStepIndex', mainStepIndex);
   // is the coefficient applied to the movementDuration
   const movePercent =
@@ -21,7 +52,7 @@ export default function rotatingAnimation(
   /** Calculus is movementDuration multiplied by its ratio to holdDuration */
   const calculus = oneStep * (movePercent === 1 ? 0.999999999 : movePercent); // ? restrict 1 in future or IDK
 
-  function createSteps(steps: number) {
+  function createKeyframePoints(steps: number) {
     const result = {} as { [key: number]: string };
     result[1] = 'from';
     for (let i = 1; i < steps; i++) {
@@ -32,8 +63,8 @@ export default function rotatingAnimation(
   }
   console.log('calculus', calculus);
 
-  const steps = createSteps(currentVisibleStates);
-  console.log('MAX steps', steps);
+  const keyframePoints = createKeyframePoints(currentVisibleStates);
+  console.log('MAX steps', keyframePoints);
 
   function getAnimationDelay(index: number) {
     // maybe mainStepIndex has to be subtracted from total steps amount,because we are going backwards from 0 to 3 from example it will be -8 // if 11 speps
@@ -51,7 +82,23 @@ export default function rotatingAnimation(
     return `${delayBase * -index - correctedBeginningDelay}s`;
   }
 
-  const animatedChildStylesObject = `
+  return {
+    keyframePoints,
+    animationDurationSeconds,
+    getAnimationDelay,
+  };
+}
+
+export function showcaseAnimationPreparedStyles({
+  animationDurationSeconds,
+  elementQuantity,
+  getAnimationDelay,
+}: {
+  animationDurationSeconds: number;
+  elementQuantity: number;
+  getAnimationDelay: (index: number) => string;
+}) {
+  const childStyles = `
     &:not(:first-child) {
       position: absolute;
       left: 0;
@@ -59,25 +106,32 @@ export default function rotatingAnimation(
     display: inline-block;
   `;
 
-  const animationKeyframes = `
+  const animationProperties = `
     animation-duration: ${animationDurationSeconds}s;
     animation-iteration-count: infinite;
   `;
 
+  const childrenDelays = [...Array(elementQuantity)]
+    .map((_val, index) => {
+      return `
+        &:nth-child(${index + 1}) {
+          animation-delay: ${getAnimationDelay(index)};
+        }
+      `;
+    })
+    .join('\n');
+
+  const baseStyles = `
+    ${childStyles}
+    ${animationProperties}
+    ${childrenDelays}
+  `;
+
   return {
-    steps,
-    styles: `
-      ${animatedChildStylesObject}
-      ${animationKeyframes}
-      ${[...Array(wordsQuantity)]
-        .map((_val, index) => {
-          return `
-                &:nth-child(${index + 1}) {
-                  animation-delay: ${getAnimationDelay(index)};
-                }
-              `;
-        })
-        .join('\n')}
-      `,
+    childStyles,
+    animationProperties,
+    childrenDelays,
+
+    baseStyles,
   };
 }

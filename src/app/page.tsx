@@ -1,5 +1,5 @@
 import Heading from '~/components/layout/heading/Heading';
-import rotatingAnimation from './animation';
+import { showcaseAnimation } from './animation';
 import { TriedRotatingWordsContainer, triedWords } from './tryRotate';
 import { styled } from '@linaria/react';
 
@@ -21,46 +21,48 @@ const moveDuration = totalDuration * ratio;
 const stayDuration = totalDuration - moveDuration;
 // *
 
-const myAnimation = rotatingAnimation(5, words.length, moveDuration, stayDuration, 3);
-const mySteps = myAnimation.steps;
-const myStyles = myAnimation.styles;
+const {
+  keyframePoints: myKeyframePoints,
+  styles: { baseStyles: myBaseStyles },
+} = showcaseAnimation(5, words.length, moveDuration, stayDuration, 3);
 
-const myAnimation2 = rotatingAnimation(4, words.length, 1, 4);
-const mySteps2 = myAnimation2.steps;
-const myStyles2 = myAnimation2.styles;
+const {
+  keyframePoints: myKeyframePoints2,
+  styles: { baseStyles: myBaseStyles2 },
+} = showcaseAnimation(4, words.length, moveDuration, stayDuration, 3);
 
 const RotatingWordsContainer = styled.div`
   position: relative;
   display: inline;
 
   > * {
-    ${myStyles}
+    ${myBaseStyles}
 
     /* animation-timing-function: linear; */
     animation-name: rotate-word;
 
     /* keyframes */
     @keyframes rotate-word {
-      ${mySteps['1']} {
+      ${myKeyframePoints['1']} {
         opacity: 0;
         transform: translateY(-140%) scale(0);
         transform-origin: left;
       }
-      ${mySteps['2']} {
+      ${myKeyframePoints['2']} {
         opacity: 0.3;
         transform: translateY(-70%) scale(0.5);
         transform-origin: left;
       }
-      ${mySteps['3']} {
+      ${myKeyframePoints['3']} {
         opacity: 1;
         transform: none;
       }
-      ${mySteps['4']} {
+      ${myKeyframePoints['4']} {
         opacity: 0.3;
         transform: translateY(70%) scale(0.5);
         transform-origin: left;
       }
-      ${mySteps['5']} {
+      ${myKeyframePoints['5']} {
         opacity: 0;
         transform: translateY(140%) scale(0);
         transform-origin: left;
@@ -74,33 +76,33 @@ const SecondRotatingWordsContainer = styled.div`
   display: inline;
 
   > * {
-    ${myStyles2}
+    ${myBaseStyles2}
 
     animation-timing-function: linear;
     animation-name: rotate-word2;
 
     /* keyframes */
     @keyframes rotate-word2 {
-      ${mySteps2['1']} {
+      ${myKeyframePoints2['1']} {
         opacity: 0;
         transform: translateY(-140%) scale(0);
         transform-origin: left;
       }
-      ${mySteps2['2']} {
+      ${myKeyframePoints2['2']} {
         opacity: 0.3;
         transform: translateY(-70%) scale(0.5);
         transform-origin: left;
       }
-      ${mySteps2['3']} {
+      ${myKeyframePoints2['3']} {
         opacity: 1;
         transform: none;
       }
-      /* ${mySteps2['4']} {
+      /* ${myKeyframePoints2['4']} {
         opacity: 0.3;
         transform: translateY(70%) scale(0.5);
         transform-origin: left;
       } */
-      ${mySteps2['4']} {
+      ${myKeyframePoints2['4']} {
         opacity: 0;
         transform: translateY(140%) scale(0);
         transform-origin: left;
@@ -132,19 +134,19 @@ export default async function Home() {
             </RotatingWordsContainer>{' '}
             in minutes
           </h1>
-          {/* <br />
+          <br />
           <br />
           <br />
           <br />
           <h1>
-            Create
+            Create{' '}
             <SecondRotatingWordsContainer>
               {words.map((word) => (
                 <span key={word}>{word}</span>
               ))}
             </SecondRotatingWordsContainer>{' '}
             in minutes
-          </h1> */}
+          </h1>
 
           <h1 style={{ marginTop: 100 }}>
             Create{' '}

@@ -4,7 +4,8 @@ type ShowcaseAnimationDurationOptions =
     }
   | {
       duration: number;
-      moveHoldBalance?: number;
+      /** From 0 to 1 */
+      moveHoldRatio?: number;
     };
 
 type ShowcaseAnimationOptions = ShowcaseAnimationDurationOptions & {

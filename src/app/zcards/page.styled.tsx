@@ -1,4 +1,4 @@
-import rotatingAnimation from '../animation';
+import { showcaseAnimation } from '../animation';
 import { styled } from '@linaria/react';
 
 export const words = [
@@ -14,9 +14,11 @@ export const words = [
   'Ten',
   'Eleven',
 ];
-const myAnimation = rotatingAnimation(11, words.length, 1, 3);
-const mySteps = myAnimation.steps;
-const myStyles = myAnimation.styles;
+const {
+  styles: { baseStyles },
+  keyframePoints,
+} = showcaseAnimation(11, words.length, 1, 3);
+
 export const RotatingWordsContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -28,7 +30,7 @@ export const RotatingWordsContainer = styled.div`
   /* any first level child */
 
   > * {
-    ${myStyles}
+    ${baseStyles}
 
     /* background-color: #12d4ff6f; */
     width: 100%;
@@ -54,58 +56,58 @@ export const RotatingWordsContainer = styled.div`
     /* transform: translateY(50%) !important; */
     /* keyframes */
     @keyframes rotate-word {
-      ${mySteps['1']} {
+      ${keyframePoints['1']} {
         opacity: 0;
         transform: translate(-60%, -25%);
         /* transform-origin: left; */
       }
-      ${mySteps['2']} {
+      ${keyframePoints['2']} {
         opacity: 0.3;
         transform: translate(-30%, -25%);
         /* transform-origin: left; */
       }
-      ${mySteps['3']} {
+      ${keyframePoints['3']} {
         opacity: 1;
         transform: translate(0%, -25%);
       }
-      ${mySteps['4']} {
+      ${keyframePoints['4']} {
         /* opacity: 0.3; */
         transform: translate(30%, -25%);
         /* transform-origin: left; */
       }
-      ${mySteps['5']} {
+      ${keyframePoints['5']} {
         /* opacity: 0; */
         transform: translate(30%, 0%);
         /* transform-origin: left; */
       }
 
       /* ? Main */
-      ${mySteps['6']} {
+      ${keyframePoints['6']} {
         /* opacity: 0; */
         transform: translate(0%, 0%);
         /* transform-origin: left; */
       }
-      ${mySteps['7']} {
+      ${keyframePoints['7']} {
         /* opacity: 0; */
         transform: translate(-30%, 0%);
         /* transform-origin: left; */
       }
-      ${mySteps['8']} {
+      ${keyframePoints['8']} {
         /* opacity: 0; */
         transform: translate(-30%, 25%);
         /* transform-origin: left; */
       }
-      ${mySteps['9']} {
+      ${keyframePoints['9']} {
         opacity: 1;
         transform: translate(0%, 25%);
         /* transform-origin: left; */
       }
-      ${mySteps['10']} {
+      ${keyframePoints['10']} {
         opacity: 0.3;
         transform: translate(30%, 25%);
         /* transform-origin: left; */
       }
-      ${mySteps['11']} {
+      ${keyframePoints['11']} {
         opacity: 0;
         transform: translate(60%, 25%);
         /* transform-origin: left; */
