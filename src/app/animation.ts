@@ -36,8 +36,9 @@ export function showcaseAnimationCore(
   holdDuration: number,
   startFromKeyframePoint?: number,
 ) {
-  const currentVisibleStates = keyframesQuantity - 1;
-  const stepAmount = (currentVisibleStates + (elementQuantity - currentVisibleStates)) * 2;
+  /** because the core of our logic is that 1 keyframe is used for seamless transition from 100 back to 0 */
+  const visibleKeyframesQuantity = keyframesQuantity - 1;
+  const stepAmount = (visibleKeyframesQuantity + (elementQuantity - visibleKeyframesQuantity)) * 2;
   const animationDurationSeconds = elementQuantity * (moveDuration + holdDuration);
 
   const mainStepIndex = startFromKeyframePoint ?? Math.floor(keyframesQuantity / 2) + 1;
@@ -52,19 +53,7 @@ export function showcaseAnimationCore(
   /** Calculus is movementDuration multiplied by its ratio to holdDuration */
   const calculus = oneStep * (movePercent === 1 ? 0.999999999 : movePercent); // ? restrict 1 in future or IDK
 
-  function createKeyframePoints(steps: number) {
-    const result = {} as { [key: number]: string };
-    result[1] = 'from';
-    for (let i = 1; i < steps; i++) {
-      result[i + 1] = `${oneStep * (i * 2 - 1) - calculus}%, ${oneStep * (i * 2)}%`;
-    }
-    result[steps + 1] = `${oneStep * (steps * 2 - 1) - calculus}%, to`;
-    return result;
-  }
   console.log('calculus', calculus);
-
-  const keyframePoints = createKeyframePoints(currentVisibleStates);
-  console.log('MAX steps', keyframePoints);
 
   function getAnimationDelay(index: number) {
     // maybe mainStepIndex has to be subtracted from total steps amount,because we are going backwards from 0 to 3 from example it will be -8 // if 11 speps
@@ -82,11 +71,27 @@ export function showcaseAnimationCore(
     return `${delayBase * -index - correctedBeginningDelay}s`;
   }
 
+  const keyframePoints = createKeyframePoints(visibleKeyframesQuantity, oneStep, calculus);
+  console.log('keyframePoints', keyframePoints);
+
   return {
     keyframePoints,
     animationDurationSeconds,
     getAnimationDelay,
   };
+}
+
+function createKeyframePoints(visibleKeyframesQuantity: number, oneStep: number, calculus: number) {
+  const mainKeyframes = [...Array(visibleKeyframesQuantity - 1)].map((_val, index) => {
+    const endHoldIndex = (index + 1) * 2;
+
+    return `${oneStep * (endHoldIndex - 1) - calculus}%, ${oneStep * endHoldIndex}%`;
+  });
+
+  const lastKeyframePoint = `${oneStep * (visibleKeyframesQuantity * 2 - 1) - calculus}%, to`;
+  const result = ['from', ...mainKeyframes, lastKeyframePoint];
+
+  return result;
 }
 
 export function showcaseAnimationPreparedStyles({

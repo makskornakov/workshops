@@ -43,26 +43,26 @@ const RotatingWordsContainer = styled.div`
 
     /* keyframes */
     @keyframes rotate-word {
-      ${myKeyframePoints['1']} {
+      ${myKeyframePoints[0]} {
         opacity: 0;
         transform: translateY(-140%) scale(0);
         transform-origin: left;
       }
-      ${myKeyframePoints['2']} {
+      ${myKeyframePoints[1]} {
         opacity: 0.3;
         transform: translateY(-70%) scale(0.5);
         transform-origin: left;
       }
-      ${myKeyframePoints['3']} {
+      ${myKeyframePoints[2]} {
         opacity: 1;
         transform: none;
       }
-      ${myKeyframePoints['4']} {
+      ${myKeyframePoints[3]} {
         opacity: 0.3;
         transform: translateY(70%) scale(0.5);
         transform-origin: left;
       }
-      ${myKeyframePoints['5']} {
+      ${myKeyframePoints[4]} {
         opacity: 0;
         transform: translateY(140%) scale(0);
         transform-origin: left;
@@ -83,26 +83,26 @@ const SecondRotatingWordsContainer = styled.div`
 
     /* keyframes */
     @keyframes rotate-word2 {
-      ${myKeyframePoints2['1']} {
+      ${myKeyframePoints2[0]} {
         opacity: 0;
         transform: translateY(-140%) scale(0);
         transform-origin: left;
       }
-      ${myKeyframePoints2['2']} {
+      ${myKeyframePoints2[1]} {
         opacity: 0.3;
         transform: translateY(-70%) scale(0.5);
         transform-origin: left;
       }
-      ${myKeyframePoints2['3']} {
+      ${myKeyframePoints2[2]} {
         opacity: 1;
         transform: none;
       }
-      /* ${myKeyframePoints2['4']} {
+      /* ${myKeyframePoints2[3]} {
         opacity: 0.3;
         transform: translateY(70%) scale(0.5);
         transform-origin: left;
       } */
-      ${myKeyframePoints2['4']} {
+      ${myKeyframePoints2[3]} {
         opacity: 0;
         transform: translateY(140%) scale(0);
         transform-origin: left;

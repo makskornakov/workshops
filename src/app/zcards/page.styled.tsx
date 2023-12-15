@@ -56,58 +56,58 @@ export const RotatingWordsContainer = styled.div`
     /* transform: translateY(50%) !important; */
     /* keyframes */
     @keyframes rotate-word {
-      ${keyframePoints['1']} {
+      ${keyframePoints[0]} {
         opacity: 0;
         transform: translate(-60%, -25%);
         /* transform-origin: left; */
       }
-      ${keyframePoints['2']} {
+      ${keyframePoints[1]} {
         opacity: 0.3;
         transform: translate(-30%, -25%);
         /* transform-origin: left; */
       }
-      ${keyframePoints['3']} {
+      ${keyframePoints[2]} {
         opacity: 1;
         transform: translate(0%, -25%);
       }
-      ${keyframePoints['4']} {
+      ${keyframePoints[3]} {
         /* opacity: 0.3; */
         transform: translate(30%, -25%);
         /* transform-origin: left; */
       }
-      ${keyframePoints['5']} {
+      ${keyframePoints[4]} {
         /* opacity: 0; */
         transform: translate(30%, 0%);
         /* transform-origin: left; */
       }
 
       /* ? Main */
-      ${keyframePoints['6']} {
+      ${keyframePoints[5]} {
         /* opacity: 0; */
         transform: translate(0%, 0%);
         /* transform-origin: left; */
       }
-      ${keyframePoints['7']} {
+      ${keyframePoints[6]} {
         /* opacity: 0; */
         transform: translate(-30%, 0%);
         /* transform-origin: left; */
       }
-      ${keyframePoints['8']} {
+      ${keyframePoints[7]} {
         /* opacity: 0; */
         transform: translate(-30%, 25%);
         /* transform-origin: left; */
       }
-      ${keyframePoints['9']} {
+      ${keyframePoints[8]} {
         opacity: 1;
         transform: translate(0%, 25%);
         /* transform-origin: left; */
       }
-      ${keyframePoints['10']} {
+      ${keyframePoints[9]} {
         opacity: 0.3;
         transform: translate(30%, 25%);
         /* transform-origin: left; */
       }
-      ${keyframePoints['11']} {
+      ${keyframePoints[10]} {
         opacity: 0;
         transform: translate(60%, 25%);
         /* transform-origin: left; */
