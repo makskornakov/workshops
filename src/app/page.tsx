@@ -14,7 +14,7 @@ const words = [
   'Events',
 ];
 
-const myAnimation = rotatingAnimation(4, words.length, 1, 4, 3);
+const myAnimation = rotatingAnimation(5, words.length, 1, 4, 3);
 const mySteps = myAnimation.steps;
 const myStyles = myAnimation.styles;
 

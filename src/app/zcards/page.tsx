@@ -16,7 +16,7 @@ const words = [
   'Eleven',
 ];
 
-const myAnimation = rotatingAnimation(10, words.length, 1, 2, 6);
+const myAnimation = rotatingAnimation(11, words.length, 1, 3, 9);
 const mySteps = myAnimation.steps;
 const myStyles = myAnimation.styles;
 
