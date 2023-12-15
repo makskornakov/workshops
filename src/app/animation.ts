@@ -3,12 +3,14 @@ export default function rotatingAnimation(
   wordsQuantity: number,
   moveDuration: number,
   holdDuration: number,
-  mainStepIndex: number,
+  inputMainStepIndex?: number,
 ) {
   const currentVisibleStates = currentStates - 1;
   const stepAmount = (currentVisibleStates + (wordsQuantity - currentVisibleStates)) * 2;
   const animationDurationSeconds = wordsQuantity * (moveDuration + holdDuration);
 
+  const mainStepIndex = inputMainStepIndex ?? Math.floor(currentStates / 2) + 1;
+  console.log('mainStepIndex', mainStepIndex);
   // is the coefficient applied to the movementDuration
   const movePercent =
     (1 - Math.min(holdDuration, moveDuration) / Math.max(holdDuration, moveDuration)) *
@@ -35,11 +37,14 @@ export default function rotatingAnimation(
 
   function getAnimationDelay(index: number) {
     // maybe mainStepIndex has to be subtracted from total steps amount,because we are going backwards from 0 to 3 from example it will be -8 // if 11 speps
+    // const defaultMainIndex = Math.floor(stepAmount / 2) + 1;
+    // console.log('stepAmount', stepAmount);
+    // console.log('defaultMainIndex', defaultMainIndex);
     const addedBeginningDelay =
-      animationDurationSeconds * ((oneStep * 2 * (mainStepIndex - 2) + calculus) / 100); //? now its correct and we start from the start of hold position
+      animationDurationSeconds * ((oneStep * 2 * (mainStepIndex - 2) + (oneStep - calculus)) / 100); //? now its correct and we start from the start of hold position
     const delayBase = (2 * animationDurationSeconds) / stepAmount;
-    console.log('delayBase', delayBase);
-    console.log('addedBeginningDelay', addedBeginningDelay);
+    // console.log('delayBase', delayBase);
+    // console.log('addedBeginningDelay', addedBeginningDelay);
 
     const correctedBeginningDelay = Math.max(0, addedBeginningDelay);
 

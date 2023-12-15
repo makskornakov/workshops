@@ -2,7 +2,7 @@
 
 import { styled } from '@linaria/react';
 
-const howMuchWordsToUse = 6;
+const howMuchWordsToUse = 8;
 const hugeWordsList = [
   'Workshops',
   'Lessons',
@@ -10,7 +10,8 @@ const hugeWordsList = [
   'Lectures',
   'Courses',
   'Classes',
-  'LOH',
+  'Activities',
+  'Events',
 ] as const;
 
 export const triedWords = hugeWordsList.slice(0, howMuchWordsToUse);
@@ -18,7 +19,7 @@ export const triedWords = hugeWordsList.slice(0, howMuchWordsToUse);
 const config = {
   stepDuration: 0.85,
   frontFacingWordsQuantity: 3,
-  words: triedWords,
+  words: hugeWordsList,
 } as const;
 
 const directCalculationsFromConfig = {
