@@ -1,17 +1,13 @@
-export function showcaseAnimation(
-  keyframesQuantity: number, // total amount of states in the animation ex 5 for H and 11 for zcards
-  elementQuantity: number,
-  moveDuration: number,
-  holdDuration: number,
-  startFromKeyframePoint?: number,
-) {
-  const { animationDurationSeconds, getAnimationDelay, keyframePoints } = showcaseAnimationCore(
-    keyframesQuantity,
+import {
+  ShowcaseAnimationOptions,
+  getIsDurationRatioable,
+} from '~/packages/showcase-toolkit/types';
+
+export function showcaseAnimation({ elementQuantity, ...rest }: ShowcaseAnimationOptions) {
+  const { animationDurationSeconds, getAnimationDelay, keyframePoints } = showcaseAnimationCore({
     elementQuantity,
-    moveDuration,
-    holdDuration,
-    startFromKeyframePoint,
-  );
+    ...rest,
+  });
   const styles = showcaseAnimationPreparedStyles({
     animationDurationSeconds,
     elementQuantity,
@@ -29,24 +25,20 @@ export function showcaseAnimation(
   };
 }
 
-export function showcaseAnimationCore(
-  keyframesQuantity: number, // total amount of states in the animation ex 5 for H and 11 for zcards
-  elementQuantity: number,
-  moveDuration: number,
-  holdDuration: number,
-  startFromKeyframePoint?: number,
-) {
+export function showcaseAnimationCore(options: ShowcaseAnimationOptions) {
+  const { hold, move }: { hold: number; move: number } = processDurationOptions(options);
+
+  const { keyframesQuantity, elementQuantity, startFromKeyframePoint } = options;
+
   /** because the core of our logic is that 1 keyframe is used for seamless transition from 100 back to 0 */
   const visibleKeyframesQuantity = keyframesQuantity - 1;
   const stepAmount = (visibleKeyframesQuantity + (elementQuantity - visibleKeyframesQuantity)) * 2;
-  const animationDurationSeconds = elementQuantity * (moveDuration + holdDuration);
+  const animationDurationSeconds = elementQuantity * (move + hold);
 
   const mainStepIndex = startFromKeyframePoint ?? Math.floor(keyframesQuantity / 2) + 1;
   console.log('mainStepIndex', mainStepIndex);
   // is the coefficient applied to the movementDuration
-  const movePercent =
-    (1 - Math.min(holdDuration, moveDuration) / Math.max(holdDuration, moveDuration)) *
-    Math.sign(holdDuration - moveDuration);
+  const movePercent = (1 - Math.min(hold, move) / Math.max(hold, move)) * Math.sign(hold - move);
 
   console.log('movePercent', movePercent);
   const oneStep = 100 / stepAmount;
@@ -79,6 +71,26 @@ export function showcaseAnimationCore(
     animationDurationSeconds,
     getAnimationDelay,
   };
+}
+
+function processDurationOptions(options: ShowcaseAnimationOptions): { hold: number; move: number } {
+  // TODO? set options.moveHoldRatio to 0.5 by default
+  if (getIsDurationRatioable(options)) {
+    const move = options.duration * (options.moveHoldRatio ?? 0.5);
+    const hold = options.duration - move;
+
+    return { hold, move };
+  }
+
+  if (typeof options.duration === 'number') {
+    const halfDuration = options.duration / 2;
+    return {
+      hold: halfDuration,
+      move: halfDuration,
+    };
+  } else {
+    return options.duration;
+  }
 }
 
 function createKeyframePoints(visibleKeyframesQuantity: number, oneStep: number, calculus: number) {

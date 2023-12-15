@@ -14,22 +14,26 @@ const words = [
   'Events',
 ];
 // * match Arts animation
-const totalDuration = 0.85 * 2;
-const ratio = 0.45;
-
-const moveDuration = totalDuration * ratio;
-const stayDuration = totalDuration - moveDuration;
-// *
 
 const {
   keyframePoints: myKeyframePoints,
   styles: { baseStyles: myBaseStyles },
-} = showcaseAnimation(5, words.length, moveDuration, stayDuration, 3);
+} = showcaseAnimation({
+  keyframesQuantity: 5,
+  elementQuantity: words.length,
+  duration: 1.7,
+  moveHoldRatio: 0.45,
+});
 
 const {
   keyframePoints: myKeyframePoints2,
   styles: { baseStyles: myBaseStyles2 },
-} = showcaseAnimation(4, words.length, moveDuration, stayDuration, 3);
+} = showcaseAnimation({
+  keyframesQuantity: 4,
+  elementQuantity: words.length,
+  duration: 1.7,
+  moveHoldRatio: 0.45,
+});
 
 const RotatingWordsContainer = styled.div`
   position: relative;

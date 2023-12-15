@@ -17,7 +17,14 @@ export const words = [
 const {
   styles: { baseStyles },
   keyframePoints,
-} = showcaseAnimation(11, words.length, 1, 3);
+} = showcaseAnimation({
+  keyframesQuantity: 11,
+  elementQuantity: words.length,
+  duration: {
+    move: 1,
+    hold: 3,
+  },
+});
 
 export const RotatingWordsContainer = styled.div`
   width: 100%;
