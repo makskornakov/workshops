@@ -31,7 +31,6 @@ const directCalculationsFromConfig = {
 const returnedForCss = {
   totalAnimationDuration: config.stepDuration * directCalculationsFromConfig.totalStepsQuantity,
 } as const;
-console.log('returnedForCss', returnedForCss);
 
 function getRemainingCoefficientForAllFrontFacingSteps() {
   const backFacingStepsQuantity = directCalculationsFromConfig.backFacingWordsQuantity * 2 + 1;
@@ -105,8 +104,6 @@ const keyframePoints = {
     100 - oneStepPercentage * 1 + shiftEveryPoint
   }%`,
 };
-
-console.log('arts keyframePoints', keyframePoints);
 
 // const howMuchWordsDoesStartSkip = 2;
 

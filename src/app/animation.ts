@@ -32,6 +32,7 @@ export default function rotatingAnimation(
   console.log('MAX steps', steps);
 
   function getAnimationDelay(index: number) {
+    // maybe mainStepIndex has to be subtracted from total steps amount,because we are going backwards from 0 to 3 from example it will be -8 // if 11 speps
     const addedBeginningDelay =
       animationDurationSeconds * ((oneStep * 2 * (mainStepIndex - 1) - calculus) / 100);
     const delayBase = (2 * animationDurationSeconds) / stepAmount;
