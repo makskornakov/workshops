@@ -2,6 +2,7 @@ import Heading from '~/components/layout/heading/Heading';
 import { showcaseAnimation } from './animation';
 import { TriedRotatingWordsContainer, triedWords } from './tryRotate';
 import { styled } from '@linaria/react';
+import { ScaleYRotation } from '~/packages/showcase-toolkit/components/ScaleYRotation';
 
 const words = [
   'Workshops',
@@ -161,6 +162,10 @@ export default async function Home() {
             </TriedRotatingWordsContainer>{' '}
             in minutes
           </h1>
+
+          <h2 style={{ marginTop: 100 }}>
+            digital products <ScaleYRotation /> for you
+          </h2>
         </div>
       </main>
     </>

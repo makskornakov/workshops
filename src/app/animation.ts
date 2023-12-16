@@ -152,3 +152,8 @@ export function showcaseAnimationPreparedStyles({
     baseStyles,
   };
 }
+
+// Tools
+export function splitKeyframe(keyframe: string) {
+  return keyframe.split(', ') as [string, string];
+}
