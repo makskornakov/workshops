@@ -27,19 +27,20 @@ export const HomeMainContainer = styled.main`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   row-gap: 2rem;
 `;
 
 export const HomeHeadingContainer = styled.div`
   /* outline: 1px solid yellow; */
 
-  margin-top: 5rem;
+  /* margin-top: 5rem; */
   width: 100%;
-  padding: 0 5rem;
-  height: 15rem;
+  padding: 0 10%;
+  height: 20rem;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid var(--border-color);
   /* justify-content: center; */
 
   > h1 {
