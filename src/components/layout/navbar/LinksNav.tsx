@@ -13,6 +13,15 @@ const links = [
     href: '/materials',
     label: 'Materials',
   },
+  // Development temporarily links
+  {
+    href: '/zcards',
+    label: 'ZCards',
+  },
+  {
+    href: '/rotation',
+    label: 'Rotation',
+  },
 ];
 
 const userLinks = [

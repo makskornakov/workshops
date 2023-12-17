@@ -1,18 +1,19 @@
 import Heading from '~/components/layout/heading/Heading';
 import { showcaseAnimation } from './animation';
-import { TriedRotatingWordsContainer, triedWords } from './tryRotate';
 import { styled } from '@linaria/react';
-import { ScaleYRotation } from '~/packages/showcase-toolkit/components/ScaleYRotation';
+import { Mansalva } from 'next/font/google';
+
+const bungeeHairline = Mansalva({ subsets: ['latin'], weight: '400' });
 
 const words = [
   'Workshops',
   'Lessons',
   'Materials',
   'Lectures',
-  'Courses',
-  'Classes',
+  // 'Courses',
+  // 'Classes',
   'Activities',
-  'Events',
+  // 'Events',
 ];
 // * match Arts animation
 
@@ -26,36 +27,44 @@ const {
   moveHoldRatio: 0.45,
 });
 
-const {
-  keyframePoints: myKeyframePoints2,
-  styles: { baseStyles: myBaseStyles2 },
-} = showcaseAnimation({
-  keyframesQuantity: 4,
-  elementQuantity: words.length,
-  duration: 1.7,
-  moveHoldRatio: 0.45,
-});
+const MyHeading = styled.h1`
+  /* outline: 1px solid red; */
+
+  font-size: 3.5rem;
+  display: flex;
+  flex-direction: row;
+  column-gap: 1.5rem;
+  /* flex-wrap: nowrap; */
+  font-weight: 300;
+`;
 
 const RotatingWordsContainer = styled.div`
   position: relative;
-  display: inline;
+  display: flex;
+
+  > span {
+    /* outline: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
 
   > * {
     ${myBaseStyles}
 
-    /* animation-timing-function: linear; */
     animation-name: rotate-word;
 
     /* keyframes */
     @keyframes rotate-word {
       ${myKeyframePoints[0]} {
         opacity: 0;
-        transform: translateY(-140%) scale(0);
+        transform: translateY(-100%) scale(0);
         transform-origin: left;
       }
       ${myKeyframePoints[1]} {
         opacity: 0.3;
-        transform: translateY(-70%) scale(0.5);
+        transform: translateY(-75%) scale(0.5);
         transform-origin: left;
       }
       ${myKeyframePoints[2]} {
@@ -64,52 +73,12 @@ const RotatingWordsContainer = styled.div`
       }
       ${myKeyframePoints[3]} {
         opacity: 0.3;
-        transform: translateY(70%) scale(0.5);
+        transform: translateY(75%) scale(0.5);
         transform-origin: left;
       }
       ${myKeyframePoints[4]} {
         opacity: 0;
-        transform: translateY(140%) scale(0);
-        transform-origin: left;
-      }
-    }
-  }
-`;
-
-const SecondRotatingWordsContainer = styled.div`
-  position: relative;
-  display: inline;
-
-  > * {
-    ${myBaseStyles2}
-
-    animation-timing-function: linear;
-    animation-name: rotate-word2;
-
-    /* keyframes */
-    @keyframes rotate-word2 {
-      ${myKeyframePoints2[0]} {
-        opacity: 0;
-        transform: translateY(-140%) scale(0);
-        transform-origin: left;
-      }
-      ${myKeyframePoints2[1]} {
-        opacity: 0.3;
-        transform: translateY(-70%) scale(0.5);
-        transform-origin: left;
-      }
-      ${myKeyframePoints2[2]} {
-        opacity: 1;
-        transform: none;
-      }
-      /* ${myKeyframePoints2[3]} {
-        opacity: 0.3;
-        transform: translateY(70%) scale(0.5);
-        transform-origin: left;
-      } */
-      ${myKeyframePoints2[3]} {
-        opacity: 0;
-        transform: translateY(140%) scale(0);
+        transform: translateY(100%) scale(0);
         transform-origin: left;
       }
     }
@@ -119,53 +88,33 @@ const SecondRotatingWordsContainer = styled.div`
 export default async function Home() {
   return (
     <>
-      <Heading title="Home" noBackButton />
+      {/* <Heading title="Home" noBackButton /> */}
       <main
         style={{
           width: '100%',
-          minHeight: '50vh',
+          minHeight: '20rem',
+          borderBlock: '1px solid var(--border-color)',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
         }}
       >
         <div>
-          <h1>
-            Create {/* add animaitionStyles */}
+          <MyHeading className={bungeeHairline.className}>
+            <span>Create</span>
             <RotatingWordsContainer>
               {words.map((word) => (
-                <span key={word}>{word}</span>
+                <span key={word}>
+                  {/* span for each letter */}
+                  {word.split('').map((letter) => (
+                    <span key={letter}>{letter}</span>
+                  ))}
+                </span>
               ))}
-            </RotatingWordsContainer>{' '}
-            in minutes
-          </h1>
-          <br />
-          <br />
-          <br />
-          <br />
-          <h1>
-            Create{' '}
-            <SecondRotatingWordsContainer>
-              {words.map((word) => (
-                <span key={word}>{word}</span>
-              ))}
-            </SecondRotatingWordsContainer>{' '}
-            in minutes
-          </h1>
-
-          <h1 style={{ marginTop: 100 }}>
-            Create{' '}
-            <TriedRotatingWordsContainer>
-              {triedWords.map((word) => (
-                <span key={word}>{word}</span>
-              ))}
-            </TriedRotatingWordsContainer>{' '}
-            in minutes
-          </h1>
-
-          <h2 style={{ marginTop: 100 }}>
-            digital products <ScaleYRotation /> for you
-          </h2>
+            </RotatingWordsContainer>
+            <span>In</span>
+            <span>Minutes</span>
+          </MyHeading>
         </div>
       </main>
     </>

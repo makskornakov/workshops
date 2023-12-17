@@ -12,14 +12,14 @@ export const metadata = {
   icons: [
     {
       rel: 'icon',
-      href: '/dark-favicon.svg',
-      url: '/dark-favicon.svg',
+      href: '/dark-favicon.ico',
+      url: '/dark-favicon.ico',
       media: '(prefers-color-scheme: dark)',
     },
     {
       rel: 'icon',
-      href: '/light-favicon.svg',
-      url: '/light-favicon.svg',
+      href: '/favicon.ico',
+      url: '/favicon.ico',
       media: '(prefers-color-scheme: light)',
     },
   ],
